@@ -1,0 +1,107 @@
+
+
+<div class="adminBox">
+    <fieldset><legend>Statistics for logged tickets</legend>
+    <div class="adminBoxMonth">
+        <div class="adminBoxMonthDate">
+            date from: <input type="date"><br><br>
+            date to: <input type="date">
+        </div>
+    </div>
+        <br>
+    <div class="adminBoxStatistics">
+        <div class="adminBoxStatisticsUser">
+            <table>
+                <tr>
+                    <th>Jobs closed by user</th>
+                    <th>Count</th>
+
+                </tr>
+                <tr>
+                    <td>awt</td>
+                    <td>11</td>
+                </tr>
+                <tr>
+                    <td>jwn1</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>zcy</td>
+                    <td>500</td>
+                </tr>
+            </table>
+        </div>
+        <div class="adminBoxStatisticsCategory">
+            <table>
+                <tr>
+                    <th>Jobs closed by category</th>
+                    <th>Count</th>
+                </tr>
+                <tr>
+                    <td>PC</td>
+                    <td>44</td>
+                </tr>
+                <tr>
+                    <td>Network</td>
+                    <td>7</td>
+                </tr>
+                <tr>
+                    <td>Server</td>
+                    <td>3</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+        <br>
+    </fieldset>
+    <br>
+    <fieldset><legend>Administer Authorised Users</legend>
+    <div class="adminBoxUsers">
+        <div class="adminBoxLeft">
+            <select id="userBox" multiple>
+                <option value="">awt</option>
+                <option value="">zcy</option>
+                <option value="">trs</option>
+                <option value="">jwn1</option>
+            </select>
+        </div>
+        <div class="adminBoxRight">
+            <input type="text" placeholder="User to add"><input type="button" value="Add user"><br/><br>
+            <input type="color" value="#ff0000"><br><br>
+            <input type="button" value="Remove selected user">
+        </div>
+    </div>
+    </fieldset>
+    <br>
+    <fieldset><legend>Columns to display</legend>
+    <div class="adminBoxColumns">
+        <div class="section">
+        <select class="usedCols" multiple>
+            <option value="">Logged by</option>
+            <option value="">Assigned to
+            <option value="">Date/Time</option>
+            <option value="">Category</option>
+            <option value="">Department</option>
+            <option value="">Location</option>
+            <option value="">Action</option>
+        </select>
+        </div>
+        <div class="section">
+        <button><--</button><br/><br>
+        <button>--></button>
+            <br>
+        </div>
+        <div class="section">
+        <select class="unusedCols" multiple>
+            <option value="">Logged by</option>
+            <option value="">Assigned to
+            <option value="">Date/Time</option>
+            <option value="">Category</option>
+            <option value="">Department</option>
+            <option value="">Location</option>
+            <option value="">Action</option>
+        </select>
+        </div>
+    </div>
+    </fieldset>
+</div>

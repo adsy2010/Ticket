@@ -1,0 +1,95 @@
+* { font-family: "Trebuchet MS", "Tahoma", sans-serif; }
+
+table { width: 98%; border-collapse: collapse; margin: 0 auto; }
+tr > th { font-weight: bold; font-size: larger; background: #afafaf; text-align: left; }
+tr { border-bottom: solid thin; text-align: center; }
+tr:hover { background: goldenrod; }
+td,th { padding: 8px; }
+
+fieldset, input, select { border-radius: 1em; }
+legend { font-weight: bold; }
+
+select { overflow:auto; }
+
+::-webkit-scrollbar {
+    width: 12px; margin-right: 4px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px     rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px     rgba(0,0,0,0.5);
+}
+
+.logBox { margin: 0 auto; width: 98%; padding:5px; border: solid thin darkgrey; border-radius: 5px; background-color: #bed1ff; }
+.logBoxSettings { width: 95%; margin: 0 auto; padding: 15px; height: 173px; display: table; }
+.logBoxLeft { width: 50%; display: table-cell; float: left; text-align: left; height:173px; clear: left; }
+.logBoxRight { width: 50%; display: table-cell; height: 173px; clear:right; vertical-align: middle; }
+.logBoxRightContainer { position: relative; top: 0; bottom: 0; }
+.logBoxRightContainer input, .logBoxRightContainer select { padding: 6px; width: 190px; }
+.logBoxDetails { clear: both; padding: 10px; padding-top: 20px; border-top: solid thin darkgrey; }
+.logBoxRight select { clear:both; padding: 5px; width: 200px; margin: 3px;}
+
+.right { clear:right; text-align: right;  display: inline-block; }
+.left { clear: left; text-align: left;  display: inline-block; }
+.centerClear { clear: both; text-align: center; }
+.center { text-align: center; margin: 0 auto;}
+.content {
+    vertical-align: top;
+    min-height: 200px;
+    max-height: 390px;
+    height: 100%; overflow: auto;
+    border-radius: 0.8em;
+    border: thin solid gray;
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 7px;
+    min-width:30%;
+    max-width: 48%;
+    }
+
+.adminBoxMonth { margin: 0 auto; width: 250px; text-align:center; clear: both; }
+.adminBoxMonthDate { text-align: right; }
+.adminBox select { width:100%; padding: 0; }
+.adminBox { margin: 0 auto; width: 75%; }
+
+.adminBoxUsers { clear: both; margin: 0 auto; text-align: center; padding: 5px; }
+.adminBoxUsers input, option { padding: 5px; }
+.adminBoxUsers select { width: 200px; height:150px; padding:5px; margin: 3px; }
+
+.adminBoxColumns > select { width: 200px; height:150px; padding:5px; margin:3px; }
+.adminBoxLeft { width: 300px; display: inline-block; padding: 5px; }
+.adminBoxRight { text-align: left; width: 300px; display: inline-block; padding: 5px; }
+
+
+.adminBoxStatistics { width:75%; clear: both; margin: 0 auto; }
+.adminBoxStatisticsUser { display: inline-block;  width:40%; }
+.adminBoxStatisticsCategory { display: inline-block; width:40%; float:right; }
+
+.adminBoxColumns > .section { display: inline-block; width: 150px; }
+.adminBoxColumns { text-align: center; }
+
+.contentRow { background-color: #bed1ff; }
+
+.menu { padding: 15px; }
+.menuItem {
+    transition: border-radius 1s, background-color 1s, color 1s, transform 1s;
+    padding: 5px;
+
+    background-color: #193254;
+    display: inline-block;
+    width:130px;
+    text-align: center;
+    border-radius: 1em;
+    margin: 10px;
+    font-size: larger;
+}
+.menuItem:hover { transform: scale(1.2); background-color: #2d8ac7; border-radius: 0; color: black; }
+.menuItem a { text-decoration: none; color: white; }
+
+.display { visibility: visible; }
+.undisplay { visibility: hidden; }

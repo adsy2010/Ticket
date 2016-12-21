@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="MySQL - test@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="test">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="sys"/>
+    <table id="7" parent="2" name="authusers"/>
+    <table id="8" parent="2" name="cartridge"/>
+    <table id="9" parent="2" name="cartridgelog"/>
+    <table id="10" parent="2" name="desks"/>
+    <table id="11" parent="2" name="printer"/>
+    <table id="12" parent="2" name="servicestatus"/>
+    <table id="13" parent="2" name="ticketcomments"/>
+    <table id="14" parent="2" name="tickets"/>
+    <column id="15" parent="7" name="userID">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="16" parent="7" name="username">
+      <Position>2</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="17" parent="7" name="name">
+      <Position>3</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="18" parent="7" name="color">
+      <Position>4</Position>
+      <DataType>varchar(7)|0</DataType>
+    </column>
+    <column id="19" parent="7" name="serviceDesk">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="20" parent="7" name="authusers_userID_uindex">
+      <ColNames>userID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="21" parent="7" name="PRIMARY">
+      <ColNames>userID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="22" parent="7" name="authusers_userID_uindex">
+      <ColNames>userID</ColNames>
+      <UnderlyingIndexName>authusers_userID_uindex</UnderlyingIndexName>
+    </key>
+    <column id="23" parent="8" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="24" parent="8" name="name">
+      <Position>2</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="25" parent="8" name="printerId">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="26" parent="8" name="cost">
+      <Position>4</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="27" parent="8" name="color">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="28" parent="8" name="stock">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="29" parent="8" name="cartridge_id_uindex">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="30" parent="8" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="31" parent="8" name="cartridge_id_uindex">
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>cartridge_id_uindex</UnderlyingIndexName>
+    </key>
+    <column id="32" parent="9" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="33" parent="9" name="cartridgeId">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="34" parent="9" name="userId">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="35" parent="9" name="actionedOn">
+      <Position>4</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="36" parent="9" name="cost">
+      <Position>5</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="37" parent="9" name="archived">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="38" parent="9" name="cartridgeLog_id_uindex">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="39" parent="9" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="40" parent="9" name="cartridgeLog_id_uindex">
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>cartridgeLog_id_uindex</UnderlyingIndexName>
+    </key>
+    <column id="41" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="42" parent="10" name="name">
+      <Position>2</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <index id="43" parent="10" name="desks_id_uindex">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="44" parent="10" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="45" parent="10" name="desks_id_uindex">
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>desks_id_uindex</UnderlyingIndexName>
+    </key>
+    <column id="46" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="47" parent="11" name="location">
+      <Position>2</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="48" parent="11" name="make">
+      <Position>3</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="49" parent="11" name="model">
+      <Position>4</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <index id="50" parent="11" name="printer_id_uindex">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="51" parent="11" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="52" parent="11" name="printer_id_uindex">
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>printer_id_uindex</UnderlyingIndexName>
+    </key>
+    <column id="53" parent="12" name="name">
+      <Position>1</Position>
+      <DataType>varchar(128)|0</DataType>
+    </column>
+    <column id="54" parent="12" name="status">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="55" parent="12" name="serviceStatus_name_uindex">
+      <ColNames>name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="56" parent="12" name="serviceStatus_name_uindex">
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>serviceStatus_name_uindex</UnderlyingIndexName>
+    </key>
+    <column id="57" parent="13" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="58" parent="13" name="userId">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="59" parent="13" name="logId">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="60" parent="13" name="commentDateTime">
+      <Position>4</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="61" parent="13" name="comment">
+      <Position>5</Position>
+      <DataType>blob|0</DataType>
+    </column>
+    <index id="62" parent="13" name="ticketComments_id_uindex">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="63" parent="13" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="64" parent="13" name="ticketComments_id_uindex">
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>ticketComments_id_uindex</UnderlyingIndexName>
+    </key>
+    <column id="65" parent="14" name="logId">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="66" parent="14" name="assignedTo">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="67" parent="14" name="closedBy">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="68" parent="14" name="closedReason">
+      <Position>4</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="69" parent="14" name="content">
+      <Position>6</Position>
+      <DataType>blob|0</DataType>
+    </column>
+    <column id="70" parent="14" name="contentType">
+      <Position>7</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="71" parent="14" name="location">
+      <Position>9</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="72" parent="14" name="loggedBy">
+      <Position>10</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="73" parent="14" name="serviceDesk">
+      <Position>11</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="74" parent="14" name="status">
+      <Position>12</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="75" parent="14" name="ticketDatetime">
+      <Position>13</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="76" parent="14" name="closedTime">
+      <Position>5</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="77" parent="14" name="department">
+      <Position>8</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <index id="78" parent="14" name="tickets_logId_uindex">
+      <ColNames>logId</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="79" parent="14" name="PRIMARY">
+      <ColNames>logId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="80" parent="14" name="tickets_logId_uindex">
+      <ColNames>logId</ColNames>
+      <UnderlyingIndexName>tickets_logId_uindex</UnderlyingIndexName>
+    </key>
+  </database-model>
+</dataSource>
