@@ -9,13 +9,15 @@
 
 namespace models;
 
+use Exception;
+
 class Ticket implements iModels
 {
-    private $time, $loggedBy, $assignedTo, $id, $location, $status;
-    private $contentType, $content, $department, $serviceDesk;
-    private $closedBy, $closedReason, $closedTime;
+    private $time, $loggedBy, $assignedTo, $id, $location, $status,
+            $contentType, $content, $department, $serviceDesk,
+            $closedBy, $closedReason, $closedTime;
 
-    /** @var Comment array  */
+    /** @var Comment[] */
     private $comments = array();
 
     public function __construct($time, $loggedBy, $location, $status, $assignedTo = null, $id = null)
@@ -254,23 +256,27 @@ class Ticket implements iModels
 
     public function add()
     {
-        db::create("INSERT INTO ticket (`time`,`loggedBy`,`location`,`status`) VALUES(?,?,?,?)", array(
-            $this->time,
-            $this->loggedBy,
-            $this->location,
-            $this->status
-        ));
+        if(!empty($this->getId()))
+            throw new Exception("Cannot add ticket to database as ticket is already in the database.");
+        $sql = "INSERT INTO ticket (`time`,`loggedBy`,`location`,`status`) VALUES(?,?,?,?)";
+
     }
 
     //archive
     public function remove()
     {
-        // TODO: Implement remove() method.
+        if($this->getStatus() != 1)
+            throw new Exception("Ticket has not been archived and cannot be closed.");
+        if(empty($this->getClosedReason()))
+            throw new Exception("Please ensure a closure reason is selected.");
+        $sql = "UPDATE ticket SET status=?, closedBy=?, closedReason=?, closedTime=? WHERE id=?";
     }
 
     //allow unarchive etc
     public function save()
     {
-        // TODO: Implement save() method.
+        //if the changer is the current user, allow edits to content?
+        $sql = "UPDATE ticket SET status=?, assignedTo=?, closedBy=?, closedReason=?, closedTime=? WHERE id=?";
+
     }
 }

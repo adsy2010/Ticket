@@ -129,7 +129,8 @@ class TicketHandler
                 $ticket->setStatus(1);
                 $ticket->setClosedBy($closedBy);
                 $ticket->setClosedReason($closedReason);
-                $ticket->save();
+                $ticket->setClosedTime(date("Y-m-d H:i:s", time()));
+                $ticket->remove();
                 break;
             }
         }

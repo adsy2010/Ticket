@@ -95,16 +95,16 @@ class Comment implements iModels
 
     public function add()
     {
-        // TODO: Implement add() method.
+        $sql = "INSERT INTO ticketcomments (userId, logId, comment) VALUES (?,?,?)";
     }
 
     public function remove()
     {
-        // TODO: Implement remove() method.
+        $sql = "DELETE FROM ticketcomments WHERE id=?";
     }
 
     public function save()
     {
-        // TODO: Implement save() method.
+        $sql = "UPDATE ticketcomments SET comment=? WHERE id=?";
     }
 }
