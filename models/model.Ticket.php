@@ -259,7 +259,7 @@ class Ticket implements iModels
         if(!empty($this->getId()))
             throw new Exception("Cannot add ticket to database as ticket is already in the database.");
         $sql = "INSERT INTO ticket (`time`,`loggedBy`,`location`,`status`) VALUES(?,?,?,?)";
-
+        //$this->email(0);
     }
 
     //archive
@@ -270,6 +270,7 @@ class Ticket implements iModels
         if(empty($this->getClosedReason()))
             throw new Exception("Please ensure a closure reason is selected.");
         $sql = "UPDATE ticket SET status=?, closedBy=?, closedReason=?, closedTime=? WHERE id=?";
+        $this->email(1); //send closure email
     }
 
     //allow unarchive etc
@@ -278,5 +279,37 @@ class Ticket implements iModels
         //if the changer is the current user, allow edits to content?
         $sql = "UPDATE ticket SET status=?, assignedTo=?, closedBy=?, closedReason=?, closedTime=? WHERE id=?";
 
+    }
+
+    /**
+     * Sends emails to authorised users and user who logged the call
+     *
+     * @param int $type Set to 1 if call is resolved
+     */
+    private function email($type)
+    {
+        $email = "itservices@mountbatten.hants.sch.uk"; //replace with authorised users email addresses
+        $to="{$email}";
+        $subject="Helpdesk call logged by {$this->getLoggedBy()}";
+        $message="";
+
+        $template = ($type == 1) ? "resolvedEmail.htm" : "logEmail.htm";
+        $content = Definitions::render("templates/{$template}",
+            array(
+                "LOGGEDBY"          => $this->getLoggedBy(),
+                "LOGGEDDATETIME"    => $this->getTime(),
+                "LOCATION"          => $this->getLocation(),
+                "CONTENT"           => $this->getContent(),
+                "RESOLUTION"        => $this->getClosedReason(),
+                "RESOLVEDBY"        => $this->getClosedBy(),
+                "RESOLVEDDATETIME"  => $this->getClosedTime(),
+                "ID"                => $this->getId()
+            ));
+
+        $header = 'MIME-Version: 1.0' . "\r\n".
+                  'Content-type: text/html; charset=iso-8859-1' . "\r\n".
+                  "From: Adam Wright <mailrelay@mountbatten.hants.sch.uk>" . "\r\n";
+
+        mail("adam.wright@mountbatten.hants.sch.uk","Test Email",$content, $header);
     }
 }

@@ -11,12 +11,13 @@ namespace models;
 
 class User
 {
-    private $name,$username,$authenticated,$color,$serviceDesk;
+    private $name,$username,$email,$color,$serviceDesk;
 
-    public function __construct($name, $username, $color="#FF0000", $serviceDesk)
+    public function __construct($name, $username, $email, $color="#FF0000", $serviceDesk)
     {
         $this->name             = $name;
         $this->username         = $username;
+        $this->email            = $email;
         $this->color            = $color;
         $this->serviceDesk      = $serviceDesk;
     }
