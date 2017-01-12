@@ -10,8 +10,9 @@
 namespace view;
 use controller\TicketHandler as ticketHandler;
 use models\Definitions;
+use models\Templates;
 
-class closedLogs extends \models\Templates implements viewTypes
+class closedLogs extends Templates implements viewTypes
 {
     private $ticketHandler;
     

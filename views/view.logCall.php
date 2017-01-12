@@ -10,8 +10,9 @@
 namespace view;
 use controller\TicketHandler as ticketHandler;
 use models\Definitions;
+use models\Templates;
 
-class logCall extends \models\Templates implements viewTypes
+class logCall extends Templates implements viewTypes
 {
     private $ticketHandler;
 
@@ -19,13 +20,38 @@ class logCall extends \models\Templates implements viewTypes
     {
         parent::__construct();
 
-        $this->setFileName("log.html");
+        $this->setFileName("log.php");
         $this->ticketHandler = new ticketHandler();
+    }
+
+    /**
+     * If the log form has been posted, then process it here
+     */
+    private function posted()
+    {
+        $serviceDesk = htmlspecialchars($_GET['desk']);
+        $time = date("Y-m-d H:i:s", time());
+
+        $this->ticketHandler->addTicket(
+            $loggedBy,
+            $status,
+            $location,
+            $content,
+            $contentType,
+            $department,
+            $serviceDesk
+        );
     }
 
     public function display()
     {
-        return Definitions::render($this->getLocation().$this->getFileName());
+
+        return Definitions::render($this->getLocation().$this->getFileName(),
+            array(
+                "DESKNAME" => "itservices",
+                "DESK" => 1,
+                "STATUS" => ""
+            ));
     }
 
 

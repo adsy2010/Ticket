@@ -2,7 +2,7 @@
 <table>
 
     <tr>
-        <th><input id="checkAll" type="checkbox"></th>
+        <th><input title="checkAll" id="checkAll" type="checkbox"></th>
         <th>Ticket ID</th>
         <th>Logged by</th>
         <th>Assigned to</th>
@@ -14,7 +14,7 @@
     </tr>
 
     <tr>
-        <td><input type="checkbox"></td>
+        <td><input title="checkAll" type="checkbox"></td>
         <td>1234</td>
         <td>JWN1</td>
         <td>JWN1</td>
@@ -23,14 +23,14 @@
         <td>Network Fault</td>
         <td>IT</td>
         <td>
-            <input type="button" value="Close Ticket">
+            <input title="checkAll" type="button" value="Close Ticket">
             <select name="reason[]" id="x">
             <option value="">Reason for closure</option>
             </select>
         </td>
     </tr>
     <tr>
-        <td><input type="checkbox"></td>
+        <td><input title="checkAll" type="checkbox"></td>
         <td>1234</td>
         <td>JWN1</td>
         <td>JWN1</td>
@@ -39,8 +39,8 @@
         <td>Network Fault</td>
         <td>IT</td>
         <td>
-            <input type="button" value="Close Ticket">
-            <select name="reason[]" id="y">
+            <input title="checkAll" type="button" value="Close Ticket">
+            <select title="reason" name="reason[]" id="y">
                 <option value="">Reason for closure</option>
             </select>
         </td>
@@ -59,7 +59,7 @@
 
     </tr>
     <tr>
-        <td><input type="checkbox"></td>
+        <td><input title="check" type="checkbox"></td>
         <td class="display">{LOGID}</td>
         <td>{LOGGEDBY}</td>
         <td>{ASSIGNEDTO}</td>
@@ -69,7 +69,7 @@
         <td>{SERVICEDESK}</td>
         <td>
             <input type="button" value="Close Ticket">
-            <select name="reason[]" id="y">
+            <select title="reason" name="reason[]" id="y">
                 <option value="">Reason for closure</option>
             </select>
         </td>

@@ -20,14 +20,9 @@ class Ticket implements iModels
     /** @var Comment[] */
     private $comments = array();
 
-    public function __construct($time, $loggedBy, $location, $status, $assignedTo = null, $id = null)
+    public function __construct()
     {
-        $this->setAssignedTo($assignedTo);
-        $this->setId($id);
-        $this->setLocation($location);
-        $this->setLoggedBy($loggedBy);
-        $this->setStatus($status);
-        $this->setTime($time);
+
     }
 
     /**
@@ -103,7 +98,7 @@ class Ticket implements iModels
     }
 
     /**
-     * @param array $status
+     * @param int $status
      */
     public function setStatus($status)
     {
@@ -258,7 +253,7 @@ class Ticket implements iModels
     {
         if(!empty($this->getId()))
             throw new Exception("Cannot add ticket to database as ticket is already in the database.");
-        $sql = "INSERT INTO ticket (`time`,`loggedBy`,`location`,`status`) VALUES(?,?,?,?)";
+        $sql = "INSERT INTO tickets (`loggedBy`,`content`,`contentType`,`department`,`location`,`status`,`serviceDesk`) VALUES(?,?,?,?,?,?,?)";
         //$this->email(0);
     }
 
@@ -269,7 +264,7 @@ class Ticket implements iModels
             throw new Exception("Ticket has not been archived and cannot be closed.");
         if(empty($this->getClosedReason()))
             throw new Exception("Please ensure a closure reason is selected.");
-        $sql = "UPDATE ticket SET status=?, closedBy=?, closedReason=?, closedTime=? WHERE id=?";
+        $sql = "UPDATE tickets SET status=?, closedBy=?, closedReason=?, closedTime=? WHERE logId=?";
         $this->email(1); //send closure email
     }
 
@@ -277,7 +272,7 @@ class Ticket implements iModels
     public function save()
     {
         //if the changer is the current user, allow edits to content?
-        $sql = "UPDATE ticket SET status=?, assignedTo=?, closedBy=?, closedReason=?, closedTime=? WHERE id=?";
+        $sql = "UPDATE tickets SET status=?, assignedTo=?, closedBy=?, closedReason=?, closedTime=? WHERE logId=?";
 
     }
 

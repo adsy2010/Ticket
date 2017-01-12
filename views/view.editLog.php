@@ -9,7 +9,9 @@
 
 namespace view;
 
-class editLog extends \models\Templates implements viewTypes
+use models\Templates;
+
+class editLog extends Templates implements viewTypes
 {
     public function __construct($desk)
     {

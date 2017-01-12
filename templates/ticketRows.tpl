@@ -1,5 +1,5 @@
 <tr onclick="expandticket({LOGID})">
-    <td><input type="checkbox" id="log{LOGID}" onclick="event.stopPropagation()"></td>
+    <td><input title="check" type="checkbox" id="log{LOGID}" onclick="event.stopPropagation()"></td>
     <td id="logID">{LOGID}</td>
     <td id="loggedBy">{LOGGEDBY}</td>
     <td id="assignedTo">
@@ -12,7 +12,7 @@
     <td id="department">{DEPARTMENT}</td>
     <td>
         <input type="button" id="close{LOGID}" value="Close Ticket" onclick="event.stopPropagation()">
-        <select name="reason[]" id="reason" onclick="event.stopPropagation()">
+        <select title="reason" name="reason[]" id="reason" onclick="event.stopPropagation()">
             <option value="">Reason for closure</option>
         </select>
     </td>

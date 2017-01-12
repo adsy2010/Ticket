@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Log Call</title>
-    <link rel="stylesheet" href="css.css">
-    <script src="scripts/tinymce/js/tinymce/tinymce.min.js"></script>
+    <link rel="stylesheet" href="templates/css.css">
+    <script src="templates/scripts/tinymce/js/tinymce/tinymce.min.js"></script>
     <script>  tinyMCE.init({
         mode : "textareas",
         plugins : "spellchecker,insertdatetime,preview",
@@ -19,13 +19,14 @@
 <body>
 
 <div class="logBox">
-    <form action="/index.php?log=ticket&desk={DESK}" method="post" enctype="multipart/form-data">
+    <form action="log.php?log=ticket&desk={DESK}" method="POST">
+        <!-- enctype="multipart/form-data"> -->
     <div class="logBoxSettings">
-        <div class="logBoxLeft"><img src="images/{DESKNAME}.png"/></div>
+        <div class="logBoxLeft"><img src="templates/images/{DESKNAME}.png"/></div>
         <div class="logBoxRight">
             <div class="logBoxRightContainer">
                 <b>Username: </b>AWT <br><br>
-                <select name="department" id="department">
+                <select title="department" name="department" id="department">
                     <option value="0">Department...</option>
                     <option value="1">Art</option>
                     <option value="2">Drama</option>
@@ -36,7 +37,7 @@
                     <option value="7">Science</option>
                 </select>
                 <br/>
-                <select name="category" id="category">
+                <select title="category" name="category" id="category">
                     <option value="">Category...</option>
                     {CATEGORIES}
                 </select><br><br>
@@ -49,16 +50,17 @@
 
     <div class="center" style="width:60%;">
         <div class="left"><label for="attachFile">Attach a file for review: </label></div>
-        <div class="right"><input id="attachFile" type="file"></div>
+        <div class="right"><input name=attachfile id="attachFile" type="file"></div>
     </div>
     <br>
     <div class="logBoxDetails">
         <div class="details">
-            <textarea>
+            <textarea title="content" name="content">
                 Tamen a proposito, inquam, aberramus. Philosophi autem in suis lectulis plerumque moriuntur. Quantum Aristoxeni ingenium consumptum videmus in musicis? An vero, inquit, quisquam potest probare, quod perceptfum, quod. Illud dico, ea, quae dicat, praeclare inter se cohaerere. Homines optimi non intellegunt totam rationem everti, si ita res se habeat. Quid censes in Latino fore? At cum de plurimis eadem dicit, tum certe de maximis. Portenta haec esse dicit, neque ea ratione ullo modo posse vivi; De ingenio eius in his disputationibus, non de moribus quaeritur. Virtutibus igitur rectissime mihi videris et ad consuetudinem nostrae orationis vitia posuisse contraria. Hanc ergo intuens debet institutum illud quasi signum absolvere.
             </textarea>
             <br/>
-            <input type="submit" value="Log Call">
+            <input name="submit" type="submit" value="Log Call"><br>
+            {STATUS}
         </div>
     </div>
     </form>

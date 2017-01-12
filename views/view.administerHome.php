@@ -12,8 +12,9 @@ namespace view;
 use controller\UserHandler;
 use models\User;
 use models\Definitions;
+use models\Templates;
 
-class administerHome extends \models\Templates implements viewTypes
+class administerHome extends Templates implements viewTypes
 {
     /** @var User */
     private $userHandler;

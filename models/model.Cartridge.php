@@ -122,7 +122,7 @@ class Cartridge implements iModels
 
     public function remove()
     {
-        $sql = "DELETE FROM cartidge WHERE id=?";
+        $sql = "DELETE FROM cartridge WHERE id=?";
     }
 
 }

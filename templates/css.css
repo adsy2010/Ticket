@@ -31,7 +31,9 @@ select { overflow:auto; }
 .logBoxRight { width: 50%; display: table-cell; height: 173px; clear:right; vertical-align: middle; }
 .logBoxRightContainer { position: relative; top: 0; bottom: 0; }
 .logBoxRightContainer input, .logBoxRightContainer select { padding: 6px; width: 190px; }
-.logBoxDetails { clear: both; padding: 10px; padding-top: 20px; border-top: solid thin darkgrey; }
+.logBoxDetails { clear: both;
+    padding: 20px 10px 10px;
+    border-top: solid thin darkgrey; }
 .logBoxRight select { clear:both; padding: 5px; width: 200px; margin: 3px;}
 
 .right { clear:right; text-align: right;  display: inline-block; }

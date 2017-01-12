@@ -21,6 +21,10 @@ class TicketHandler
     /** @var \databaseClass $dbobj */
     private $dbObj;
 
+    /**
+     * TicketHandler constructor.
+     * @param bool $live
+     */
     public function __construct($live = TRUE)
     {
         $this->dbObj = new \databaseClass();
@@ -99,13 +103,18 @@ class TicketHandler
 
     /**
      * New ticket added to the database
+     * @param $loggedBy
+     * @param $status
+     * @param $location
+     * @param $content
+     * @param $contentType
+     * @param $department
+     * @param $serviceDesk
      */
-    public function addTicket($loggedBy, $time, $status, $location, $content, $contentType, $department, $serviceDesk)
+    public function addTicket($loggedBy, $status, $location, $content, $contentType, $department, $serviceDesk)
     {
         $ticket = new Ticket();
-        //assignedto, closedby, closedreason
         $ticket->setLoggedBy($loggedBy);
-        $ticket->setTime($time);
         $ticket->setStatus($status);
         $ticket->setLocation($location);
         $ticket->setContent($content);

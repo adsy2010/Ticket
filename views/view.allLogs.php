@@ -11,8 +11,9 @@ namespace view;
 use controller\TicketHandler as ticketHandler;
 use controller\UserHandler;
 use models\Definitions;
+use models\Templates;
 
-class allLogs extends \models\Templates implements viewTypes
+class allLogs extends Templates implements viewTypes
 {
     private $ticketHandler;
     private $userHandler;
