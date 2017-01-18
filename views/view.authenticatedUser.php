@@ -23,6 +23,11 @@ class authenticatedUser implements viewTypes
     public function display()
     {
         // TODO: Implement display() method.
-        return json_encode(array("JWN1", "AWT", "ZCY", "TRS"));
+        return json_encode(array(
+            array("JWN1","john.wiseman@mountbatten.hants.sch.uk", "John Wiseman"),
+            array("AWT", "adam.wright@mountbatten.hants.sch.uk", "Adam Wright"),
+            array("ZCY", "zakir.chowdhary@mountbatten.hants.sch.uk", "Zakir Chowdhary"),
+            array("TRS", "toby.rogers@mountbatten.hants.sch.uk", "Toby Rogers")
+        ));
     }
 }

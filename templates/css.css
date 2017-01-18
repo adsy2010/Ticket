@@ -2,7 +2,7 @@
 
 table { width: 98%; border-collapse: collapse; margin: 0 auto; }
 tr > th { font-weight: bold; font-size: larger; background: #afafaf; text-align: left; }
-tr { border-bottom: solid thin; text-align: center; }
+tr { border-bottom: solid thin; text-align: left; }
 tr:hover { background: goldenrod; }
 td,th { padding: 8px; }
 
@@ -28,6 +28,10 @@ select { overflow:auto; }
 .logBox { margin: 0 auto; width: 98%; padding:5px; border: solid thin darkgrey; border-radius: 5px; background-color: #bed1ff; }
 .logBoxSettings { width: 95%; margin: 0 auto; padding: 15px; height: 173px; display: table; }
 .logBoxLeft { width: 50%; display: table-cell; float: left; text-align: left; height:173px; clear: left; }
+.logBoxLeft img {
+    -webkit-filter: drop-shadow(2px 2px 2px #222);
+    filter: drop-shadow(2px 2px 2px #222);
+}
 .logBoxRight { width: 50%; display: table-cell; height: 173px; clear:right; vertical-align: middle; }
 .logBoxRightContainer { position: relative; top: 0; bottom: 0; }
 .logBoxRightContainer input, .logBoxRightContainer select { padding: 6px; width: 190px; }
@@ -92,6 +96,10 @@ select { overflow:auto; }
 }
 .menuItem:hover { transform: scale(1.2); background-color: #2d8ac7; border-radius: 0; color: black; }
 .menuItem a { text-decoration: none; color: white; }
+.menuItem a:link { text-decoration: none; color: white; }
+.menuItem a:visited { text-decoration: none; color: white; }
+.menuItem a:active { text-decoration: none; color: white; }
+
 
 .display { visibility: visible; }
 .undisplay { visibility: hidden; }

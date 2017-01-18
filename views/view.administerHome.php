@@ -35,6 +35,6 @@ class administerHome extends Templates implements viewTypes
     public function display()
     {
         // TODO: Implement display() method.
-        return Definitions::render("templates/admin.html");
+        return Definitions::render("templates/admin2.html");
     }
 }

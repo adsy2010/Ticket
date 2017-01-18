@@ -19,7 +19,7 @@
 <body>
 
 <div class="logBox">
-    <form action="log.php?log=ticket&desk={DESK}" method="POST">
+    <form action="view.php?view=logTicket&desk={DESK}" method="POST">
         <!-- enctype="multipart/form-data"> -->
     <div class="logBoxSettings">
         <div class="logBoxLeft"><img src="templates/images/{DESKNAME}.png"/></div>

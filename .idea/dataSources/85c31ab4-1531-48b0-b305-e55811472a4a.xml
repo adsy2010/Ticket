@@ -294,15 +294,19 @@
       <Position>8</Position>
       <DataType>varchar(32)|0</DataType>
     </column>
-    <index id="78" parent="14" name="tickets_logId_uindex">
+    <column id="78" parent="14" name="priority">
+      <Position>14</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="79" parent="14" name="tickets_logId_uindex">
       <ColNames>logId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="79" parent="14" name="PRIMARY">
+    <key id="80" parent="14" name="PRIMARY">
       <ColNames>logId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="80" parent="14" name="tickets_logId_uindex">
+    <key id="81" parent="14" name="tickets_logId_uindex">
       <ColNames>logId</ColNames>
       <UnderlyingIndexName>tickets_logId_uindex</UnderlyingIndexName>
     </key>

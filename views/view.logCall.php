@@ -12,6 +12,8 @@ use controller\TicketHandler as ticketHandler;
 use models\Definitions;
 use models\Templates;
 
+use Exception;
+
 class logCall extends Templates implements viewTypes
 {
     private $ticketHandler;
@@ -29,28 +31,60 @@ class logCall extends Templates implements viewTypes
      */
     private function posted()
     {
-        $serviceDesk = htmlspecialchars($_GET['desk']);
-        $time = date("Y-m-d H:i:s", time());
+        $finalState = "Successfully added to the database";
+        try {
+            print_r($_GET);
+            $serviceDesk = htmlspecialchars($_GET['desk']);
+            $loggedBy = $_SESSION['username'];
+            $status = 0; // 0 is open, 1 is closed
+            $location = htmlspecialchars($_POST['location']);
+            $content = htmlspecialchars(addslashes($_POST['content']));
+            $contentType = $_POST['contentType'];
+            $department = $_POST['department']; //leave blank for now
+            $time = date("Y-m-d H:i:s", time());
 
-        $this->ticketHandler->addTicket(
-            $loggedBy,
-            $status,
-            $location,
-            $content,
-            $contentType,
-            $department,
-            $serviceDesk
-        );
+            $vars = array(
+                "serviceDesk",
+                "loggedBy",
+                "status",
+                "location",
+                "content",
+                "contentType",
+                "department",
+            );
+
+            foreach($vars as $var)
+                if(empty($$var))
+                    throw new Exception("Some submitted data is missing. The value <strong>{$var}</strong> has been flagged.");
+
+            $this->ticketHandler->addTicket(
+                $loggedBy,
+                $status,
+                $location,
+                $content,
+                $contentType,
+                $department,
+                $serviceDesk
+            );
+        }
+        catch (Exception $e)
+        {
+            $finalState = $e->getMessage();
+        }
+
+
+        return $finalState;
     }
 
     public function display()
     {
-
+        $state = ""; //set as not submitted
+        if(isset($_POST) && !empty($_POST)) $state = $this->posted();
         return Definitions::render($this->getLocation().$this->getFileName(),
             array(
                 "DESKNAME" => "itservices",
                 "DESK" => 1,
-                "STATUS" => ""
+                "STATUS" => $state
             ));
     }
 

@@ -15,7 +15,8 @@ class Ticket implements iModels
 {
     private $time, $loggedBy, $assignedTo, $id, $location, $status,
             $contentType, $content, $department, $serviceDesk,
-            $closedBy, $closedReason, $closedTime;
+            $closedBy, $closedReason, $closedTime, $priority;
+
 
     /** @var Comment[] */
     private $comments = array();
@@ -249,11 +250,27 @@ class Ticket implements iModels
         $this->closedTime = $closedTime;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @param mixed $priority
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+    }
+
     public function add()
     {
         if(!empty($this->getId()))
             throw new Exception("Cannot add ticket to database as ticket is already in the database.");
-        $sql = "INSERT INTO tickets (`loggedBy`,`content`,`contentType`,`department`,`location`,`status`,`serviceDesk`) VALUES(?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO tickets (`loggedBy`,`content`,`contentType`,`department`,`location`,`status`,`serviceDesk`, `priority`) VALUES(?,?,?,?,?,?,?,?)";
         //$this->email(0);
     }
 
@@ -264,7 +281,7 @@ class Ticket implements iModels
             throw new Exception("Ticket has not been archived and cannot be closed.");
         if(empty($this->getClosedReason()))
             throw new Exception("Please ensure a closure reason is selected.");
-        $sql = "UPDATE tickets SET status=?, closedBy=?, closedReason=?, closedTime=? WHERE logId=?";
+        $sql = "UPDATE tickets SET status=?, closedBy=?, closedReason=?, closedTime=?WHERE logId=?";
         $this->email(1); //send closure email
     }
 
@@ -272,7 +289,7 @@ class Ticket implements iModels
     public function save()
     {
         //if the changer is the current user, allow edits to content?
-        $sql = "UPDATE tickets SET status=?, assignedTo=?, closedBy=?, closedReason=?, closedTime=? WHERE logId=?";
+        $sql = "UPDATE tickets SET status=?, assignedTo=?, closedBy=?, closedReason=?, closedTime=?, priority=?  WHERE logId=?";
 
     }
 

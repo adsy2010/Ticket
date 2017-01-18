@@ -53,7 +53,7 @@ class openLogs extends Templates implements viewTypes
                     "DATETIMELOGGED" => $ticket->getTime()
                 );
                 
-                $row = render($this->getLocation() . $this->tplRows, $data);
+                $row = Definitions::render($this->getLocation() . $this->tplRows, $data);
                 $rows[] = $row;
             }
         }

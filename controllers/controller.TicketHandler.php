@@ -52,9 +52,22 @@ class TicketHandler
 
 
         if(is_array($this->tickets) && !empty($this->tickets))
-            foreach ($this->tickets as $ticket)
+            foreach ($this->tickets as $t)
             {
-                $ticket = new Ticket($ticket['time'],$ticket['loggedBy'],$ticket['location'],$ticket['status'], $ticket['assignedTo'],$ticket['id']);
+                $ticket = new Ticket();
+                $ticket->setId($t['logId']);
+                $ticket->setServiceDesk($t['serviceDesk']);
+                $ticket->setLoggedBy($t['loggedBy']);
+                $ticket->setLocation($t['location']);
+                $ticket->setDepartment($t['department']);
+                $ticket->setTime($t['ticketDatetime']);
+                $ticket->setStatus($t['status']);
+                $ticket->setContent($t['content']);
+                $ticket->setContentType($t['contentType']);
+                $ticket->setAssignedTo($t['assignedTo']);
+                $ticket->setClosedBy($t['closedBy']);
+                $ticket->setClosedReason($t['closedReason']);
+                $ticket->setClosedTime($t['closedReason']);
             }
     }
 

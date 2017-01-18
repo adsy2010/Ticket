@@ -2,6 +2,9 @@
  * Created by awt on 08/11/2016.
  */
 
+//$("#logTicket").click(function () {
+//    loadPage("view.php?view=logTicket");
+//});
 
 $("#checkAll").change(function () {
     $("input:checkbox").prop('checked', $(this).prop("checked"));
@@ -31,7 +34,7 @@ function loadPage(data){
         })
         .done(function(html) {
             $(".logDisplay").html(html);
-            $.getScript( "templates/scripts/scripts.js" );
+            //$.getScript( "templates/scripts/scripts.js" );
         });
 }
 
@@ -50,16 +53,7 @@ function expandticket(logID, $elem) {
             $('#td' + logID).toggle(false);
     }
 }
-function startMCE() {
-    tinyMCE.init({
-        mode: "textareas",
-        plugins: "spellchecker,insertdatetime,preview",
 
-        menubar: false,
-        statusbar: false,
-        theme_advanced_toolbar_align: "left"
-    });
-}
 function contracttickets(logID) {
     $("tr.contentRow").toggle(false);
 }
