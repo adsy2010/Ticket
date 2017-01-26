@@ -22,15 +22,26 @@ class UserHandler
         $this->dbObj = new databaseClass();
         foreach ($this->getAuthenticatedUsers() as $user)
         {
-            $u = new User($user['name'],$user['username'],$user['email'],$user['color'],$user['serviceDesk']);
-            $this->addUser($u);
+            $u = new User($user['username'],$user['email'],$user['color'],$user['serviceDesk']);
+            $this->addAuthUser($u);
             //print_r($user);
         }
     }
 
-    public function addUser(User $user)
+    public function addAuthUser(User $user)
     {
         $this->users[] = $user;
+    }
+
+    public function addUser(User $user)
+    {
+        $sql = "INSERT INTO authusers (`username`, `color`, `emailAddress`, `serviceDesk`) VALUES (?,?,?,?)";
+        $this->dbObj->runQuery($sql, array(
+            $user->getUsername(),
+            $user->getColor(),
+            $user->getEmail(),
+            $user->getServiceDesk()
+        ));
     }
 
     public function getAuthenticatedUsers()
@@ -38,14 +49,14 @@ class UserHandler
         //$data = $this->dbObj->runQuery("SELECT * FROM authusers");
         $data = array(
             array(
-                "name" => "John Wiseman",
+                "id" => 1,
                 "username" => "JWN1",
                 "email" => "john.wiseman@mountbatten.hants.sch.uk",
                 "color" => "#ff00ff",
                 "serviceDesk" => 1
             ),
             array(
-                "name" => "Zakir Chowdhary",
+                "id" => 2,
                 "username" => "ZCY",
                 "email" => "zakir.chowdhary@mountbatten.hants.sch.uk",
                 "color" => "#00ffff",

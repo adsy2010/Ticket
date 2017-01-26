@@ -27,5 +27,11 @@ require_once "views/view.logCall.php";
 require_once "views/view.myLogs.php";
 require_once "views/view.allLogs.php";
 require_once "views/view.closedLogs.php";
-require_once "views/view.administerHome.php";
+require_once "views/admin/view.adminAddUser.php";
+require_once "views/admin/view.adminDashboard.php";
+require_once "views/admin/view.adminCartridges.php";
+require_once "views/admin/view.adminPrinters.php";
+require_once "views/admin/view.adminReports.php";
+require_once "views/admin/view.adminServiceStatus.php";
+require_once "views/admin/view.administerHome.php";
 

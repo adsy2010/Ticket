@@ -17,12 +17,31 @@
 
 </head>
 <body>
-
-
-
-
-
-
+<nav class="navbar navbar-default" style="padding: 5px;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Support Tickets</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="menuItems"><a href="view.php?view=logTicket&desk={DESK}" id=logTicket rel="group" class="fancybox" data-fancybox-type="iframe">Log Call</a></li>
+                <li class="menuItems"><a href="#" id="myCalls">My Calls</a></li>
+                <li class="menuItems"><a href="#" id="openCalls">Open Calls</a></li>
+                <li class="menuItems"><a href="#" id="closedCalls">Closed Calls</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="menuItems"><a href="#" id="administerCalls">Administer</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+<!--
 <div class="menu">
     <div class="menuItem"><a href="view.php?view=logTicket&desk=1" id=logTicket rel="group" class="fancybox" data-fancybox-type="iframe">Log Call</a></div>
     <div class="menuItem"><a href="#" id="myCalls">My Calls</a></div>
@@ -30,15 +49,14 @@
     <div class="menuItem"><a href="#" id="closedCalls">Closed Calls</a></div>
     <div class="menuItem"><a href="#" id="administerCalls">Administer</a></div>
 </div>
-
-
+-->
 <div class="logDisplay">&nbsp;</div>
 
 <script type="text/javascript">
     $(document).ready(function() {
         $(".fancybox").fancybox();
 
-        loadPage("view.php?view=open");
+        loadPage("view.php?view=open", ".logDisplay");
     });
 
 </script>

@@ -22,6 +22,7 @@ class administerHome extends Templates implements viewTypes
     public function __construct($desk)
     {
         parent::__construct();
+        $this->setFileName("admin/admin2.html");
         $this->userHandler = new UserHandler();
     }
 
@@ -35,6 +36,6 @@ class administerHome extends Templates implements viewTypes
     public function display()
     {
         // TODO: Implement display() method.
-        return Definitions::render("templates/admin2.html");
+        return Definitions::render($this->getLocation().$this->getFileName());
     }
 }

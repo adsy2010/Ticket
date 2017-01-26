@@ -1,0 +1,48 @@
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="linkDisplay active" id="adminDashboardLink">
+                    <a href="#" class="adminClicks" id="adminDashboard">Overview <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="linkDisplay" id="adminReportsLink">
+                    <a href="#" class="adminClicks" id="adminReports">Reports</a>
+                </li>
+                <li class="linkDisplay" id="adminPrintersLink">
+                    <a href="#" class="adminClicks" id="adminPrinters">Printers</a>
+                </li>
+                <li class="linkDisplay" id="adminCartridgesLink">
+                    <a href="#" class="adminClicks" id="adminCartridges">Cartridges</a>
+                </li>
+                <li class="linkDisplay" id="adminPrinterCostsLink">
+                    <a href="#" class="adminClicks" id="adminPrinterCosts">Printer Costs</a>
+                </li>
+                <li class="linkDisplay" id="adminServiceStatusLink">
+                    <a href="#" class="adminClicks" id="adminServiceStatus">Service Status</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-md-10 main" id="admin_page">
+
+        </div>
+
+    </div>
+    <script>
+        loadPage("view.php?adminPage=dashboard", "#admin_page");
+    </script>
+    <script type="text/javascript" src="templates/scripts/scripts.js"></script>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="templates/bootstrap/js/bootstrap.js"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<script src="templates/bootstrap/js/holder.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+

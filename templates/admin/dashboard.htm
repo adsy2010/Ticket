@@ -1,0 +1,187 @@
+<h1 class="page-header">Dashboard</h1>
+
+<div class="row placeholders">
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <!--<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">-->
+        <canvas id="numJobs" width="350" height="200" class="img-responsive"></canvas>
+        <script>
+            var ctx = document.getElementById("numJobs");
+            /*var myDoughnutChart = */new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        "AWT",
+                        "JWN1",
+                        "ZCY"
+                    ],
+                    datasets: [
+                        {
+                            data: [300, 50, 100],
+                            backgroundColor: [
+                                "#FF6384",
+                                "#36A2EB",
+                                "#FFCE56"
+                            ],
+                            hoverBackgroundColor: [
+                                "#FF6384",
+                                "#36A2EB",
+                                "#FFCE56"
+                            ]
+                        }]
+                }
+                ,
+                options: {
+                    responsive: false
+                }
+            });
+        </script>
+
+        <h4>Number of completed jobs</h4>
+        <span class="text-muted">January 2017</span>
+    </div>
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <!--<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">-->
+        <canvas id="numType" width="350" height="200" class="img-responsive"></canvas>
+        <script>
+            var ctx = document.getElementById("numType");
+            /*var myDoughnutChart = */new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        "PC",
+                        "Server",
+                        "Network"
+                    ],
+                    datasets: [
+                        {
+                            data: [300, 50, 100],
+                            backgroundColor: [
+                                "#FF6384",
+                                "#36A2EB",
+                                "#FFCE56"
+                            ],
+                            hoverBackgroundColor: [
+                                "#FF6384",
+                                "#36A2EB",
+                                "#FFCE56"
+                            ]
+                        }]
+                }
+                ,
+                options: {
+                    responsive: false
+                }
+            });
+        </script>
+        <h4>Number of jobs by type</h4>
+        <span class="text-muted">January 2017</span>
+    </div>
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <!--<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"> -->
+        <canvas id="numJobs90" width="350" height="200" class="img-responsive"></canvas>
+        <script>
+            var ctx = document.getElementById("numJobs90");
+            /*var myDoughnutChart = */new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        "AWT",
+                        "JWN1",
+                        "ZCY"
+                    ],
+                    datasets: [
+                        {
+                            data: [300, 50, 100],
+                            backgroundColor: [
+                                "#FF6384",
+                                "#36A2EB",
+                                "#FFCE56"
+                            ],
+                            hoverBackgroundColor: [
+                                "#FF6384",
+                                "#36A2EB",
+                                "#FFCE56"
+                            ]
+                        }]
+                }
+                ,
+                options: {
+                    responsive: false
+                }
+            });
+        </script>
+        <h4>Number of completed jobs</h4>
+        <span class="text-muted">Last 90 days</span>
+    </div>
+    <div class="col-xs-6 col-sm-3 placeholder">
+        <!--<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">-->
+        <canvas id="numType90" width="350" height="200" class="img-responsive"></canvas>
+        <script>
+            var ctx = document.getElementById("numType90");
+            /*var myDoughnutChart = */new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        "PC",
+                        "Server",
+                        "Network"
+                    ],
+                    datasets: [
+                        {
+                            data: [300, 50, 100],
+                            backgroundColor: [
+                                "#FF6384",
+                                "#36A2EB",
+                                "#FFCE56"
+                            ],
+                            hoverBackgroundColor: [
+                                "#FF6384",
+                                "#36A2EB",
+                                "#FFCE56"
+                            ]
+                        }]
+                }
+                ,
+                options: {
+                    responsive: false
+                }
+            });
+        </script>
+        <h4>Number of jobs by type</h4>
+        <span class="text-muted">Last 90 days</span>
+    </div>
+</div>
+
+<h2 class="sub-header">Authorised Users<a href="view.php?adminPage=addUser&desk={DESK}" class="btn btn-sm btn-success fancybox pull-right" rel="group2" data-fancybox-type="iframe"><span class="glyphicon glyphicon-user"></span> Add user <span class="glyphicon glyphicon-plus"></span></a></h2>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Email Address</th>
+            <th>Colour</th>
+            <th>Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        {AUTHUSERS}
+        <!--
+        <tr>
+            <td>1,001</td>
+            <td>AWT</td>
+            <td>adam.wright@mountbatten.hants.sch.uk</td>
+            <td><input type="color" value="#00FF00"></td>
+            <td><a href="#" class="btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span></a></td>
+        </tr>
+        <tr>
+            <td>1,002</td>
+            <td>JWN1</td>
+            <td>john.wiseman@mountbatten.hants.sch.uk</td>
+            <td><input type="color" value="#ff0000"></td>
+            <td><button class="btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span></button></td>
+        </tr>-->
+        </tbody>
+    </table>
+</div>

@@ -6,8 +6,9 @@
  * Time: 10:03
  */
 session_start();
+error_reporting(E_ALL);
 require_once 'includes.inc';
 
 $tpl = 'templates/menu.html';
 
-echo file_get_contents($tpl);
+echo str_replace("{DESK}", $_GET['desk'], file_get_contents($tpl));

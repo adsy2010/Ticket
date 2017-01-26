@@ -17,12 +17,15 @@ use Exception;
 class logCall extends Templates implements viewTypes
 {
     private $ticketHandler;
+    private $desk;
+
 
     public function __construct($desk)
     {
         parent::__construct();
 
         $this->setFileName("log.php");
+        $this->setDesk($desk);
         $this->ticketHandler = new ticketHandler();
     }
 
@@ -33,7 +36,7 @@ class logCall extends Templates implements viewTypes
     {
         $finalState = "Successfully added to the database";
         try {
-            print_r($_GET);
+            //print_r($_POST);
             $serviceDesk = htmlspecialchars($_GET['desk']);
             $loggedBy = $_SESSION['username'];
             $status = 0; // 0 is open, 1 is closed
@@ -76,14 +79,35 @@ class logCall extends Templates implements viewTypes
         return $finalState;
     }
 
+    /**
+     * @return mixed
+     */
+    private function getDesk()
+    {
+        return $this->desk;
+    }
+
+    /**
+     * @param mixed $desk
+     */
+    private function setDesk($desk)
+    {
+        $this->desk = $desk;
+    }
+
+    private function getDeskName()
+    {
+        return ($this->getDesk() == 1) ? "itservices" : "siteservices";
+    }
+
     public function display()
     {
         $state = ""; //set as not submitted
         if(isset($_POST) && !empty($_POST)) $state = $this->posted();
         return Definitions::render($this->getLocation().$this->getFileName(),
             array(
-                "DESKNAME" => "itservices",
-                "DESK" => 1,
+                "DESKNAME" => $this->getDeskName(),
+                "DESK" => $this->getDesk(),
                 "STATUS" => $state
             ));
     }

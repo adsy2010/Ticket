@@ -28,17 +28,17 @@
       <Position>2</Position>
       <DataType>varchar(32)|0</DataType>
     </column>
-    <column id="17" parent="7" name="name">
+    <column id="17" parent="7" name="color">
       <Position>3</Position>
-      <DataType>varchar(64)|0</DataType>
-    </column>
-    <column id="18" parent="7" name="color">
-      <Position>4</Position>
       <DataType>varchar(7)|0</DataType>
     </column>
-    <column id="19" parent="7" name="serviceDesk">
+    <column id="18" parent="7" name="serviceDesk">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
+    </column>
+    <column id="19" parent="7" name="emailAddress">
+      <Position>4</Position>
+      <DataType>varchar(128)|0</DataType>
     </column>
     <index id="20" parent="7" name="authusers_userID_uindex">
       <ColNames>userID</ColNames>
