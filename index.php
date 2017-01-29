@@ -8,7 +8,7 @@
 session_start();
 error_reporting(E_ALL);
 require_once 'includes.inc';
-
+$_SESSION['username'] = "AWT";
 $tpl = 'templates/menu.html';
 
 echo str_replace("{DESK}", $_GET['desk'], file_get_contents($tpl));

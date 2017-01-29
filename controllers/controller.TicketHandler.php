@@ -9,6 +9,7 @@
 
 namespace controller;
 
+use databaseClass;
 use models\Comment;
 use models\Definitions;
 use models\Ticket;
@@ -27,7 +28,7 @@ class TicketHandler
      */
     public function __construct($live = TRUE)
     {
-        $this->dbObj = new \databaseClass();
+        $this->dbObj = new databaseClass();
         $this->loadTickets($live);
         //$this->testAddTickets();
     }

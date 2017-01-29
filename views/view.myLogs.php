@@ -42,10 +42,9 @@ class myLogs extends Templates implements viewTypes
         // TODO: Implement display() method.
         /* @var \models\Ticket $ticket*/
         $rows = null;
-        $me = "AWT";
         if(sizeof($this->tickets) > 0) {
             foreach ($this->tickets as $ticket) {
-                if($ticket->getLoggedBy() == $me && $ticket->getStatus() == "open")
+                if($ticket->getLoggedBy() == $_SESSION['username'] && $ticket->getStatus() == "open")
                 {
                     //assign the easy stuff from the object
                     $data = array(

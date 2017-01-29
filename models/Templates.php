@@ -9,7 +9,7 @@
 
 namespace models;
 
-class Templates
+abstract class Templates
 {
     private $location = "./templates/", $fileName;
     

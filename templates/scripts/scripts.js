@@ -27,6 +27,20 @@ $("#administerCalls").click(function(){
     loadPage("view.php?view=adminHome", ".logDisplay");
 });*/
 
+function $_GET(param) {
+    var vars = {};
+    window.location.href.replace( location.hash, '' ).replace(
+        /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+        function( m, key, value ) { // callback
+            vars[key] = value !== undefined ? value : '';
+        }
+    );
+
+    if ( param ) {
+        return vars[param] ? vars[param] : null;
+    }
+    return vars;
+}
 
 /**
  * Function loads the specified page at a specified location using
@@ -71,13 +85,14 @@ $(".adminClicks").click(function(event) {
     $(event.target.parentElement).addClass("active");
     switch (event.target.id)
     {
-        case 'adminDashboard':      link = "view.php?adminPage=dashboard"; break;
-        case 'adminPrinters':       link = "view.php?adminPage=printers"; break;
-        case 'adminPrinterCosts':   link = "view.php?adminPage=printercosts"; break;
-        case 'adminServiceStatus':  link = "view.php?adminPage=servicestatus"; break;
-        case 'adminReports':        link = "view.php?adminPage=reports"; break;
-        case 'adminCartridges':     link = "view.php?adminPage=cartridges"; break;
-        default: link = "view.php?adminPage=dashboard";
+        case 'adminDashboard':      link = "view.php?adminPage=dashboard&desk="+$_GET('desk'); break;
+        case 'adminPrinters':       link = "view.php?adminPage=printers&desk="+$_GET('desk'); break;
+        case 'adminPrinterCosts':   link = "view.php?adminPage=printercosts&desk="+$_GET('desk'); break;
+        case 'adminServiceStatus':  link = "view.php?adminPage=servicestatus&desk="+$_GET('desk'); break;
+        case 'adminReports':        link = "view.php?adminPage=reports&desk="+$_GET('desk'); break;
+        case 'adminCartridges':     link = "view.php?adminPage=cartridges&desk="+$_GET('desk'); break;
+        case 'adminCategories':     link = "view.php?adminPage=categories&desk="+$_GET('desk'); break;
+        default: link = "view.php?adminPage=dashboard&desk="+$_GET('desk');
     }
 
     loadPage(link, "#admin_page");
@@ -88,10 +103,10 @@ $(".menuItems").click(function(event) {
     $(event.target.parentElement).addClass("active");
     switch (event.target.id)
     {
-        case 'myCalls':         link = "view.php?view=my"; break;
-        case 'openCalls':       link = "view.php?view=open"; break;
-        case 'closedCalls':     link= "view.php?view=closed"; break;
-        case 'administerCalls': link = "view.php?view=adminHome"; break;
+        case 'myCalls':         link = "view.php?view=my&desk="+$_GET('desk'); break;
+        case 'openCalls':       link = "view.php?view=open&desk="+$_GET('desk'); break;
+        case 'closedCalls':     link= "view.php?view=closed&desk="+$_GET('desk'); break;
+        case 'administerCalls': link = "view.php?view=adminHome&desk="+$_GET('desk'); break;
         default: link = ""; break;
     }
     if(link != "") loadPage(link, ".logDisplay");

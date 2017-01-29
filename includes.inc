@@ -28,6 +28,7 @@ require_once "views/view.myLogs.php";
 require_once "views/view.allLogs.php";
 require_once "views/view.closedLogs.php";
 require_once "views/admin/view.adminAddUser.php";
+require_once "views/admin/view.adminCategories.php";
 require_once "views/admin/view.adminDashboard.php";
 require_once "views/admin/view.adminCartridges.php";
 require_once "views/admin/view.adminPrinters.php";

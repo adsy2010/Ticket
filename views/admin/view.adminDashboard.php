@@ -67,13 +67,16 @@ class adminDashboard extends Templates implements viewTypes
         $authUsersList = array();
         foreach ($this->getAuthUsers() as $authUser)
         {
-            $authUsersList[] = Definitions::render($authUsersTpl,
-                array(
-                    "ID" => $authUser['id'],
-                    "USERNAME" => $authUser['username'],
-                    "EMAILADDRESS" => $authUser['email'],
-                    "COLOR" => $authUser['color']
-                ));
+            if($authUser['serviceDesk'] == $this->getDesk())
+            {
+                $authUsersList[] = Definitions::render($authUsersTpl,
+                    array(
+                        "ID" => $authUser['userID'],
+                        "USERNAME" => $authUser['username'],
+                        "EMAILADDRESS" => $authUser['emailAddress'],
+                        "COLOR" => $authUser['color']
+                    ));
+            }
         }
 
         return (!empty($authUsersList)) ? implode("\r\n", $authUsersList) : "";

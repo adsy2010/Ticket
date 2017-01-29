@@ -9,6 +9,12 @@
 namespace view;
 
 
+/**
+ * Probably an unused class
+ *
+ * Class authenticatedUser
+ * @package view
+ */
 class authenticatedUser implements viewTypes
 {
 

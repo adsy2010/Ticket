@@ -27,20 +27,27 @@ class databaseClass
         );
     }
 
+    /**
+     * @param string $query
+     * @param array $argArray
+     * @return array|null
+     * @throws Exception
+     */
     public function runQuery($query = '', $argArray = array()) {
         $stmt = null;
-    try {
-        if(!$stmt = $this->db->prepare($query)) throw new Exception("Prepared query failed.");
+        try
+        {
+            if(!$stmt = $this->db->prepare($query)) throw new Exception("Prepared query failed.");
 
-        if (sizeof($argArray) > 0) {
-            $stmt->execute($argArray);
-        } else {
-            $stmt->execute();
+            if (sizeof($argArray) > 0) $stmt->execute($argArray);
+            else $stmt->execute();
+
         }
-
-        } catch(PDOException $ex) {
+        catch(PDOException $ex)
+        {
             echo "An Error occured!: ".$ex->getMessage();
         }
+
         return ($stmt == null) ? null : $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

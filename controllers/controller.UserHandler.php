@@ -44,10 +44,16 @@ class UserHandler
         ));
     }
 
+    public function removeUser(User $user)
+    {
+        $sql = "DELETE FROM authusers WHERE userID=?";
+        $this->dbObj->runQuery($sql, array($user->getId()));
+    }
+
     public function getAuthenticatedUsers()
     {
-        //$data = $this->dbObj->runQuery("SELECT * FROM authusers");
-        $data = array(
+        $data = $this->dbObj->runQuery("SELECT * FROM authusers");
+        /*$data = array(
             array(
                 "id" => 1,
                 "username" => "JWN1",
@@ -62,7 +68,7 @@ class UserHandler
                 "color" => "#00ffff",
                 "serviceDesk" => 1
             )
-        );
+        );*/
         //print_r($data);
         return $data;
     }

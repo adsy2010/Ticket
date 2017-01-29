@@ -8,6 +8,7 @@
  */
 
 namespace view;
+
 use controller\TicketHandler as ticketHandler;
 use models\Definitions;
 use models\Templates;
@@ -57,9 +58,10 @@ class logCall extends Templates implements viewTypes
             );
 
             foreach($vars as $var)
-                if(empty($$var))
+                if(!isset($$var))
                     throw new Exception("Some submitted data is missing. The value <strong>{$var}</strong> has been flagged.");
 
+            /*
             $this->ticketHandler->addTicket(
                 $loggedBy,
                 $status,
@@ -68,7 +70,7 @@ class logCall extends Templates implements viewTypes
                 $contentType,
                 $department,
                 $serviceDesk
-            );
+            );*/
         }
         catch (Exception $e)
         {
@@ -108,8 +110,10 @@ class logCall extends Templates implements viewTypes
             array(
                 "DESKNAME" => $this->getDeskName(),
                 "DESK" => $this->getDesk(),
-                "STATUS" => $state
+                "STATUS" => $state,
+                "USERNAME" => $_SESSION['username']
             ));
+
     }
 
 

@@ -8,7 +8,6 @@
 
 namespace view;
 
-
 use controller\UserHandler;
 use Exception;
 use models\Definitions;
@@ -42,22 +41,21 @@ class adminAddUser extends Templates implements viewTypes
         try
         {
             $username = $_POST['username'];
-            $email = $_POST['emailAddress'];
-            $color = $_POST['userCol'];
+            $emailAddress = $_POST['emailAddress'];
+            $userCol = $_POST['userCol'];
             $desk = $_POST['desk'];
 
             $vars = array(
                 "username",
                 "emailAddress",
-                "userCol",
-                "desk"
+                "userCol"
             );
 
             foreach($vars as $var)
                 if(empty($$var))
                     throw new Exception("Some submitted data is missing. The value <strong>{$var}</strong> has been flagged.");
 
-            $this->userHandler->addUser(new User($username,$email,$color,$desk));
+            $this->userHandler->addUser(new User($username,$emailAddress,$userCol,$desk));
         }
         catch (Exception $e)
         {
@@ -77,7 +75,17 @@ class adminAddUser extends Templates implements viewTypes
     public function display()
     {
         // TODO: Implement display() method.
-        return Definitions::render($this->getLocation().$this->getFileName());
+        $state = ""; //set as not submitted
+        if(isset($_POST) && !empty($_POST)) $state = $this->posted();
+
+        //print_r($_POST);
+
+        return Definitions::render($this->getLocation().$this->getFileName(),
+            array(
+                "STATUS" => $state,
+                "DESK" => $this->getDesk()
+            )
+        );
 
     }
 }

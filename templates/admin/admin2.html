@@ -10,6 +10,9 @@
                 <li class="linkDisplay" id="adminReportsLink">
                     <a href="#" class="adminClicks" id="adminReports">Reports</a>
                 </li>
+                <li class="linkDisplay" id="adminCategoriesLink">
+                    <a href="#" class="adminClicks" id="adminCategories">Categories</a>
+                </li>
                 <li class="linkDisplay" id="adminPrintersLink">
                     <a href="#" class="adminClicks" id="adminPrinters">Printers</a>
                 </li>
@@ -30,7 +33,7 @@
 
     </div>
     <script>
-        loadPage("view.php?adminPage=dashboard", "#admin_page");
+        loadPage("view.php?adminPage=dashboard&desk="+$_GET('desk'), "#admin_page");
     </script>
     <script type="text/javascript" src="templates/scripts/scripts.js"></script>
 </div>
