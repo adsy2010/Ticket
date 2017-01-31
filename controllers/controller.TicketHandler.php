@@ -10,6 +10,7 @@
 namespace controller;
 
 use databaseClass;
+use models\Category;
 use models\Comment;
 use models\Definitions;
 use models\Ticket;
@@ -24,7 +25,12 @@ class TicketHandler
 
     /**
      * TicketHandler constructor.
-     * @param bool $live
+     *
+     * Bool:    "False" for closed
+     * Bool:    "True" for open
+     * Null:    "Null" for all
+     * String:  "x" for none
+     * @param mixed $live
      */
     public function __construct($live = TRUE)
     {
@@ -47,6 +53,7 @@ class TicketHandler
         {
             case FALSE:     $this->tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=:status", array("status"=>"closed")); break;
             case NULL:      $this->tickets = $this->dbObj->runQuery("SELECT * FROM tickets", null); break;
+            case "x":       break; //this ensures that no queries are run. This is for maintenance such as admin functions
             case TRUE:
             DEFAULT:        $this->tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=:status", array("status"=>"open")); break;
         }
@@ -73,8 +80,6 @@ class TicketHandler
     }
 
     /**
-     *
-     */
     private function testAddTickets()
     {
         $t = new Ticket("11:22", "AWT","Server Room", 1);
@@ -108,7 +113,7 @@ class TicketHandler
         $t->setContent("This is some content.");
         $t->setContentType(Definitions::CONTENTTYPESIT[8]);
         $this->addTicket($t);
-    }
+    }*/
 
     /*public function addTicket(Ticket $ticket)
     {
@@ -239,6 +244,41 @@ class TicketHandler
         }
 
         return $ticketArr;
+    }
+
+    /**
+     * Returns an array containing all the categories for a service desk
+     *
+     * @param int $desk The desk ID for the categories
+     * @return Category[]|null An array of all categories for the requested desk
+     */
+    public function getCategories($desk)
+    {
+        $sql = "SELECT * FROM categories WHERE desk = ? ORDER BY `title` ASC, `statusType` ASC";
+        $data = $this->dbObj->runQuery($sql, array(
+           $desk
+        ));
+
+        $categories = array();
+
+        if(is_array($data) && !empty($data))
+            foreach ($data as $d)
+            {
+                $category = new Category();
+                $category->setId($d['id']);
+                $category->setName($d['title']);
+                $category->setDesk($d['desk']);
+                $category->setStatusType($d['statusType']);
+                $categories[] = $category;
+            }
+        return $categories;
+    }
+
+
+    public function addCategory(Category $category)
+    {
+        $category->setDb($this->dbObj);
+        $category->add();
     }
 
 }

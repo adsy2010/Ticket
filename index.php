@@ -11,4 +11,5 @@ require_once 'includes.inc';
 $_SESSION['username'] = "AWT";
 $tpl = 'templates/menu.html';
 
+$desk = (!isset($_GET['desk'])) ? die("No service desk selected") : $_GET['desk'];
 echo str_replace("{DESK}", $_GET['desk'], file_get_contents($tpl));

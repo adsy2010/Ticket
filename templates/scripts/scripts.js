@@ -48,13 +48,13 @@ function $_GET(param) {
  * @param data
  * @param location
  */
-function loadPage(data, location){
-    $.ajax(
+function loadPage(data, display){
+    $.ajax(data)/*
         {
-            url: data
-        })
+            url: uri,
+        }*/
         .done(function(html) {
-            $(location).html(html);
+            $(display).html(html);
             //$.getScript( "templates/scripts/scripts.js" );
         });
 }
@@ -85,14 +85,14 @@ $(".adminClicks").click(function(event) {
     $(event.target.parentElement).addClass("active");
     switch (event.target.id)
     {
-        case 'adminDashboard':      link = "view.php?adminPage=dashboard&desk="+$_GET('desk'); break;
-        case 'adminPrinters':       link = "view.php?adminPage=printers&desk="+$_GET('desk'); break;
-        case 'adminPrinterCosts':   link = "view.php?adminPage=printercosts&desk="+$_GET('desk'); break;
-        case 'adminServiceStatus':  link = "view.php?adminPage=servicestatus&desk="+$_GET('desk'); break;
-        case 'adminReports':        link = "view.php?adminPage=reports&desk="+$_GET('desk'); break;
-        case 'adminCartridges':     link = "view.php?adminPage=cartridges&desk="+$_GET('desk'); break;
-        case 'adminCategories':     link = "view.php?adminPage=categories&desk="+$_GET('desk'); break;
-        default: link = "view.php?adminPage=dashboard&desk="+$_GET('desk');
+        case 'adminDashboard':      link = {url: "view.php?adminPage=dashboard&desk="+$_GET('desk')}; break;
+        case 'adminPrinters':       link = {url: "view.php?adminPage=printers&desk="+$_GET('desk')}; break;
+        case 'adminPrinterCosts':   link = {url: "view.php?adminPage=printercosts&desk="+$_GET('desk')}; break;
+        case 'adminServiceStatus':  link = {url: "view.php?adminPage=servicestatus&desk="+$_GET('desk')}; break;
+        case 'adminReports':        link = {url: "view.php?adminPage=reports&desk="+$_GET('desk')}; break;
+        case 'adminCartridges':     link = {url: "view.php?adminPage=cartridges&desk="+$_GET('desk')}; break;
+        case 'adminCategories':     link = {url: "view.php?adminPage=categories&desk="+$_GET('desk')}; break;
+        default: link = "url: view.php?adminPage=dashboard&desk="+$_GET('desk');
     }
 
     loadPage(link, "#admin_page");
@@ -103,11 +103,36 @@ $(".menuItems").click(function(event) {
     $(event.target.parentElement).addClass("active");
     switch (event.target.id)
     {
-        case 'myCalls':         link = "view.php?view=my&desk="+$_GET('desk'); break;
-        case 'openCalls':       link = "view.php?view=open&desk="+$_GET('desk'); break;
-        case 'closedCalls':     link= "view.php?view=closed&desk="+$_GET('desk'); break;
-        case 'administerCalls': link = "view.php?view=adminHome&desk="+$_GET('desk'); break;
+        case 'myCalls':         link = {url: "view.php?view=my&desk="+$_GET('desk')}; break;
+        case 'openCalls':       link = {url: "view.php?view=open&desk="+$_GET('desk')}; break;
+        case 'closedCalls':     link = {url: "view.php?view=closed&desk="+$_GET('desk')}; break;
+        case 'administerCalls': link = {url: "view.php?view=adminHome&desk="+$_GET('desk')}; break;
         default: link = ""; break;
     }
     if(link != "") loadPage(link, ".logDisplay");
+});
+
+$("#addCategoryBtn").fancybox({
+    afterClose: function () {
+        loadPage({url: "view.php?adminPage=categories&desk="+$_GET('desk')}, "#admin_page");
+    }
+});
+
+$("#addUserBtn").fancybox({
+    afterClose: function () {
+        loadPage({url: "view.php?adminPage=dashboard&desk="+$_GET('desk')}, "#admin_page");
+    }
+});
+
+$(".removeCategory").click(function (event) {
+    loadPage({
+        type: "POST",
+        url: "view.php?adminPage=adminCategories&desk="+$_GET('desk'),
+        data:
+            {
+                method: "DELETE",
+                id: event.target.id
+            }
+
+    }, "#admin_page");
 });

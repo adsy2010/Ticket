@@ -9,6 +9,7 @@
 namespace controller;
 
 
+use models\Printer;
 use models\User;
 use databaseClass;
 
@@ -22,7 +23,8 @@ class UserHandler
         $this->dbObj = new databaseClass();
         foreach ($this->getAuthenticatedUsers() as $user)
         {
-            $u = new User($user['username'],$user['email'],$user['color'],$user['serviceDesk']);
+            $u = new User($user['username'],$user['emailAddress'],$user['color'],$user['serviceDesk']);
+            $u->setId($user['userID']);
             $this->addAuthUser($u);
             //print_r($user);
         }
@@ -35,50 +37,35 @@ class UserHandler
 
     public function addUser(User $user)
     {
-        $sql = "INSERT INTO authusers (`username`, `color`, `emailAddress`, `serviceDesk`) VALUES (?,?,?,?)";
-        $this->dbObj->runQuery($sql, array(
+        //$sql = "INSERT INTO authusers (`username`, `color`, `emailAddress`, `serviceDesk`) VALUES (?,?,?,?)";
+        $user->setDb($this->dbObj); //provide a database connection for the object to use
+        $user->add();
+        /*$this->dbObj->runQuery($sql, array(
             $user->getUsername(),
             $user->getColor(),
             $user->getEmail(),
             $user->getServiceDesk()
-        ));
+        ));*/
     }
 
     public function removeUser(User $user)
     {
-        $sql = "DELETE FROM authusers WHERE userID=?";
-        $this->dbObj->runQuery($sql, array($user->getId()));
+        /*$sql = "DELETE FROM authusers WHERE userID=?";
+        $this->dbObj->runQuery($sql, array($user->getId()));*/
+        $user->setDb($this->dbObj);
+        $user->remove();
     }
 
-    public function getAuthenticatedUsers()
+    private function getAuthenticatedUsers()
     {
         $data = $this->dbObj->runQuery("SELECT * FROM authusers");
-        /*$data = array(
-            array(
-                "id" => 1,
-                "username" => "JWN1",
-                "email" => "john.wiseman@mountbatten.hants.sch.uk",
-                "color" => "#ff00ff",
-                "serviceDesk" => 1
-            ),
-            array(
-                "id" => 2,
-                "username" => "ZCY",
-                "email" => "zakir.chowdhary@mountbatten.hants.sch.uk",
-                "color" => "#00ffff",
-                "serviceDesk" => 1
-            )
-        );*/
-        //print_r($data);
         return $data;
     }
 
-    public function getAuthenticatedUsersTest()
+    public function getUsers()
     {
-        //$data = $this->dbObj->runQuery("SELECT * FROM authusers");
-        //print_r($data);
-        //return $data;
-        return array("JWN1", "ZCY", "AWT", "TRS");
+        return $this->users;
     }
+
 
 }

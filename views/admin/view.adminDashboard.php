@@ -10,6 +10,7 @@ namespace view;
 use controller\UserHandler;
 use models\Definitions;
 use models\Templates;
+use models\User;
 
 class adminDashboard extends Templates implements viewTypes
 {
@@ -26,7 +27,7 @@ class adminDashboard extends Templates implements viewTypes
         $this->setFileName("admin/dashboard.htm");
         $this->userHandler = new UserHandler();
         $this->setDesk($desk);
-        $this->setAuthUsers($this->userHandler->getAuthenticatedUsers());
+        $this->setAuthUsers($this->userHandler->getUsers());
     }
 
     /**
@@ -67,14 +68,15 @@ class adminDashboard extends Templates implements viewTypes
         $authUsersList = array();
         foreach ($this->getAuthUsers() as $authUser)
         {
-            if($authUser['serviceDesk'] == $this->getDesk())
+            /** @var User $authUser */
+            if($authUser->getServiceDesk() == $this->getDesk())
             {
                 $authUsersList[] = Definitions::render($authUsersTpl,
                     array(
-                        "ID" => $authUser['userID'],
-                        "USERNAME" => $authUser['username'],
-                        "EMAILADDRESS" => $authUser['emailAddress'],
-                        "COLOR" => $authUser['color']
+                        "ID"            => $authUser->getId(),
+                        "USERNAME"      => $authUser->getUsername(),
+                        "EMAILADDRESS"  => $authUser->getEmail(),
+                        "COLOR"         => $authUser->getColor()
                     ));
             }
         }

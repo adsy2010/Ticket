@@ -17,7 +17,7 @@ if($_GET['desk'] >1 || $_GET['desk'] < 0) die("Service Desk does not exist.");
 
 $viewObj = null;
 
-switch ($_GET['view'])
+switch (@$_GET['view'])
 {
     //logs
     case 'open': $viewObj = new view\allLogs($desk); break;
@@ -34,16 +34,17 @@ switch ($_GET['view'])
     case 'authenticatedUsers': $viewObj = new view\authenticatedUser($desk); break;
 }
 
-switch ($_GET['adminPage'])
+switch (@$_GET['adminPage'])
 {
-    case 'dashboard': $viewObj = new view\adminDashboard($desk); break;
+    case 'dashboard': $viewObj  = new view\adminDashboard($desk); break;
     case 'cartridges': $viewObj = new view\adminCartridges($desk); break;
     case 'categories': $viewObj = new view\adminCategories($desk); break;
-    case 'printers': $viewObj = new view\adminPrinters($desk); break;
+    case 'printers': $viewObj   = new view\adminPrinters($desk); break;
     case 'printcosts': $viewObj = new view\adminPrinterCosts($desk); break;
-    case 'reports': $viewObj = new view\adminReports($desk); break;
+    case 'reports': $viewObj    = new view\adminReports($desk); break;
     case 'servicestatus': $viewObj = new view\adminServiceStatus($desk); break;
-    case 'addUser': $viewObj = new view\adminAddUser($desk); break;
+    case 'addUser': $viewObj    = new view\adminAddUser($desk); break;
+    case 'addCategory': $viewObj = new view\adminAddCategories($desk); break;
 }
 
 if($viewObj == null)

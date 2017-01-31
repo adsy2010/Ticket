@@ -1,17 +1,19 @@
-<h1 class="page-header">Categories</h1>
+<h1 class="page-header">Categories<a href="view.php?adminPage=addCategory&desk={DESK}" id="addCategoryBtn" class="btn btn-sm btn-success fancybox pull-right" rel="group2" data-fancybox-type="iframe"><span class="glyphicon glyphicon-user"></span> Add category <span class="glyphicon glyphicon-plus"></span></a></h1>
 
 <form method="post">
 
-    <table class="table table-responsive">
+    <table class="table table-responsive table-striped">
         <thead>
-        <tr>
-            <th>#</th>
-            <th>Category Name</th>
-            <th>Log/Close</th>
-            <th>Options</th>
-        </tr>
-        {CATEGORYROWS}
+            <tr>
+                <th>#</th>
+                <th>Category Name</th>
+                <th>Log/Close</th>
+                <th>Options</th>
+            </tr>
         </thead>
+        <tbody>
+            {CATEGORYROWS}
+        </tbody>
     </table>
 
 </form>

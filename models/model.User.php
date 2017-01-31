@@ -9,9 +9,16 @@
 namespace models;
 
 
-class User
+use databaseClass;
+
+class User implements iModels
 {
     private $id,$username,$email,$color,$serviceDesk;
+
+    /**
+     * @var databaseClass $dbObj
+     */
+    private $dbObj;
 
     public function __construct($username, $email, $color="#FF0000", $serviceDesk)
     {
@@ -19,6 +26,11 @@ class User
         $this->email            = $email;
         $this->color            = $color;
         $this->serviceDesk      = $serviceDesk;
+    }
+
+    public function setDb($dbObj)
+    {
+        $this->dbObj = $dbObj;
     }
 
     public function setId($id)
@@ -63,4 +75,27 @@ class User
         return $this->serviceDesk;
     }
 
+    public function add()
+    {
+        // TODO: Implement add() method.
+        $sql = "INSERT INTO authusers (`username`, `color`, `emailAddress`, `serviceDesk`) VALUES (?,?,?,?)";
+        $this->dbObj->runQuery($sql, array(
+            $this->getUsername(),
+            $this->getColor(),
+            $this->getEmail(),
+            $this->getServiceDesk()
+        ));
+    }
+
+    public function remove()
+    {
+        // TODO: Implement remove() method.
+        $sql = "DELETE FROM authusers WHERE userID=?";
+        $this->dbObj->runQuery($sql, array($this->getId()));
+    }
+
+    public function save()
+    {
+        // TODO: Implement save() method.
+    }
 }

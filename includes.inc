@@ -9,6 +9,7 @@ require_once "models/Definitions.php";
 
 //models
 require_once "models/iModels.php";
+require_once "models/model.Category.php";
 require_once "models/model.Cartridge.php";
 require_once "models/model.Printer.php";
 require_once "models/model.CartridgeLog.php";
@@ -28,6 +29,7 @@ require_once "views/view.myLogs.php";
 require_once "views/view.allLogs.php";
 require_once "views/view.closedLogs.php";
 require_once "views/admin/view.adminAddUser.php";
+require_once "views/admin/view.adminAddCategories.php";
 require_once "views/admin/view.adminCategories.php";
 require_once "views/admin/view.adminDashboard.php";
 require_once "views/admin/view.adminCartridges.php";
