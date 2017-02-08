@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `authusers`;
 CREATE TABLE `authusers` (
   `userID` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(32) DEFAULT NULL,

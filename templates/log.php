@@ -40,13 +40,12 @@
                     <option value="10">Library</option>
                     <option value="11">MFL</option>
                     <option value="12">Music</option>
-                    <option value="13"></option>
                     <option value="14">Science</option>
                     <option value="15">SLT</option>
                     <option value="16">Support Staff</option>
                 </select>
                 <br/>
-                <select title="category" name="category" id="category">
+                <select title="category" name="contentType" id="contentType">
                     <option value="">Category...</option>
                     {CATEGORIES}
                 </select><br><br>

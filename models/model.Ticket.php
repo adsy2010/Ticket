@@ -9,6 +9,7 @@
 
 namespace models;
 
+use databaseClass;
 use Exception;
 
 class Ticket implements iModels
@@ -17,13 +18,28 @@ class Ticket implements iModels
             $contentType, $content, $department, $serviceDesk,
             $closedBy, $closedReason, $closedTime, $priority;
 
-
     /** @var Comment[] */
     private $comments = array();
 
-    public function __construct()
-    {
+    /**
+     * @var databaseClass $dbObj
+     */
+    private $dbObj;
 
+    /**
+     * @return databaseClass
+     */
+    private function getDbObj()
+    {
+        return $this->dbObj;
+    }
+
+    /**
+     * @param mixed $dbObj
+     */
+    public function setDbObj($dbObj)
+    {
+        $this->dbObj = $dbObj;
     }
 
     /**
@@ -271,7 +287,16 @@ class Ticket implements iModels
         if(!empty($this->getId()))
             throw new Exception("Cannot add ticket to database as ticket is already in the database.");
         $sql = "INSERT INTO tickets (`loggedBy`,`content`,`contentType`,`department`,`location`,`status`,`serviceDesk`, `priority`) VALUES(?,?,?,?,?,?,?,?)";
-        //$this->email(0);
+        $arr = array(   $this->getLoggedBy(),
+                        $this->getContent(),
+                        $this->getContentType(),
+                        $this->getDepartment(),
+                        $this->getLocation(),
+                        $this->getStatus(),
+                        $this->getServiceDesk(),
+                        $this->getPriority()
+        );
+        //$this->getDbObj()->runQuery($sql, $arr);//$this->email(0);
     }
 
     //archive

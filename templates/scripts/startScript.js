@@ -35,13 +35,10 @@ function $_GET(param) {
  * @param display
  */
 function loadPage(data, display) {
-    $.ajax(data)/*
-     {
-     url: uri,
-     }*/
-        .done(function (html) {
+    $.ajax(data)
+        .done(function (html)
+        {
             $(display).html(html);
-            //$.getScript( "templates/scripts/scripts.js" );
         });
 }
 

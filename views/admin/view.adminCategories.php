@@ -79,7 +79,7 @@ class adminCategories extends Templates implements viewTypes
 
             switch ($_POST['method'])
             {
-                case 'DELETE': $cat->remove(); break;
+                case 'DELETE': $this->ticketHandler->removeCategory($cat); break;
                 /*case 'SAVE': $cat->save(); break;*/
             }
         }
@@ -88,6 +88,7 @@ class adminCategories extends Templates implements viewTypes
     public function display()
     {
         // TODO: Implement display() method.
+
         if(isset($_POST)) $this->posted();
         return Definitions::render($this->getLocation().$this->getFileName(),
             array(

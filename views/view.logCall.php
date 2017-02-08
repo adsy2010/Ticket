@@ -10,6 +10,7 @@
 namespace view;
 
 use controller\TicketHandler as ticketHandler;
+use models\Category;
 use models\Definitions;
 use models\Templates;
 
@@ -50,16 +51,19 @@ class logCall extends Templates implements viewTypes
             $vars = array(
                 "serviceDesk",
                 "loggedBy",
-                "status",
                 "location",
                 "content",
                 "contentType",
                 "department",
             );
+            print_r($_POST);
 
             foreach($vars as $var)
-                if(!isset($$var))
+                if(!isset($$var) || empty($$var))
                     throw new Exception("Some submitted data is missing. The value <strong>{$var}</strong> has been flagged.");
+
+            //time not required, worked out by MySQL
+            //status not required, default value in place
 
             /*
             $this->ticketHandler->addTicket(
@@ -67,7 +71,7 @@ class logCall extends Templates implements viewTypes
                 $status,
                 $location,
                 $content,
-                $contentType,
+                $category,
                 $department,
                 $serviceDesk
             );*/
@@ -102,15 +106,37 @@ class logCall extends Templates implements viewTypes
         return ($this->getDesk() == 1) ? "itservices" : "siteservices";
     }
 
+    private function renderCatList()
+    {
+        $catRowTpl = Definitions::render("<option name={NAME} value={VALUE}>{NAME}</option>");
+        $catRowList = array();
+
+        foreach ($this->ticketHandler->getCategories($this->getDesk()) as $category)
+        {
+            /** @var Category $category */
+            if($category->getStatusType() == 1) {
+                $catRowList[] = Definitions::render($catRowTpl,
+                    array(
+                        "VALUE" => $category->getId(),
+                        "NAME" => $category->getName(),
+                    ));
+            }
+        }
+
+        return (!empty($catRowList)) ? implode("\r\n", $catRowList) : "";
+    }
+
     public function display()
     {
         $state = ""; //set as not submitted
         if(isset($_POST) && !empty($_POST)) $state = $this->posted();
+
         return Definitions::render($this->getLocation().$this->getFileName(),
             array(
                 "DESKNAME" => $this->getDeskName(),
                 "DESK" => $this->getDesk(),
                 "STATUS" => $state,
+                "CATEGORIES" => $this->renderCatList(),
                 "USERNAME" => $_SESSION['username']
             ));
 

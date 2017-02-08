@@ -10,10 +10,10 @@ $(document).ready(function() {
 
 /*$(document).on('click',function (event) {*/
 
-    var logDisp = $('.logdisplay');
+    var $logDisp = $('.logDisplay');
 
     $(".menuItems").on('click',function (event) {
-        if(event.target.id != 'logTicket') event.stopPropagation();
+        //if(event.target.id != 'logTicket') event.stopPropagation();
 
         $(".menuItems").removeClass("active");
         $(event.target.parentElement).addClass("active");
@@ -43,8 +43,8 @@ $(document).ready(function() {
         $("input:checkbox").prop('checked', $(this).prop("checked"));
     });
 
-    $(".logDisplay").on('click', ".adminClicks", function (event) {
-        event.stopPropagation();
+    $logDisp.on('click', ".adminClicks", function (event) {
+        //event.stopPropagation();
         $(".linkDisplay").removeClass("active");
         $(event.target.parentElement).addClass("active");
         switch (event.target.id) {
@@ -78,40 +78,124 @@ $(document).ready(function() {
 
     });
 
-
-
-
-
+/*
     $("#addCategoryBtn").fancybox({
         afterClose: function () {
             loadPage({url: "view.php?adminPage=categories&desk=" + $_GET('desk')}, "#admin_page");
+
         }
     });
 
     $("#addUserBtn").fancybox({
-        afterClose: function () {
+
+        onCancel: function () {
             loadPage({url: "view.php?adminPage=dashboard&desk=" + $_GET('desk')}, "#admin_page");
         }
+    });*/
+/*
+    $logDisp.on('click', "#addUserBtn", function (event) {
+        $('.fancybox').fancybox();
+        $('.fancybox').open([{
+                'href': 'view.php?adminPage=addUser&desk=1',
+                'type': 'iframe'
+            }],
+            {
+                afterClose: function () {
+                    loadPage({url: "view.php?adminPage=dashboard&desk=" + $_GET('desk')}, "#admin_page");
+                }
+            }
+        );
+
+    });*/
+
+    switch(cat)
+    {
+        case "#refreshUsers": url= "dashboard"; break;
+    }
+    $logDisp.on('click', "#refreshUsers", function (event) {
+        loadPage({url: "view.php?adminPage=dashboard&desk=" + $_GET('desk')}, "#admin_page");
+    });
+    $logDisp.on('click', "#refreshCategories", function (event) {
+        loadPage({url: "view.php?adminPage=categories&desk=" + $_GET('desk')}, "#admin_page");
     });
 
-    $('.logDisplay').on('click', ".removeCategory", function (event) {
+    $logDisp.on('click', ".removeCategory", function (event) {
 
-        /*loadPage({
-         type: "POST",
-         url: "view.php?adminPage=adminCategories&desk="+$_GET('desk'),
-         data:
+        //event.stopPropagation();
+        /*
+        loadPage(
+            {
+             type: "POST",
+             url: "view.php?adminPage=categories&desk="+$_GET('desk'),
+             data:
+             {
+                 method: "DELETE",
+                 id: $(this)[0].parentNode.parentNode.id
+             }
+            }, "#admin_page");*/
+
+        console.log($(this)[0].parentNode.parentNode.id);
+
+    });
+
+    var keeper;
+
+    $logDisp.on('focus', ".catName .catType .userName .userEmail", function (event) {
+        keeper = $(this)[0].innerHTML;
+    }).on('blur', ".catName", function (event) {
+        /*loadPage(
          {
-         method: "DELETE",
-         id: $(this)[0].id
-         }
-
+             type: "POST",
+             url: "view.php?adminPage=categories&desk="+$_GET('desk'),
+             data:
+             {
+                 method: "UPDATE",
+                 id: $(this)[0].parentNode.parentNode.id,
+                 catName: $(this)[0].innerHTML
+             }
          }, "#admin_page");*/
-        event.stopPropagation();
-        console.log($(this)[0].id)
+
+        if(keeper != $(this)[0].innerHTML)
+            console.log("run action here");
 
     });
+
+
+    $logDisp.on('click', ".removeUser", function (event) {
+
+        //event.stopPropagation();
+        /*
+        loadPage(
+            {
+                type: "POST",
+                url: "view.php?adminPage=dashboard&desk="+$_GET('desk'),
+                data:
+                    {
+                        method: "DELETE",
+                        id: $(this)[0].parentNode.parentNode.id
+                    }
+            }, "#admin_page");*/
+
+        console.log($(this)[0].parentNode.parentNode.id);
+
+    });
+
+    /*
+    function update(url,id,type,content) {
+        {
+            loadPage(
+                {
+                type: "POST",
+                url: url,
+                data:
+                {
+                    method: "UPDATE",
+                    id: id
+                }
+            }, "#admin_page");
+        }
+    }*/
 
 });
-
 //});
 

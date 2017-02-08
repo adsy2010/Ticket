@@ -140,6 +140,7 @@ class TicketHandler
         $ticket->setContentType($contentType);
         $ticket->setDepartment($department);
         $ticket->setServiceDesk($serviceDesk);
+        $ticket->setDbobj($this->dbObj);
         $ticket->add();
     }
 
@@ -279,6 +280,12 @@ class TicketHandler
     {
         $category->setDb($this->dbObj);
         $category->add();
+    }
+
+    public function removeCategory(Category $category)
+    {
+        $category->setDb($this->dbObj);
+        $category->remove();
     }
 
 }

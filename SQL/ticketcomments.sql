@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `ticketcomments`;
 CREATE TABLE `ticketcomments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) DEFAULT NULL,

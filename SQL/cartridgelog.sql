@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `cartridgelog`;
 CREATE TABLE `cartridgelog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cartridgeId` int(11) DEFAULT NULL,

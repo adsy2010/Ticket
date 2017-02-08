@@ -328,6 +328,7 @@
     <column id="86" parent="15" name="priority">
       <Position>14</Position>
       <DataType>int(11)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
     <index id="87" parent="15" name="tickets_logId_uindex">
       <ColNames>logId</ColNames>

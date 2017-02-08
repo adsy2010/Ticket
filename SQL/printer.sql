@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `printer`;
 CREATE TABLE `printer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `location` varchar(64) DEFAULT NULL,
