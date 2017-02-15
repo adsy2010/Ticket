@@ -10,10 +10,13 @@
 namespace controller;
 
 use databaseClass;
+use models\Cartridge;
 use models\Category;
 use models\Comment;
 use models\Definitions;
+use models\ServiceStatus;
 use models\Ticket;
+use stdClass;
 
 class TicketHandler
 {
@@ -287,5 +290,30 @@ class TicketHandler
         $category->setDb($this->dbObj);
         $category->remove();
     }
+
+    //This should not use desk but might in the future
+    public function getStatuses()
+    {
+        $sql = "SELECT * FROM servicestatus ORDER BY 'status' DESC, 'name' ASC";
+        $data = $this->dbObj->runQuery($sql);
+
+        $statuses = array();
+
+        if(is_array($data) && !empty($data))
+            foreach ($data as $d) {
+                $status = new stdClass();
+                $status->name = $d['name'];
+                $status->status = $d['status'];
+                $statuses[] = $status;
+            }
+        return $statuses;
+        //TODO: Talk to martyn about the use of status for the site teams service desk
+    }
+
+    public function removeStatus(ServiceStatus $status)
+    {
+        $status->remove();
+    }
+
 
 }

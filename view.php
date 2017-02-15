@@ -45,6 +45,9 @@ switch (@$_GET['adminPage'])
     case 'servicestatus': $viewObj = new view\adminServiceStatus($desk); break;
     case 'addUser': $viewObj    = new view\adminAddUser($desk); break;
     case 'addCategory': $viewObj = new view\adminAddCategories($desk); break;
+    case 'addPrinter': $viewObj = new view\adminAddPrinter($desk); break;
+    case 'addCartridge': $viewObj = new view\adminAddCartridge($desk); break;
+    case 'addStatus': $viewObj = new view\adminAddStatus($desk); break;
 }
 
 if($viewObj == null)

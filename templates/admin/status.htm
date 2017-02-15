@@ -4,4 +4,19 @@
         <a href="view.php?adminPage=addStatus&desk={DESK}" id="addStatusBtn" class="btn btn-sm btn-success fancybox" rel="group2" data-fancybox-type="iframe"><span class="glyphicon glyphicon-user"></span> Add Status <span class="glyphicon glyphicon-plus"></span></a>
     </div>
 </h1>
-this is the service status page
+<form method="post">
+
+    <table class="table table-responsive table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        {STATUSROWS}
+        </tbody>
+    </table>
+
+</form>

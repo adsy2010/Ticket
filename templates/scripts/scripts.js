@@ -54,9 +54,9 @@ $(document).ready(function() {
             case 'adminPrinters':
                 link = {url: "view.php?adminPage=printers&desk=" + $_GET('desk')};
                 break;
-            case 'adminPrinterCosts':
-                link = {url: "view.php?adminPage=printercosts&desk=" + $_GET('desk')};
-                break;
+            case 'adminSituatedPrinters':
+                link = {url: "view.php?adminPage=dashboard&desk=" + $_GET('desk')};
+                break; //change from dashboard
             case 'adminServiceStatus':
                 link = {url: "view.php?adminPage=servicestatus&desk=" + $_GET('desk')};
                 break;
@@ -78,8 +78,8 @@ $(document).ready(function() {
 
     });
 
-/*
-    $("#addCategoryBtn").fancybox({
+     /*
+    $logDisp.getElementById("#addCategoryBtn").fancybox({
         afterClose: function () {
             loadPage({url: "view.php?adminPage=categories&desk=" + $_GET('desk')}, "#admin_page");
 
@@ -108,16 +108,27 @@ $(document).ready(function() {
 
     });*/
 
+    /*
     switch(cat)
     {
         case "#refreshUsers": url= "dashboard"; break;
     }
+    */
     $logDisp.on('click', "#refreshUsers", function (event) {
         loadPage({url: "view.php?adminPage=dashboard&desk=" + $_GET('desk')}, "#admin_page");
     });
     $logDisp.on('click', "#refreshCategories", function (event) {
         loadPage({url: "view.php?adminPage=categories&desk=" + $_GET('desk')}, "#admin_page");
+    });/*
+    $logDisp.on('click', "#refreshCategories", function (event) {
+        loadPage({url: "view.php?adminPage=categories&desk=" + $_GET('desk')}, "#admin_page");
     });
+    $logDisp.on('click', "#refreshCategories", function (event) {
+        loadPage({url: "view.php?adminPage=categories&desk=" + $_GET('desk')}, "#admin_page");
+    });
+    $logDisp.on('click', "#refreshCategories", function (event) {
+        loadPage({url: "view.php?adminPage=categories&desk=" + $_GET('desk')}, "#admin_page");
+    });*/
 
     $logDisp.on('click', ".removeCategory", function (event) {
 

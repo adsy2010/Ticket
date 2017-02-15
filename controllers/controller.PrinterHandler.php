@@ -9,6 +9,7 @@
 namespace controllers;
 
 
+use databaseClass;
 use models\Cartridge;
 use models\CartridgeLog;
 use models\Printer;
@@ -23,8 +24,11 @@ class PrinterHandler
     /** @var Cartridge[] $cartridges */
     private $cartridges = array();
 
+    private $dbObj;
+
     public function __construct()
     {
+        $this->dbObj = new databaseClass();
         $this->fillData();
     }
 
@@ -37,15 +41,14 @@ class PrinterHandler
     private function loadPrinters()
     {
         $sql = "SELECT * FROM printer";
+        $data = $this->dbObj->runQuery($sql);
 
-        $printers = array("id", "make", "model", "location");
-        foreach ($printers as $p)
+        foreach ($data as $d)
         {
             $printer = new Printer();
-            $printer->setId($p['id']);
-            $printer->setMake($p['make']);
-            $printer->setModel($p['model']);
-            $printer->setLocation($p['location']);
+            $printer->setId($d['id']);
+            $printer->setMake($d['make']);
+            $printer->setModel($d['model']);
             $this->printers[] = $printer;
         }
     }
@@ -150,28 +153,35 @@ class PrinterHandler
         }
     }
 
-    public function removePrinter($id)
+    public function removePrinter(Printer $printer)
     {
-        foreach($this->cartridges as $c)
-        {
-            if($c->getId() == $id) {
-                $c->remove();
-                break;
-            }
-
-        }
+        $printer->remove();
     }
 
-    public function removeCartridge($id)
+    public function removeCartridge(Cartridge $cartridge)
     {
-        foreach($this->printers as $p)
-        {
-            if($p->getId() == $id) {
-                $p->remove();
-                break;
-            }
+        $cartridge->remove();
+    }
 
+    public function getCartridges()
+    {
+        return $this->cartridges;
+    }
+
+    public function getPrinters()
+    {
+        return $this->printers;
+    }
+
+    public function getPrinter($id)
+    {
+        foreach($this->getPrinters() as $printer)
+        {
+            /** @var Printer $printer */
+            if($printer->getId() == $id)
+                return $printer;
         }
+        return false;
     }
 
 }

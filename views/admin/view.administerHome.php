@@ -28,9 +28,10 @@ class administerHome extends Templates implements viewTypes
 
     private function createOptions()
     {
+        /*
         foreach ($this->userHandler->getAuthenticatedUsers() as $authenticatedUser) {
             $authenticatedUser;
-        }
+        }*/
     }
 
     public function display()

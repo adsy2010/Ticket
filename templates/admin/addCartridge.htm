@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log Call</title>
+    <link rel="stylesheet" href="templates/css.css">
+    <link rel="stylesheet" href="templates/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="templates/bootstrap/css/dashboard.css">
+    <script src="templates/scripts/tinymce/js/tinymce/tinymce.min.js"></script>
+    <script>  tinyMCE.init({
+        mode : "textareas",
+        plugins : "spellchecker,insertdatetime,preview",
+
+        menubar:false,
+        statusbar: false,
+        theme_advanced_toolbar_align : "left"
+    });
+    </script>
+    <script type="text/javascript" src="templates/bootstrap/js/ie-emulation-modes-warning.js"></script>
+
+</head>
+
+<body>
+<div class="logBox" style="display: table; margin: 0 auto;">
+    <h1 class="page-header">Add a cartridge</h1>
+    <form action="" method="post">
+        <input type="hidden" name="desk" value="{DESK}"/>
+
+        <div style="display: table-row; padding: 15px;">
+            <label style="display: table-cell; padding: 5px;" for="cartridgeName">Cartridge: </label>
+            <input  style="display: table-cell; padding: 5px;" type="text" id="cartridgeName" name="cartridgeName"/>
+        </div>
+
+        <div style="display: table-row; padding: 15px;">
+            Open or close:
+            <input  style="display: table-cell; padding: 5px;" type="radio" name="openState" value="1"/>Open
+            <input  style="display: table-cell; padding: 5px;" type="radio" name="openState" value="2"/>Close
+        </div>
+
+        <div style="display: table-row">
+            <input class="btn btn-lg btn-default" type="submit" name="submit" value="Add"/>
+        </div>
+        <div id="status">{STATUS}</div>
+    </form>
+</div>
+</body>
+</html>

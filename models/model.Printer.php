@@ -11,7 +11,7 @@ namespace models;
 
 class Printer implements iModels
 {
-    private $id, $location, $make, $model;
+    private $id, $make, $model;
 
     public function __construct()
     {
@@ -19,7 +19,7 @@ class Printer implements iModels
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -27,7 +27,7 @@ class Printer implements iModels
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
     public function setId($id)
     {
@@ -35,23 +35,7 @@ class Printer implements iModels
     }
 
     /**
-     * @return mixed
-     */
-    public function getLocation()
-    {
-        return $this->location;
-    }
-
-    /**
-     * @param mixed $location
-     */
-    public function setLocation($location)
-    {
-        $this->location = $location;
-    }
-
-    /**
-     * @return mixed
+     * @return string
      */
     public function getMake()
     {
@@ -59,7 +43,7 @@ class Printer implements iModels
     }
 
     /**
-     * @param mixed $make
+     * @param string $make
      */
     public function setMake($make)
     {
@@ -67,7 +51,7 @@ class Printer implements iModels
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getModel()
     {
@@ -75,7 +59,7 @@ class Printer implements iModels
     }
 
     /**
-     * @param mixed $model
+     * @param string $model
      */
     public function setModel($model)
     {

@@ -190,155 +190,151 @@
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="55" parent="12" name="location">
+    <column id="55" parent="12" name="make">
       <Position>2</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <column id="56" parent="12" name="make">
+    <column id="56" parent="12" name="model">
       <Position>3</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <column id="57" parent="12" name="model">
-      <Position>4</Position>
-      <DataType>varchar(64)|0</DataType>
-    </column>
-    <index id="58" parent="12" name="printer_id_uindex">
+    <index id="57" parent="12" name="printer_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="59" parent="12" name="PRIMARY">
+    <key id="58" parent="12" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="60" parent="12" name="printer_id_uindex">
+    <key id="59" parent="12" name="printer_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>printer_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="61" parent="13" name="name">
+    <column id="60" parent="13" name="name">
       <Position>1</Position>
       <DataType>varchar(128)|0</DataType>
     </column>
-    <column id="62" parent="13" name="status">
+    <column id="61" parent="13" name="status">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
     </column>
-    <index id="63" parent="13" name="serviceStatus_name_uindex">
+    <index id="62" parent="13" name="serviceStatus_name_uindex">
       <ColNames>name</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="64" parent="13" name="serviceStatus_name_uindex">
+    <key id="63" parent="13" name="serviceStatus_name_uindex">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>serviceStatus_name_uindex</UnderlyingIndexName>
     </key>
-    <column id="65" parent="14" name="id">
+    <column id="64" parent="14" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="66" parent="14" name="userId">
+    <column id="65" parent="14" name="userId">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="67" parent="14" name="logId">
+    <column id="66" parent="14" name="logId">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="68" parent="14" name="commentDateTime">
+    <column id="67" parent="14" name="commentDateTime">
       <Position>4</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="69" parent="14" name="comment">
+    <column id="68" parent="14" name="comment">
       <Position>5</Position>
       <DataType>blob|0</DataType>
     </column>
-    <index id="70" parent="14" name="ticketComments_id_uindex">
+    <index id="69" parent="14" name="ticketComments_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="71" parent="14" name="PRIMARY">
+    <key id="70" parent="14" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="72" parent="14" name="ticketComments_id_uindex">
+    <key id="71" parent="14" name="ticketComments_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>ticketComments_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="73" parent="15" name="logId">
+    <column id="72" parent="15" name="logId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="74" parent="15" name="assignedTo">
+    <column id="73" parent="15" name="assignedTo">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="75" parent="15" name="closedBy">
+    <column id="74" parent="15" name="closedBy">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="76" parent="15" name="closedReason">
+    <column id="75" parent="15" name="closedReason">
       <Position>4</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <column id="77" parent="15" name="content">
+    <column id="76" parent="15" name="content">
       <Position>6</Position>
       <DataType>blob|0</DataType>
     </column>
-    <column id="78" parent="15" name="contentType">
+    <column id="77" parent="15" name="contentType">
       <Position>7</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <column id="79" parent="15" name="location">
+    <column id="78" parent="15" name="location">
       <Position>9</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <column id="80" parent="15" name="loggedBy">
+    <column id="79" parent="15" name="loggedBy">
       <Position>10</Position>
       <DataType>varchar(32)|0</DataType>
     </column>
-    <column id="81" parent="15" name="serviceDesk">
+    <column id="80" parent="15" name="serviceDesk">
       <Position>11</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="82" parent="15" name="status">
+    <column id="81" parent="15" name="status">
       <Position>12</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="83" parent="15" name="ticketDatetime">
+    <column id="82" parent="15" name="ticketDatetime">
       <Position>13</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="84" parent="15" name="closedTime">
+    <column id="83" parent="15" name="closedTime">
       <Position>5</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="85" parent="15" name="department">
+    <column id="84" parent="15" name="department">
       <Position>8</Position>
       <DataType>varchar(32)|0</DataType>
     </column>
-    <column id="86" parent="15" name="priority">
+    <column id="85" parent="15" name="priority">
       <Position>14</Position>
       <DataType>int(11)|0</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <index id="87" parent="15" name="tickets_logId_uindex">
+    <index id="86" parent="15" name="tickets_logId_uindex">
       <ColNames>logId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="88" parent="15" name="PRIMARY">
+    <key id="87" parent="15" name="PRIMARY">
       <ColNames>logId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="89" parent="15" name="tickets_logId_uindex">
+    <key id="88" parent="15" name="tickets_logId_uindex">
       <ColNames>logId</ColNames>
       <UnderlyingIndexName>tickets_logId_uindex</UnderlyingIndexName>
     </key>
