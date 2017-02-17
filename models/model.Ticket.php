@@ -323,15 +323,36 @@ class Ticket implements iModels
      *
      * @param int $type Set to 1 if call is resolved
      */
-    private function email($type)
+    private function email($state)
     {
         $email = "itservices@mountbatten.hants.sch.uk"; //replace with authorised users email addresses
         $to="{$email}";
-        $subject="Helpdesk call logged by {$this->getLoggedBy()}";
+        //$subject="Helpdesk call {$this->getId()} {$type} by {$this->getLoggedBy()}";
         $message="";
 
-        $template = ($type == 1) ? "resolvedEmail.htm" : "logEmail.htm";
-        $content = Definitions::render("templates/{$template}",
+        $currentUser = $_SESSION['username'];
+
+        $templates = array(
+            "RESOLVED"  => array(
+                    "TEMPLATE" => "resolvedEmail.htm",
+                    "SUBJECTLINE" => "{$state} - Helpdesk call {ID} by {USERNAME}"
+                ),
+            "LOGGED"    => array(
+                    "TEMPLATE" => "logEmail.htm",
+                    "SUBJECTLINE" => "{$state} - Helpdesk call {ID} by {USERNAME}"
+                ),
+            "UPDATED"   => array(
+                    "TEMPLATE" => "updatedEmail.htm",
+                    "SUBJECTLINE" => "{$state} - Helpdesk call {ID} by {USERNAME}"
+                ),
+            "ASSIGNED"  => array(
+                    "TEMPLATE" => "assignedEmail.htm",
+                    "SUBJECTLINE" => "{$state} - Helpdesk call {ID} to {USERNAME}"
+                )
+        );
+
+        //$template = ($type == 1) ? "resolvedEmail.htm" : "logEmail.htm";
+        $content = Definitions::render("templates/{$templates[$state]['TEMPLATE']}",
             array(
                 "LOGGEDBY"          => $this->getLoggedBy(),
                 "LOGGEDDATETIME"    => $this->getTime(),
@@ -347,6 +368,6 @@ class Ticket implements iModels
                   'Content-type: text/html; charset=iso-8859-1' . "\r\n".
                   "From: Adam Wright <mailrelay@mountbatten.hants.sch.uk>" . "\r\n";
 
-        mail("adam.wright@mountbatten.hants.sch.uk","Test Email",$content, $header);
+        mail("adam.wright@mountbatten.hants.sch.uk",$templates[$state]["SUBJECTLINE"],$content, $header);
     }
 }

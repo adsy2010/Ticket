@@ -55,7 +55,7 @@ $(document).ready(function() {
                 link = {url: "view.php?adminPage=printers&desk=" + $_GET('desk')};
                 break;
             case 'adminSituatedPrinters':
-                link = {url: "view.php?adminPage=dashboard&desk=" + $_GET('desk')};
+                link = {url: "view.php?adminPage=situatedprinter&desk=" + $_GET('desk')};
                 break; //change from dashboard
             case 'adminServiceStatus':
                 link = {url: "view.php?adminPage=servicestatus&desk=" + $_GET('desk')};

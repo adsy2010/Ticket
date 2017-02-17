@@ -203,6 +203,13 @@ class TicketHandler
         }
     }
 
+    public function assignUserToTicket($id, $authUser, $assigner)
+    {
+        $ticket = $this->getTicket($id);
+        $ticket->setAssignedTo($authUser);
+
+    }
+
     /**
      * @return Ticket[] Returns an array of Ticket objects
      */

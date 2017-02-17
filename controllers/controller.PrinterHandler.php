@@ -12,6 +12,7 @@ namespace controllers;
 use databaseClass;
 use models\Cartridge;
 use models\CartridgeLog;
+use models\Definitions;
 use models\Printer;
 use Exception;
 
@@ -182,6 +183,23 @@ class PrinterHandler
                 return $printer;
         }
         return false;
+    }
+
+    public function renderPrinterSelectList()
+    {
+        $template = "<option value='{ID}'>{MAKE} - {MODEL}</option>";
+
+        $printerList = array();
+
+        foreach ($this->getPrinters() as $printer)
+            $printerList[] = Definitions::render($template, array(
+                "ID" => $printer->getId(),
+                "MAKE" => $printer->getMake(),
+                "MODEL" => $printer->getModel()
+            ));
+
+        return implode("\r\n", $printerList);
+
     }
 
 }

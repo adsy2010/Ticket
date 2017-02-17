@@ -1,0 +1,31 @@
+<h1 class="page-header">Situated Printers
+    <div class="pull-right">
+        <a href="#" id="refreshSituatedPrinter" class="btn btn-lg"><span class="glyphicon glyphicon-refresh"></span></a>
+        <a href="view.php?adminPage=addSituatedPrinter&desk={DESK}" id="addPrinterBtn" class="btn btn-sm btn-success fancybox" rel="group2" data-fancybox-type="iframe"><span class="glyphicon glyphicon-user"></span> Add Situated Printer <span class="glyphicon glyphicon-plus"></span></a>
+    </div>
+</h1>
+<p>
+    Situated printers need a base printer template to be created with.
+    This means that a printer must be added to the list of Printers before a situated
+    printer can be added.
+</p>
+<form method="post">
+
+    <table class="table table-responsive table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Location</th>
+            <th>Costing Department</th>
+            <th>Exemption Status</th>
+            <th>Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        {PRINTERROWS}
+        </tbody>
+    </table>
+
+</form>

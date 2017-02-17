@@ -13,6 +13,7 @@ require_once "models/model.ServiceStatus.php";
 require_once "models/model.Category.php";
 require_once "models/model.Cartridge.php";
 require_once "models/model.Printer.php";
+require_once "models/model.SituatedPrinter.php";
 require_once "models/model.CartridgeLog.php";
 require_once "models/model.Comment.php";
 require_once "models/model.Ticket.php";
@@ -36,6 +37,7 @@ require_once "views/admin/view.adminAddCategories.php";
 require_once "views/admin/view.adminAddCartridge.php";
 require_once "views/admin/view.adminAddPrinter.php";
 require_once "views/admin/view.adminAddStatus.php";
+require_once "views/admin/view.adminAddSituatedPrinter.php";
 
 require_once "views/admin/view.adminCategories.php";
 require_once "views/admin/view.adminDashboard.php";
@@ -43,5 +45,6 @@ require_once "views/admin/view.adminCartridges.php";
 require_once "views/admin/view.adminPrinters.php";
 require_once "views/admin/view.adminReports.php";
 require_once "views/admin/view.adminServiceStatus.php";
+require_once "views/admin/view.adminSituatedPrinter.php";
 require_once "views/admin/view.administerHome.php";
 

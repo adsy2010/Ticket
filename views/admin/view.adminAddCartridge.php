@@ -57,7 +57,8 @@ class adminAddCartridge extends Templates implements viewTypes
         return Definitions::render($this->getLocation().$this->getFileName(),
             array(
                 "STATUS" => $state,
-                "DESK" => $this->getDesk()
+                "DESK" => $this->getDesk(),
+                "PRINTERS" => $this->printerHandler->renderPrinterSelectList()
             )
         );
     }

@@ -22,38 +22,31 @@
 
 <body>
 <div class="logBox" style="display: table; margin: 0 auto;">
-    <h1 class="page-header">Add a cartridge</h1>
+    <h1 class="page-header">Add a situated printer</h1>
     <form action="" method="post">
         <input type="hidden" name="desk" value="{DESK}"/>
 
         <div style="display: table-row; padding: 15px;">
-            <label style="display: table-cell; padding: 5px;" for="cartridgePrinter">Printer: </label>
-            <select style="display: table-cell; padding: 5px;" type="text" id="cartridgePrinter" name="cartridgePrinter">
+            <label style="display: table-cell; padding: 5px;" for="situatedPrinter">Printer: </label>
+            <select style="display: table-cell; padding: 5px;" type="text" id="situatedPrinter" name="situatedPrinter">
                 <option>Please select...</option>
                 {PRINTERS}
             </select>
         </div>
 
         <div style="display: table-row; padding: 15px;">
-            <label style="display: table-cell; padding: 5px;" for="cartridgeName">Model: </label>
-            <input  style="display: table-cell; padding: 5px;" type="text" id="cartridgeName" name="cartridgeName"/>
+            <label style="display: table-cell; padding: 5px;" for="situatedPrinterLocation">Location: </label>
+            <input  style="display: table-cell; padding: 5px;" type="text" id="situatedPrinterLocation" name="situatedPrinterLocation"/>
         </div>
 
         <div style="display: table-row; padding: 15px;">
-            <label style="display: table-cell; padding: 5px;" for="cartridgeColor">Colour: </label>
-            <input  style="display: table-cell;" type="color" id="cartridgeColor" name="cartridgeColor"/>
+            <label style="display: table-cell; padding: 5px;" for="situatedPrinterCostDept">Costing Department: </label>
+            <input  style="display: table-cell; padding: 5px;" type="text" id="situatedPrinterCostDept" name="situatedPrinterCostDept"/>
         </div>
 
         <div style="display: table-row; padding: 15px;">
-            <label style="display: table-cell; padding: 5px;" for="cartridgeStock">Stock: </label>
-            <input  style="display: table-cell; padding: 5px;" type="number" id="cartridgeStock" name="cartridgeStock"/>
-        </div>
-
-        <div style="display: table-row; margin-top: 2px; padding: 15px;">
-            <label style="display: table-cell; padding: 5px;" for="cartridgeCost">Cost: </label>
-            <span class="currencyinput">£
-                <input  style="display: table-cell; padding: 1px;" type="number" min=0.01 step="any" id="cartridgeCost" name="cartridgeCost"/>
-            </span>
+            <label style="display: table-cell; padding: 5px;" for="situatedPrinterExemption">Cost Exemption: </label>
+            <input  style="display: table-cell; padding: 5px;" type="text" id="situatedPrinterExemption" name="situatedPrinterExemption"/>
         </div>
 
         <div style="display: table-row">

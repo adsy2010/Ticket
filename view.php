@@ -36,18 +36,19 @@ switch (@$_GET['view'])
 
 switch (@$_GET['adminPage'])
 {
-    case 'dashboard': $viewObj  = new view\adminDashboard($desk); break;
-    case 'cartridges': $viewObj = new view\adminCartridges($desk); break;
-    case 'categories': $viewObj = new view\adminCategories($desk); break;
-    case 'printers': $viewObj   = new view\adminPrinters($desk); break;
-    case 'printcosts': $viewObj = new view\adminPrinterCosts($desk); break;
-    case 'reports': $viewObj    = new view\adminReports($desk); break;
-    case 'servicestatus': $viewObj = new view\adminServiceStatus($desk); break;
-    case 'addUser': $viewObj    = new view\adminAddUser($desk); break;
-    case 'addCategory': $viewObj = new view\adminAddCategories($desk); break;
-    case 'addPrinter': $viewObj = new view\adminAddPrinter($desk); break;
-    case 'addCartridge': $viewObj = new view\adminAddCartridge($desk); break;
-    case 'addStatus': $viewObj = new view\adminAddStatus($desk); break;
+    case 'dashboard': $viewObj          = new view\adminDashboard($desk); break;
+    case 'cartridges': $viewObj         = new view\adminCartridges($desk); break;
+    case 'categories': $viewObj         = new view\adminCategories($desk); break;
+    case 'printers': $viewObj           = new view\adminPrinters($desk); break;
+    case 'situatedprinter': $viewObj    = new view\adminSituatedPrinter($desk); break;
+    case 'reports': $viewObj            = new view\adminReports($desk); break;
+    case 'servicestatus': $viewObj      = new view\adminServiceStatus($desk); break;
+    case 'addUser': $viewObj            = new view\adminAddUser($desk); break;
+    case 'addCategory': $viewObj        = new view\adminAddCategories($desk); break;
+    case 'addPrinter': $viewObj         = new view\adminAddPrinter($desk); break;
+    case 'addCartridge': $viewObj       = new view\adminAddCartridge($desk); break;
+    case 'addStatus': $viewObj          = new view\adminAddStatus($desk); break;
+    case 'addSituatedPrinter': $viewObj = new view\adminAddSituatedPrinter($desk); break;
 }
 
 if($viewObj == null)
