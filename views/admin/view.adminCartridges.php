@@ -51,7 +51,7 @@ class adminCartridges extends Templates implements viewTypes
 
     private function renderCartridgeRows()
     {
-        $cartridgeRowTpl = Definitions::render($this->getLocation()."admin/cartridgeRow.tpl");
+        $cartridgeRowTpl = Definitions::render($this->getLocation()."admin/cartridgesRow.tpl");
         $cartridgeRowList = array();
 
         foreach ($this->getCartridges() as $cartridge)
@@ -60,11 +60,18 @@ class adminCartridges extends Templates implements viewTypes
             $cartridgeRowList[] = Definitions::render($cartridgeRowTpl,
                 array(
                     "ID"            => $cartridge->getId(),
-                    "CATEGORY"      => $cartridge->getName()
+                    "NAME"          => $cartridge->getName(),
+                    "STOCK"         => $cartridge->getStock(),
+                    "COST"          => $cartridge->getCost(),
+                    "BLACK"         => ($cartridge->getColor() == "black") ? "SELECTED" : "",
+                    "YELLOW"        => ($cartridge->getColor() == "yellow") ? "SELECTED" : "",
+                    "CYAN"          => ($cartridge->getColor() == "cyan") ? "SELECTED" : "",
+                    "MAGENTA"       => ($cartridge->getColor() == "magenta") ? "SELECTED" : "",
+                    "PRINTERS"      => $this->printerHandler->renderPrinterSelectList($cartridge->getPrinterID())
                 ));
         }
 
-        return (!empty($catRowList)) ? implode("\r\n", $catRowList) : "";
+        return (!empty($cartridgeRowList)) ? implode("\r\n", $cartridgeRowList) : "";
     }
 
     private function posted()

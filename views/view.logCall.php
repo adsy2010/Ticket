@@ -15,12 +15,14 @@ use models\Definitions;
 use models\Templates;
 
 use Exception;
+use models\Ticket;
 
 class logCall extends Templates implements viewTypes
 {
     private $ticketHandler;
     private $desk;
 
+    private $savedTicket;
 
     public function __construct($desk)
     {
@@ -29,6 +31,23 @@ class logCall extends Templates implements viewTypes
         $this->setFileName("log.php");
         $this->setDesk($desk);
         $this->ticketHandler = new ticketHandler();
+    }
+
+
+    /**
+     * @return Ticket
+     */
+    public function getSavedTicket()
+    {
+        return $this->savedTicket;
+    }
+
+    /**
+     * @param mixed $savedTicket
+     */
+    public function setSavedTicket($savedTicket)
+    {
+        $this->savedTicket = $savedTicket;
     }
 
     /**
@@ -58,12 +77,27 @@ class logCall extends Templates implements viewTypes
             );
             print_r($_POST);
 
+            $ticket = new Ticket();
+            $ticket->setLoggedBy($loggedBy);
+            $ticket->setStatus($status);
+            $ticket->setLocation($location);
+            $ticket->setContent($content);
+            $ticket->setContentType($contentType);
+            $ticket->setDepartment($department);
+            $ticket->setServiceDesk($serviceDesk);
+
+            $this->setSavedTicket($ticket); //only used if something goes wrong
+
             foreach($vars as $var)
                 if(!isset($$var) || empty($$var))
                     throw new Exception("Some submitted data is missing. The value <strong>{$var}</strong> has been flagged.");
 
+
             //time not required, worked out by MySQL
+
             //status not required, default value in place
+
+            $this->setSavedTicket(null);
 
             /*
             $this->ticketHandler->addTicket(
@@ -137,7 +171,8 @@ class logCall extends Templates implements viewTypes
                 "DESK" => $this->getDesk(),
                 "STATUS" => $state,
                 "CATEGORIES" => $this->renderCatList(),
-                "USERNAME" => $_SESSION['username']
+                "USERNAME" => $_SESSION['username'],
+                "CONTENT" => ($this->getSavedTicket() != null)? $this->getSavedTicket()->getContent() : ""
             ));
 
     }

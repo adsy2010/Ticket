@@ -9,9 +9,24 @@
 namespace models;
 
 
+use databaseClass;
+
 class Printer implements iModels
 {
     private $id, $make, $model;
+
+    /**
+     * @var databaseClass $dbObj
+     */
+    private $dbObj;
+
+    /**
+     * @param databaseClass $dbObj
+     */
+    public function setDbObj($dbObj)
+    {
+        $this->dbObj = $dbObj;
+    }
 
     public function __construct()
     {
@@ -66,18 +81,41 @@ class Printer implements iModels
         $this->model = $model;
     }
 
+    /**
+     * Adds a Printer to the database
+     */
     public function add()
     {
-        $sql = "INSERT INTO printer (make,model,location) VALUES (?,?,?)";
+        $sql = "INSERT INTO printer (make,model) VALUES (?,?)";
+        $this->dbObj->runQuery($sql, array(
+            $this->getMake(),
+            $this->getModel()
+        ));
     }
 
+    /**
+     * Updates Printer information in the database
+     */
     public function save()
     {
-        $sql = "UPDATE printer SET make=?, model=?, location=? WHERE id=?";
+        $sql = "UPDATE printer SET make=?, model=? WHERE id=?";
+        $this->dbObj->runQuery($sql,
+            array(
+                $this->getMake(),
+                $this->getModel(),
+                $this->getId()
+        ));
     }
 
+    /**
+     * Removes a Printer from the database
+     */
     public function remove()
     {
         $sql = "DELETE FROM printer WHERE id=?";
+        $this->dbObj->runQuery($sql,
+            array(
+                $this->getId()
+            ));
     }
 }

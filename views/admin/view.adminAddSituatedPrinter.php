@@ -12,6 +12,7 @@ use controller\UserHandler;
 use controllers\PrinterHandler;
 use Exception;
 use models\Definitions;
+use models\SituatedPrinter;
 use models\Templates;
 use models\User;
 
@@ -41,24 +42,30 @@ class adminAddSituatedPrinter extends Templates implements viewTypes
         $finalState = "Successfully added to the database";
         try
         {
-            /*
-            $username = $_POST['username'];
-            $emailAddress = $_POST['emailAddress'];
-            $userCol = $_POST['userCol'];
-            $desk = $_POST['desk'];
+            $situatedPrinter = $_POST['situatedPrinter']; //ID
+            $situatedPrinterLocation = $_POST['situatedPrinterLocation'];
+            $situatedPrinterCostDept = $_POST['situatedPrinterCostDept'];
+            //$situatedPrinterExemption = $_POST['situatedPrinterExemption'];
 
             $vars = array(
-                "username",
-                "emailAddress",
-                "userCol"
+                "situatedPrinter",
+                "situatedPrinterLocation",
+                "situatedPrinterCostDept"
+
             );
 
             foreach($vars as $var)
                 if(empty($$var))
                     throw new Exception("Some submitted data is missing. The value <strong>{$var}</strong> has been flagged.");
 
-            $this->userHandler->addUser(new User($username,$emailAddress,$userCol,$desk));
-            */
+            $situatedP = new SituatedPrinter();
+            $situatedP->setPrinterId($situatedPrinter);
+            $situatedP->setLocation($situatedPrinterLocation);
+            $situatedP->setCostDepartment($situatedPrinterCostDept);
+            //$situatedP->setExemption($situatedPrinterExemption);
+
+            $this->printerHandler->addSituatedPrinter($situatedP);
+
         }
         catch (Exception $e)
         {
@@ -86,7 +93,8 @@ class adminAddSituatedPrinter extends Templates implements viewTypes
         return Definitions::render($this->getLocation().$this->getFileName(),
             array(
                 "STATUS" => $state,
-                "DESK" => $this->getDesk()
+                "DESK" => $this->getDesk(),
+                "PRINTERS" => $this->printerHandler->renderPrinterSelectList()
             )
         );
 

@@ -133,16 +133,8 @@ class TicketHandler
      * @param $department
      * @param $serviceDesk
      */
-    public function addTicket($loggedBy, $status, $location, $content, $contentType, $department, $serviceDesk)
+    public function addTicket(Ticket $ticket)
     {
-        $ticket = new Ticket();
-        $ticket->setLoggedBy($loggedBy);
-        $ticket->setStatus($status);
-        $ticket->setLocation($location);
-        $ticket->setContent($content);
-        $ticket->setContentType($contentType);
-        $ticket->setDepartment($department);
-        $ticket->setServiceDesk($serviceDesk);
         $ticket->setDbobj($this->dbObj);
         $ticket->add();
     }

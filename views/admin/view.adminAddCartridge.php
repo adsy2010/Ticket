@@ -10,6 +10,8 @@ namespace view;
 
 
 use controllers\PrinterHandler;
+use Exception;
+use models\Cartridge;
 use models\Definitions;
 use models\Templates;
 
@@ -44,7 +46,41 @@ class adminAddCartridge extends Templates implements viewTypes
 
     public function posted()
     {
+        $finalState = "Successfully added to the database";
+        try {
+            $cartridgePrinter = $_POST['cartridgePrinter'];
+            $cartridgeName = $_POST['cartridgeName'];
+            $cartridgeColor = $_POST['cartridgeColor'];
+            $cartridgeStock = $_POST['cartridgeStock'];
+            $cartridgeCost = $_POST['cartridgeCost'];
 
+            $vars = array(
+                "cartridgePrinter",
+                "cartridgeName",
+                "cartridgeColor",
+                "cartridgeStock",
+                "cartridgeCost"
+            );
+
+            foreach($vars as $var)
+                if(empty($$var))
+                    throw new Exception("Some submitted data is missing. The value <strong>{$var}</strong> has been flagged.");
+
+            $cartridge = new Cartridge();
+            $cartridge->setPrinterID($cartridgePrinter);
+            $cartridge->setName($cartridgeName);
+            $cartridge->setColor($cartridgeColor);
+            $cartridge->setStock($cartridgeStock);
+            $cartridge->setCost($cartridgeCost);
+
+            $this->printerHandler->addCartridge($cartridge);
+
+        }
+        catch (Exception $e)
+        {
+            $finalState = $e->getMessage();
+        }
+        return $finalState;
     }
 
     public function display()

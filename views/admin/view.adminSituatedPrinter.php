@@ -10,6 +10,7 @@ namespace view;
 use controller\UserHandler;
 use controllers\PrinterHandler;
 use models\Definitions;
+use models\SituatedPrinter;
 use models\Templates;
 use models\User;
 
@@ -46,34 +47,39 @@ class adminSituatedPrinter extends Templates implements viewTypes
         $this->desk = $desk;
     }
 
-    /*
-    private function renderAuthUsers()
+    private function getSituatedPrinters()
     {
-        $authUsersTpl = Definitions::render($this->getLocation()."admin/authUser.tpl");
-        $authUsersList = array();
-        foreach ($this->getAuthUsers() as $authUser)
+        return $this->printerHandler->getSituatedPrinters();
+    }
+
+    private function renderSituatedPrinters()
+    {
+        $situatedPrintersRowTpl = Definitions::render($this->getLocation()."admin/situatedRow.tpl");
+        $situatedRowList = array();
+
+        foreach ($this->getSituatedPrinters() as $situatedPrinter)
         {
-            /** @var User $authUser *//*
-            if($authUser->getServiceDesk() == $this->getDesk())
-            {
-                $authUsersList[] = Definitions::render($authUsersTpl,
-                    array(
-                        "ID"            => $authUser->getId(),
-                        "USERNAME"      => $authUser->getUsername(),
-                        "EMAILADDRESS"  => $authUser->getEmail(),
-                        "COLOR"         => $authUser->getColor()
-                    ));
-            }
+            /** @var SituatedPrinter $cartridge */
+            $situatedRowList[] = Definitions::render($situatedPrintersRowTpl,
+                array(
+                    "ID"            => $situatedPrinter->getId(),
+                    "MAKE"          => $situatedPrinter->getMake(),
+                    "MODEL"         => $situatedPrinter->getModel(),
+                    "LOCATION"      => $situatedPrinter->getLocation(),
+                    "COSTDEPT"      => $situatedPrinter->getCostDepartment(),
+                    "EXEMPT"        => $situatedPrinter->getExemption()
+                ));
         }
 
-        return (!empty($authUsersList)) ? implode("\r\n", $authUsersList) : "";
-    }*/
+        return (!empty($situatedRowList)) ? implode("\r\n", $situatedRowList) : "";
+    }
 
     public function display()
     {
         $template = Definitions::render($this->getLocation().$this->getFileName(),
             array(
-                "DESK" => $this->getDesk()
+                "DESK" => $this->getDesk(),
+                "PRINTERROWS" => $this->renderSituatedPrinters()
                 ));
 
         return $template;

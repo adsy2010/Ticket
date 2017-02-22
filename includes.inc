@@ -9,6 +9,7 @@ require_once "models/Definitions.php";
 
 //models
 require_once "models/iModels.php";
+require_once "models/model.Department.php";
 require_once "models/model.ServiceStatus.php";
 require_once "models/model.Category.php";
 require_once "models/model.Cartridge.php";
@@ -39,6 +40,7 @@ require_once "views/admin/view.adminAddPrinter.php";
 require_once "views/admin/view.adminAddStatus.php";
 require_once "views/admin/view.adminAddSituatedPrinter.php";
 
+//admin pages
 require_once "views/admin/view.adminCategories.php";
 require_once "views/admin/view.adminDashboard.php";
 require_once "views/admin/view.adminCartridges.php";
@@ -47,4 +49,5 @@ require_once "views/admin/view.adminReports.php";
 require_once "views/admin/view.adminServiceStatus.php";
 require_once "views/admin/view.adminSituatedPrinter.php";
 require_once "views/admin/view.administerHome.php";
+require_once "views/admin/view.adminDepartments.php";
 

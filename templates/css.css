@@ -105,7 +105,7 @@ select { overflow:auto; }
 .undisplay { visibility: hidden; }
 
 .currencyinput {
-    border: 1px inset #ccc;
+    border: 0px inset #ccc;
 }
 .currencyinput input {
     border: 0;

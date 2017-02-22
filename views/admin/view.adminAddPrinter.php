@@ -9,7 +9,9 @@
 namespace view;
 
 use controllers\PrinterHandler;
+use Exception;
 use models\Definitions;
+use models\Printer;
 use models\Templates;
 
 class adminAddPrinter extends Templates implements viewTypes
@@ -43,7 +45,32 @@ class adminAddPrinter extends Templates implements viewTypes
 
     public function posted()
     {
+        $finalState = "Successfully added to the database";
+        try {
+            $printerMake = $_POST['printerMake'];
+            $printerModel = $_POST['printerModel'];
 
+            $vars = array(
+                "printerMake",
+                "printerModel"
+            );
+
+            foreach($vars as $var)
+                if(empty($$var))
+                    throw new Exception("Some submitted data is missing. The value <strong>{$var}</strong> has been flagged.");
+
+            $printer = new Printer();
+            $printer->setMake($printerMake);
+            $printer->setModel($printerModel);
+
+            $this->printerHandler->addPrinter($printer);
+
+        }
+        catch (Exception $e)
+        {
+            $finalState = $e->getMessage();
+        }
+        return $finalState;
     }
 
     public function display()

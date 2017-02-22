@@ -14,6 +14,9 @@ namespace models;
  * Remove
  * Update/Change
  *
+ * Although not interface related, dbObj must be passed to an object when a
+ * change transaction is required such as adding or removing from the database
+ *
  * Interface iModels
  * @package models
  */

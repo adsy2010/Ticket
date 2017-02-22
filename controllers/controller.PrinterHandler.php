@@ -15,6 +15,7 @@ use models\CartridgeLog;
 use models\Definitions;
 use models\Printer;
 use Exception;
+use models\SituatedPrinter;
 
 class PrinterHandler
 {
@@ -25,20 +26,52 @@ class PrinterHandler
     /** @var Cartridge[] $cartridges */
     private $cartridges = array();
 
+    /** @var SituatedPrinter[] $situatedPrinters  */
+    private $situatedPrinters = array();
+
     private $dbObj;
 
     public function __construct()
     {
         $this->dbObj = new databaseClass();
-        $this->fillData();
+        $this->fillData(); //loads printer database into memory
     }
 
+    /**
+     * Loads all data the printer handler might need.
+     */
     private function fillData()
     {
         $this->loadPrinters();
         $this->loadCartridges();
+        $this->loadSituatedPrinters();
     }
 
+    /**
+     * Loads situated printers
+     */
+    private function loadSituatedPrinters()
+    {
+        $sql = "SELECT situatedprinter.*, printer.make, printer.model FROM situatedprinter INNER JOIN printer ON situatedprinter.printerId=printer.id";
+        $data = $this->dbObj->runQuery($sql);
+
+        foreach ($data as $d)
+        {
+            $situatedPrinter = new SituatedPrinter();
+            $situatedPrinter->setId($d['id']);
+            $situatedPrinter->setPrinterId($d['printerId']);
+            $situatedPrinter->setMake($d['make']);
+            $situatedPrinter->setModel($d['model']);
+            $situatedPrinter->setLocation($d['location']);
+            $situatedPrinter->setExemption($d['exemption']);
+            $situatedPrinter->setCostDepartment($d['costingdepartment']);
+            $this->situatedPrinters[] = $situatedPrinter;
+        }
+    }
+
+    /**
+     * Loads printers
+     */
     private function loadPrinters()
     {
         $sql = "SELECT * FROM printer";
@@ -54,22 +87,28 @@ class PrinterHandler
         }
     }
 
+    /**
+     * Loads cartridges
+     */
     private function loadCartridges()
     {
         $sql = "SELECT * FROM cartridge";
-
-        $cartridges = array("name", "cost", "stock", "color", "printerID");
-        foreach ($cartridges as $c)
+        $data = $this->dbObj->runQuery($sql);
+        //$cartridges = array("name", "cost", "stock", "color", "printerID");
+        foreach ($data as $c)
         {
             $cartridge = new Cartridge();
+            $cartridge->setId($c['id']);
             $cartridge->setName($c['name']);
             $cartridge->setCost($c['cost']);
             $cartridge->setStock($c['stock']);
             $cartridge->setColor($c['color']);
-            $cartridge->setPrinterID($c['printerID']);
+            $cartridge->setPrinterID($c['printerId']);
             $this->cartridges[] = $cartridge;
         }
     }
+
+
 
     public function logCartridge($cartridgeId, $userId)
     {
@@ -90,25 +129,41 @@ class PrinterHandler
         $cartridgeLog->save();
     }
 
-    public function addPrinter($make, $model, $location)
+
+    /**
+     * Adds a printer to the database
+     *
+     * @param Printer $printer
+     */
+    public function addPrinter(Printer $printer)
     {
-        $printer = new Printer();
-        $printer->setMake($make);
-        $printer->setModel($model);
-        $printer->setLocation($location);
+        $printer->setDbObj($this->dbObj);
         $printer->add();
     }
 
-    public function addCartridge($name, $cost, $stock, $color, $printerID)
+    /**
+     * Adds a Printers Cartridge to the database
+     *
+     * @param Cartridge $cartridge
+     */
+    public function addCartridge(Cartridge $cartridge)
     {
-        $cartridge = new Cartridge();
-        $cartridge->setName($name);
-        $cartridge->setCost($cost);
-        $cartridge->setStock($stock);
-        $cartridge->setColor($color);
-        $cartridge->setPrinterID($printerID);
+        $cartridge->setDbObj($this->dbObj);
         $cartridge->add();
     }
+
+    /**
+     * Adds a Situated Printer to the database
+     *
+     * @param SituatedPrinter $situatedPrinter
+     */
+    public function addSituatedPrinter(SituatedPrinter $situatedPrinter)
+    {
+        $situatedPrinter->setDbObj($this->dbObj);
+        $situatedPrinter->add();
+    }
+
+
 
     public function changeCartridgeCost($id, $cost)
     {
@@ -169,11 +224,42 @@ class PrinterHandler
         return $this->cartridges;
     }
 
+    /**
+     * @return SituatedPrinter[]
+     */
+    public function getSituatedPrinters()
+    {
+        return $this->situatedPrinters;
+    }
+
+    public function getSituatedPrinter($id)
+    {
+        foreach($this->getSituatedPrinters() as $situatedPrinter)
+        {
+            /** @var Printer $printer */
+            if($situatedPrinter->getId() == $id)
+                return $situatedPrinter;
+        }
+        return false;
+    }
+
+    /**
+     * Returns a list of all Printer objects
+     *
+     * @return Printer[] List of all printer objects
+     */
     public function getPrinters()
     {
         return $this->printers;
     }
 
+    /**
+     * Returns a Printer object determined by the identifier supplied or
+     * false if it doesn't exist
+     *
+     * @param int $id Numerical identifier for a printer
+     * @return bool|Printer Returns false if identifier doesn't exist else returns Printer Object
+     */
     public function getPrinter($id)
     {
         foreach($this->getPrinters() as $printer)
@@ -185,9 +271,19 @@ class PrinterHandler
         return false;
     }
 
-    public function renderPrinterSelectList()
+    /**
+     * Returns a list of printers as HTML <option>, optionally highlighting a selected printer
+     *
+     * @param null $highlighted the ID of the printer to be selected by default
+     * @return string rendered list of printers as options
+     */
+    public function renderPrinterSelectList($highlighted = null)
     {
-        $template = "<option value='{ID}'>{MAKE} - {MODEL}</option>";
+        $template = "<option value='{ID}' {HIGHLIGHT}>{MAKE} - {MODEL}</option>";
+
+        //Ignore this entry if it wasn't passed
+        if($highlighted == null)
+            $template = str_replace("{HIGHLIGHT}", "", $template);
 
         $printerList = array();
 
@@ -195,11 +291,43 @@ class PrinterHandler
             $printerList[] = Definitions::render($template, array(
                 "ID" => $printer->getId(),
                 "MAKE" => $printer->getMake(),
-                "MODEL" => $printer->getModel()
+                "MODEL" => $printer->getModel(),
+                "HIGHLIGHT" => ($highlighted == $printer->getId()) ? "SELECTED" : ""
             ));
 
         return implode("\r\n", $printerList);
 
     }
 
+    //Used for reports
+
+    /**
+     * Returns the number of printers tracked by the database
+     *
+     * @return int Number of printers
+     */
+    public function getPrinterCount()
+    {
+        return count($this->printers);
+    }
+
+    /**
+     * Returns the number of cartridges tracked by the database
+     *
+     * @return int Number of cartridges
+     */
+    public function getCartridgeCount()
+    {
+        return count($this->cartridges);
+    }
+
+    /**
+     * Returns the number of deployed printers tracked by the database
+     *
+     * @return int Number of deployed printers
+     */
+    public function getSituatedPrinterCount()
+    {
+        return count($this->situatedPrinters);
+    }
 }

@@ -9,9 +9,24 @@
 namespace models;
 
 
+use databaseClass;
+
 class Cartridge implements iModels
 {
     private $id, $name, $cost, $stock, $color, $printerID;
+
+    /**
+     * @var databaseClass $dbObj
+     */
+    private $dbObj;
+
+    /**
+     * @param databaseClass $dbObj
+     */
+    public function setDbObj($dbObj)
+    {
+        $this->dbObj = $dbObj;
+    }
 
     /**
      * @return mixed
@@ -109,20 +124,48 @@ class Cartridge implements iModels
         $this->printerID = $printerID;
     }
 
+    /**
+     * Adds a Cartridge to the database associated with a Printer
+     */
     public function add()
     {
         $sql = "INSERT INTO cartridge (name,cost,stock,color,printerID) VALUES (?,?,?,?,?)";
-
+        $this->dbObj->runQuery($sql,
+            array(
+                $this->getName(),
+                $this->getCost(),
+                $this->getStock(),
+                $this->getColor(),
+                $this->getPrinterID()
+            ));
     }
 
+    /**
+     * Updates a Cartridge in the database
+     */
     public function save()
     {
-        $sql = "UPDATE cartridge SET name=?, cost=?, stock=?, color=? WHERE id=?";
+        $sql = "UPDATE cartridge SET name=?, cost=?, stock=?, color=?, printerId=? WHERE id=?";
+        $this->dbObj->runQuery($sql,
+            array(
+                $this->getName(),
+                $this->getCost(),
+                $this->getStock(),
+                $this->getColor(),
+                $this->getPrinterID(),
+                $this->getId()
+            ));
     }
 
+    /**
+     * Removes a Cartridge from the database
+     */
     public function remove()
     {
         $sql = "DELETE FROM cartridge WHERE id=?";
+        $this->dbObj->runQuery($sql, array(
+            $this->getId()
+        ));
     }
 
 }
