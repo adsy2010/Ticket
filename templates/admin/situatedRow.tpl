@@ -1,9 +1,13 @@
 <tr id="{ID}">
     <td>{ID}</td>
-    <td><p class="situatedMake" contenteditable="true">{MAKE}</p></td>
-    <td><p class="situatedModel" contenteditable="true">{MODEL}</p></td>
+    <td><p class="situatedMake">{MAKE}</p></td>
+    <td><p class="situatedModel">{MODEL}</p></td>
     <td><p class="situatedLocation" contenteditable="true">{LOCATION}</p></td>
-    <td><p class="situatedCostDept" contenteditable="true">{COSTDEPT}</p></td>
+    <td>
+            <select name="situatedCostDept" id="situatedCostDept">
+                {COSTDEPT}
+            </select>
+    </td>
     <td><input class="situatedExemption" type="checkbox" value="{EXEMPT}"></td>
     <td>
         <a href="#" id="remove{ID}" class="removeSituatedPrinter btn btn-danger btn-sm">

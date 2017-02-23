@@ -30,21 +30,7 @@
                 <b>Username: </b>{USERNAME} <br><br>
                 <select title="department" name="department" id="department">
                     <option value="0">Department...</option>
-                    <option value="1">Art</option>
-                    <option value="2">Community</option>
-                    <option value="3">Drama</option>
-                    <option value="4">DT</option>
-                    <option value="5">Finance</option>
-                    <option value="6">HR</option>
-                    <option value="7">Humanities</option>
-                    <option value="8">ICT</option>
-                    <option value="9">Learning Support</option>
-                    <option value="10">Library</option>
-                    <option value="11">MFL</option>
-                    <option value="12">Music</option>
-                    <option value="14">Science</option>
-                    <option value="15">SLT</option>
-                    <option value="16">Support Staff</option>
+                    {DEPARTMENTS}
                 </select>
                 <br/>
                 <select title="category" name="contentType" id="contentType">

@@ -12,6 +12,7 @@ namespace view;
 use controller\TicketHandler as ticketHandler;
 use models\Category;
 use models\Definitions;
+use models\Department;
 use models\Templates;
 
 use Exception;
@@ -160,6 +161,24 @@ class logCall extends Templates implements viewTypes
         return (!empty($catRowList)) ? implode("\r\n", $catRowList) : "";
     }
 
+    private function renderDeptsList()
+    {
+        $deptRowTpl = Definitions::render("<option name={NAME} value={VALUE}>{NAME}</option>");
+        $deptRowList = array();
+
+        foreach ($this->ticketHandler->getDepartments() as $department)
+        {
+            /** @var Department $category */
+            $deptRowList[] = Definitions::render($deptRowTpl,
+                array(
+                    "VALUE" => $department->getId(),
+                    "NAME" => $department->getDepartment(),
+                ));
+        }
+
+        return (!empty($deptRowList)) ? implode("\r\n", $deptRowList) : "";
+    }
+
     public function display()
     {
         $state = ""; //set as not submitted
@@ -172,6 +191,7 @@ class logCall extends Templates implements viewTypes
                 "STATUS" => $state,
                 "CATEGORIES" => $this->renderCatList(),
                 "USERNAME" => $_SESSION['username'],
+                "DEPARTMENTS" => $this->renderDeptsList(),
                 "CONTENT" => ($this->getSavedTicket() != null)? $this->getSavedTicket()->getContent() : ""
             ));
 

@@ -14,6 +14,7 @@ use models\Cartridge;
 use models\Category;
 use models\Comment;
 use models\Definitions;
+use models\Department;
 use models\ServiceStatus;
 use models\Ticket;
 use stdClass;
@@ -23,7 +24,10 @@ class TicketHandler
 
     /** @var Ticket[] $tickets */
     private $tickets = array();
-    /** @var \databaseClass $dbobj */
+
+    private $departments = array();
+
+    /** @var databaseClass $dbobj */
     private $dbObj;
 
     /**
@@ -39,6 +43,7 @@ class TicketHandler
     {
         $this->dbObj = new databaseClass();
         $this->loadTickets($live);
+        $this->loadDepartments();
         //$this->testAddTickets();
     }
 
@@ -52,19 +57,24 @@ class TicketHandler
         //TRUE  : load live tickets into array
         //FALSE : load closed tickets into array
         //NULL  : load all tickets into the array
-        switch ($live)
-        {
-            case FALSE:     $this->tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=:status", array("status"=>"closed")); break;
-            case NULL:      $this->tickets = $this->dbObj->runQuery("SELECT * FROM tickets", null); break;
-            case "x":       break; //this ensures that no queries are run. This is for maintenance such as admin functions
+        switch ($live) {
+            case FALSE:
+                $this->tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=:status", array("status" => "closed"));
+                break;
+            case NULL:
+                $this->tickets = $this->dbObj->runQuery("SELECT * FROM tickets", null);
+                break;
+            case "x":
+                break; //this ensures that no queries are run. This is for maintenance such as admin functions
             case TRUE:
-            DEFAULT:        $this->tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=:status", array("status"=>"open")); break;
+            DEFAULT:
+                $this->tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=:status", array("status" => "open"));
+                break;
         }
 
 
-        if(is_array($this->tickets) && !empty($this->tickets))
-            foreach ($this->tickets as $t)
-            {
+        if (is_array($this->tickets) && !empty($this->tickets))
+            foreach ($this->tickets as $t) {
                 $ticket = new Ticket();
                 $ticket->setId($t['logId']);
                 $ticket->setServiceDesk($t['serviceDesk']);
@@ -83,40 +93,40 @@ class TicketHandler
     }
 
     /**
-    private function testAddTickets()
-    {
-        $t = new Ticket("11:22", "AWT","Server Room", 1);
-        $t->setId(1);
-        $t->setContent("
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Bonum incolumis acies: misera caecitas. Quamquam id quidem licebit iis existimare, qui legerint. Duo Reges: constructio interrete. Occultum facinus esse potuerit, gaudebit; Quae duo sunt, unum facit. Igitur ne dolorem quidem. Itaque hic ipse iam pridem est reiectus; </p>
-            <p>Tamen a proposito, inquam, aberramus. Philosophi autem in suis lectulis plerumque moriuntur. Quantum Aristoxeni ingenium consumptum videmus in musicis? An vero, inquit, quisquam potest probare, quod perceptfum, quod. Illud dico, ea, quae dicat, praeclare inter se cohaerere. Homines optimi non intellegunt totam rationem everti, si ita res se habeat. Quid censes in Latino fore? At cum de plurimis eadem dicit, tum certe de maximis. Portenta haec esse dicit, neque ea ratione ullo modo posse vivi; De ingenio eius in his disputationibus, non de moribus quaeritur. Virtutibus igitur rectissime mihi videris et ad consuetudinem nostrae orationis vitia posuisse contraria. Hanc ergo intuens debet institutum illud quasi signum absolvere. </p>
-            <p>Haec quo modo conveniant, non sane intellego. Quae qui non vident, nihil umquam magnum ac cognitione dignum amaverunt. Eiuro, inquit adridens, iniquum, hac quidem de re; Ita fit cum gravior, tum etiam splendidior oratio. Conferam tecum, quam cuique verso rem subicias; Cave putes quicquam esse verius. Quid autem habent admirationis, cum prope accesseris? Summus dolor plures dies manere non potest? </p>
-            <p>Quod ea non occurrentia fingunt, vincunt Aristonem; An haec ab eo non dicuntur? Non quam nostram quidem, inquit Pomponius iocans; In qua si nihil est praeter rationem, sit in una virtute finis bonorum; Quae cum essent dicta, discessimus. Si enim ad populum me vocas, eum. Quid ergo aliud intellegetur nisi uti ne quae pars naturae neglegatur? Qua tu etiam inprudens utebare non numquam. </p>
-            <p>Immo alio genere; Quid vero? Tu enim ista lenius, hic Stoicorum more nos vexat. Quippe: habes enim a rhetoribus; Conferam tecum, quam cuique verso rem subicias; Quid turpius quam sapientis vitam ex insipientium sermone pendere? Ait enim se, si uratur, Quam hoc suave! dicturum. Qui non moveatur et offensione turpitudinis et comprobatione honestatis? </p>
-        ");
-        $t->setContentType(Definitions::CONTENTTYPESIT[3]);
-        $t->setAssignedTo("ZCY");
-        $this->addTicket($t);
-
-        $t = new Ticket("11:22", "JWN","Server Room", 1);
-        $t->setId(2);
-        $t->setContent("This is some content.");
-        $t->setContentType(Definitions::CONTENTTYPESIT[4]);
-        $this->addTicket($t);
-
-        $t = new Ticket("11:22", "ZCY","IT Office", 1);
-        $t->setId(3);
-        $t->setContent("This is some content.");
-        $t->setContentType(Definitions::CONTENTTYPESIT[6]);
-        $t->setAssignedTo("AWT");
-        $this->addTicket($t);
-
-        $t = new Ticket("11:22", "TRS","IT2", 1);
-        $t->setId(4);
-        $t->setContent("This is some content.");
-        $t->setContentType(Definitions::CONTENTTYPESIT[8]);
-        $this->addTicket($t);
-    }*/
+     * private function testAddTickets()
+     * {
+     * $t = new Ticket("11:22", "AWT","Server Room", 1);
+     * $t->setId(1);
+     * $t->setContent("
+     * <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Bonum incolumis acies: misera caecitas. Quamquam id quidem licebit iis existimare, qui legerint. Duo Reges: constructio interrete. Occultum facinus esse potuerit, gaudebit; Quae duo sunt, unum facit. Igitur ne dolorem quidem. Itaque hic ipse iam pridem est reiectus; </p>
+     * <p>Tamen a proposito, inquam, aberramus. Philosophi autem in suis lectulis plerumque moriuntur. Quantum Aristoxeni ingenium consumptum videmus in musicis? An vero, inquit, quisquam potest probare, quod perceptfum, quod. Illud dico, ea, quae dicat, praeclare inter se cohaerere. Homines optimi non intellegunt totam rationem everti, si ita res se habeat. Quid censes in Latino fore? At cum de plurimis eadem dicit, tum certe de maximis. Portenta haec esse dicit, neque ea ratione ullo modo posse vivi; De ingenio eius in his disputationibus, non de moribus quaeritur. Virtutibus igitur rectissime mihi videris et ad consuetudinem nostrae orationis vitia posuisse contraria. Hanc ergo intuens debet institutum illud quasi signum absolvere. </p>
+     * <p>Haec quo modo conveniant, non sane intellego. Quae qui non vident, nihil umquam magnum ac cognitione dignum amaverunt. Eiuro, inquit adridens, iniquum, hac quidem de re; Ita fit cum gravior, tum etiam splendidior oratio. Conferam tecum, quam cuique verso rem subicias; Cave putes quicquam esse verius. Quid autem habent admirationis, cum prope accesseris? Summus dolor plures dies manere non potest? </p>
+     * <p>Quod ea non occurrentia fingunt, vincunt Aristonem; An haec ab eo non dicuntur? Non quam nostram quidem, inquit Pomponius iocans; In qua si nihil est praeter rationem, sit in una virtute finis bonorum; Quae cum essent dicta, discessimus. Si enim ad populum me vocas, eum. Quid ergo aliud intellegetur nisi uti ne quae pars naturae neglegatur? Qua tu etiam inprudens utebare non numquam. </p>
+     * <p>Immo alio genere; Quid vero? Tu enim ista lenius, hic Stoicorum more nos vexat. Quippe: habes enim a rhetoribus; Conferam tecum, quam cuique verso rem subicias; Quid turpius quam sapientis vitam ex insipientium sermone pendere? Ait enim se, si uratur, Quam hoc suave! dicturum. Qui non moveatur et offensione turpitudinis et comprobatione honestatis? </p>
+     * ");
+     * $t->setContentType(Definitions::CONTENTTYPESIT[3]);
+     * $t->setAssignedTo("ZCY");
+     * $this->addTicket($t);
+     *
+     * $t = new Ticket("11:22", "JWN","Server Room", 1);
+     * $t->setId(2);
+     * $t->setContent("This is some content.");
+     * $t->setContentType(Definitions::CONTENTTYPESIT[4]);
+     * $this->addTicket($t);
+     *
+     * $t = new Ticket("11:22", "ZCY","IT Office", 1);
+     * $t->setId(3);
+     * $t->setContent("This is some content.");
+     * $t->setContentType(Definitions::CONTENTTYPESIT[6]);
+     * $t->setAssignedTo("AWT");
+     * $this->addTicket($t);
+     *
+     * $t = new Ticket("11:22", "TRS","IT2", 1);
+     * $t->setId(4);
+     * $t->setContent("This is some content.");
+     * $t->setContentType(Definitions::CONTENTTYPESIT[8]);
+     * $this->addTicket($t);
+     * }*/
 
     /*public function addTicket(Ticket $ticket)
     {
@@ -146,10 +156,8 @@ class TicketHandler
      */
     public function closeTicket($ticketId, $closedBy, $closedReason)
     {
-        foreach ($this->getTickets() as $ticket)
-        {
-            if($ticket->getId() == $ticketId)
-            {
+        foreach ($this->getTickets() as $ticket) {
+            if ($ticket->getId() == $ticketId) {
                 $ticket->setStatus(1);
                 $ticket->setClosedBy($closedBy);
                 $ticket->setClosedReason($closedReason);
@@ -177,18 +185,16 @@ class TicketHandler
         $closedTime = null,
         $closedReason = null,
         $closedBy = null
-        )
+    )
     {
-        foreach ($this->tickets as $ticket)
-        {
-            if($ticket->getId() == $ticketId)
-            {
-                (!empty($status)) ? $ticket->setStatus($status): null;
-                (!empty($assignedto)) ? $ticket->setAssignedTo($assignedto): null;
-                (!empty($serviceDesk)) ? $ticket->setServiceDesk($serviceDesk): null;
-                (!empty($closedTime)) ? $ticket->setClosedTime($closedTime): null;
-                (!empty($closedReason)) ? $ticket->setClosedReason($closedReason): null;
-                (!empty($closedBy)) ? $ticket->setClosedBy($closedBy): null;
+        foreach ($this->tickets as $ticket) {
+            if ($ticket->getId() == $ticketId) {
+                (!empty($status)) ? $ticket->setStatus($status) : null;
+                (!empty($assignedto)) ? $ticket->setAssignedTo($assignedto) : null;
+                (!empty($serviceDesk)) ? $ticket->setServiceDesk($serviceDesk) : null;
+                (!empty($closedTime)) ? $ticket->setClosedTime($closedTime) : null;
+                (!empty($closedReason)) ? $ticket->setClosedReason($closedReason) : null;
+                (!empty($closedBy)) ? $ticket->setClosedBy($closedBy) : null;
                 $ticket->save();
                 break;
             }
@@ -226,9 +232,8 @@ class TicketHandler
     public function getTicketByNumber($ticketId)
     {
         $ticketArr = array();
-        foreach ($this->getTickets() as $ticket)
-        {
-            if($ticket->getId() == $ticketId) $ticketArr[] = $ticket;
+        foreach ($this->getTickets() as $ticket) {
+            if ($ticket->getId() == $ticketId) $ticketArr[] = $ticket;
         }
 
         return $ticketArr;
@@ -241,13 +246,13 @@ class TicketHandler
     public function getTicketByLoggedBy($username)
     {
         $ticketArr = array();
-        foreach ($this->getTickets() as $ticket)
-        {
-            if($ticket->getLoggedBy() == $username) $ticketArr[] = $ticket;
+        foreach ($this->getTickets() as $ticket) {
+            if ($ticket->getLoggedBy() == $username) $ticketArr[] = $ticket;
         }
 
         return $ticketArr;
     }
+
 
     /**
      * Returns an array containing all the categories for a service desk
@@ -259,14 +264,13 @@ class TicketHandler
     {
         $sql = "SELECT * FROM categories WHERE desk = ? ORDER BY `title` ASC, `statusType` ASC";
         $data = $this->dbObj->runQuery($sql, array(
-           $desk
+            $desk
         ));
 
         $categories = array();
 
-        if(is_array($data) && !empty($data))
-            foreach ($data as $d)
-            {
+        if (is_array($data) && !empty($data))
+            foreach ($data as $d) {
                 $category = new Category();
                 $category->setId($d['id']);
                 $category->setName($d['title']);
@@ -277,17 +281,51 @@ class TicketHandler
         return $categories;
     }
 
-
     public function addCategory(Category $category)
     {
         $category->setDb($this->dbObj);
         $category->add();
     }
 
+    public function addStatus(ServiceStatus $status)
+    {
+        $status->setDbObj($this->dbObj);
+        $status->add();
+    }
+
     public function removeCategory(Category $category)
     {
         $category->setDb($this->dbObj);
         $category->remove();
+    }
+
+
+    public function loadDepartments()
+    {
+        $sql = "SELECT * FROM departments ORDER BY department ASC";
+        $data = $this->dbObj->runQuery($sql);
+
+        $depts = array();
+
+        if (is_array($data) && !empty($data))
+            foreach ($data as $d) {
+                $dept = new Department();
+                $dept->setId($d['id']);
+                $dept->setDepartment($d['department']);
+                $depts[] = $dept;
+            }
+        $this->departments = $depts;
+    }
+
+    public function getDepartments()
+    {
+        return $this->departments;
+    }
+
+    public function addDepartment(Department $department)
+    {
+        $department->setDbObj($this->dbObj);
+        $department->add();
     }
 
     //This should not use desk but might in the future
@@ -300,9 +338,9 @@ class TicketHandler
 
         if(is_array($data) && !empty($data))
             foreach ($data as $d) {
-                $status = new stdClass();
-                $status->name = $d['name'];
-                $status->status = $d['status'];
+                $status = new ServiceStatus();
+                $status->setName($d['name']);
+                $status->setStatus($d['status']);
                 $statuses[] = $status;
             }
         return $statuses;

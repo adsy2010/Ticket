@@ -39,12 +39,15 @@ switch (@$_GET['adminPage'])
     case 'dashboard': $viewObj          = new view\adminDashboard($desk); break;
     case 'cartridges': $viewObj         = new view\adminCartridges($desk); break;
     case 'categories': $viewObj         = new view\adminCategories($desk); break;
+    case 'departments': $viewObj        = new view\adminDepartments($desk); break;
     case 'printers': $viewObj           = new view\adminPrinters($desk); break;
     case 'situatedprinter': $viewObj    = new view\adminSituatedPrinter($desk); break;
     case 'reports': $viewObj            = new view\adminReports($desk); break;
     case 'servicestatus': $viewObj      = new view\adminServiceStatus($desk); break;
+
     case 'addUser': $viewObj            = new view\adminAddUser($desk); break;
     case 'addCategory': $viewObj        = new view\adminAddCategories($desk); break;
+    case 'addDepartment': $viewObj      = new view\adminAddDepartment($desk); break;
     case 'addPrinter': $viewObj         = new view\adminAddPrinter($desk); break;
     case 'addCartridge': $viewObj       = new view\adminAddCartridge($desk); break;
     case 'addStatus': $viewObj          = new view\adminAddStatus($desk); break;

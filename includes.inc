@@ -35,6 +35,7 @@ require_once "views/view.closedLogs.php";
 //lightboxes
 require_once "views/admin/view.adminAddUser.php";
 require_once "views/admin/view.adminAddCategories.php";
+require_once "views/admin/view.adminAddDepartment.php";
 require_once "views/admin/view.adminAddCartridge.php";
 require_once "views/admin/view.adminAddPrinter.php";
 require_once "views/admin/view.adminAddStatus.php";

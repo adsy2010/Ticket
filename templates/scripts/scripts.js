@@ -69,6 +69,9 @@ $(document).ready(function() {
             case 'adminCategories':
                 link = {url: "view.php?adminPage=categories&desk=" + $_GET('desk')};
                 break;
+            case 'adminDepartments':
+                link = {url: "view.php?adminPage=departments&desk=" + $_GET('desk')};
+                break;
             default:
                 link = "url: view.php?adminPage=dashboard&desk=" + $_GET('desk');
         }

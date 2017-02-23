@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: awt
- * Date: 13/02/2017
- * Time: 09:24
+ * Date: 30/01/2017
+ * Time: 11:56
  */
 
 namespace view;
@@ -11,20 +11,21 @@ namespace view;
 
 use controller\TicketHandler;
 use Exception;
+use models\Category;
 use models\Definitions;
-use models\ServiceStatus;
+use models\Department;
 use models\Templates;
 
-class adminAddStatus extends Templates implements viewTypes
+class adminAddDepartment extends Templates implements viewTypes
 {
-    private $desk;
     private $ticketHandler;
+    private $desk;
 
     public function __construct($desk)
     {
         parent::__construct();
         $this->setDesk($desk);
-        $this->setFileName("admin/addStatus.htm");
+        $this->setFileName("admin/addDepartment.htm");
         $this->ticketHandler = new TicketHandler("x");
     }
 
@@ -44,27 +45,27 @@ class adminAddStatus extends Templates implements viewTypes
         $this->desk = $desk;
     }
 
-    public function posted()
+    private function posted()
     {
         $finalState = "Successfully added to the database";
-        try {
-            $statusName = $_POST['statusName'];
-            $desk = $_POST['desk'];
+
+        try
+        {
+            $deptName = $_POST['departmentName'];
 
             $vars = array(
-                "statusName"
+                "deptName"
             );
 
             foreach($vars as $var)
                 if(empty($$var))
                     throw new Exception("Some submitted data is missing. The value <strong>{$var}</strong> has been flagged.");
 
-            $status = new ServiceStatus();
-            $status->setName($statusName);
-            $status->setDesk($desk);
 
-            $this->ticketHandler->addStatus($status);
+            $department = new Department();
+            $department->setDepartment($deptName);
 
+            $this->ticketHandler->addDepartment($department);
         }
         catch (Exception $e)
         {
@@ -72,6 +73,7 @@ class adminAddStatus extends Templates implements viewTypes
         }
         return $finalState;
     }
+
 
     public function display()
     {
@@ -86,5 +88,6 @@ class adminAddStatus extends Templates implements viewTypes
                 "DESK" => $this->getDesk()
             )
         );
+
     }
 }

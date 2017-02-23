@@ -280,7 +280,7 @@
     </column>
     <column id="77" parent="15" name="costingdepartment">
       <Position>5</Position>
-      <DataType>varchar(64)|0</DataType>
+      <DataType>int(11)|0</DataType>
     </column>
     <key id="78" parent="15" name="PRIMARY">
       <ColNames>id</ColNames>

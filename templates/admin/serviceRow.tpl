@@ -1,5 +1,4 @@
-<tr id="{ID}">
-    <td>{ID}</td>
+<tr id="{NAME}">
     <td><p class="statusName" contenteditable="true">{NAME}</p></td>
     <td>
         <select name="statusStatus" id="statusStatus">

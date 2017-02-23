@@ -16,6 +16,11 @@ class Department implements iModels
     private $id, $department;
 
     /**
+     * @var databaseClass $dbObj
+     */
+    private $dbObj;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -48,11 +53,6 @@ class Department implements iModels
     }
 
     /**
-     * @var databaseClass $dbObj
-     */
-    private $dbObj;
-
-    /**
      * @return databaseClass
      */
     private function getDbObj()
@@ -71,21 +71,30 @@ class Department implements iModels
     public function add()
     {
         // TODO: Implement add() method.
-        $sql = "INSERT INTO departments (department) VALUES (?)";
-        $this->getDbObj()->runQuery($sql, $this->getDepartment());
+        $sql = "INSERT INTO departments (`department`) VALUES (?)";
+        $this->dbObj->runQuery($sql,
+            array(
+                $this->getDepartment()
+            ));
     }
 
     public function remove()
     {
         // TODO: Implement remove() method.
         $sql = "DELETE FROM departments WHERE id=?";
-        $this->getDbObj()->runQuery($sql, $this->getId());
+        $this->dbObj->runQuery($sql,
+            array(
+                $this->getId()
+            ));
     }
 
     public function save()
     {
         // TODO: Implement save() method.
         $sql = "UPDATE departments SET department=?";
-        $this->getDbObj()->runQuery($sql, $this->getDepartment());
+        $this->dbObj->runQuery($sql,
+            array(
+                $this->getDepartment()
+            ));
     }
 }

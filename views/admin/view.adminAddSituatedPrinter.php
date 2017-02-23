@@ -8,10 +8,12 @@
 
 namespace view;
 
+use controller\TicketHandler;
 use controller\UserHandler;
 use controllers\PrinterHandler;
 use Exception;
 use models\Definitions;
+use models\Department;
 use models\SituatedPrinter;
 use models\Templates;
 use models\User;
@@ -20,6 +22,7 @@ class adminAddSituatedPrinter extends Templates implements viewTypes
 {
     private $desk;
     private $printerHandler;
+    private $ticketHandler;
 
     public function __construct($desk)
     {
@@ -27,6 +30,7 @@ class adminAddSituatedPrinter extends Templates implements viewTypes
         $this->setDesk($desk);
         $this->setFileName("admin/addSituatedPrinter.htm");
         $this->printerHandler = new PrinterHandler();
+        $this->ticketHandler = new TicketHandler("x");
     }
 
     /**
@@ -82,6 +86,24 @@ class adminAddSituatedPrinter extends Templates implements viewTypes
         return $this->desk;
     }
 
+    private function renderDeptsList()
+    {
+        $deptRowTpl = Definitions::render("<option name={NAME} value={VALUE}>{NAME}</option>");
+        $deptRowList = array();
+
+        foreach ($this->ticketHandler->getDepartments() as $department)
+        {
+            /** @var Department $category */
+            $deptRowList[] = Definitions::render($deptRowTpl,
+                array(
+                    "VALUE" => $department->getId(),
+                    "NAME" => $department->getDepartment(),
+                ));
+        }
+
+        return (!empty($deptRowList)) ? implode("\r\n", $deptRowList) : "";
+    }
+
     public function display()
     {
         // TODO: Implement display() method.
@@ -94,7 +116,8 @@ class adminAddSituatedPrinter extends Templates implements viewTypes
             array(
                 "STATUS" => $state,
                 "DESK" => $this->getDesk(),
-                "PRINTERS" => $this->printerHandler->renderPrinterSelectList()
+                "PRINTERS" => $this->printerHandler->renderPrinterSelectList(),
+                "DEPARTMENTS" => $this->renderDeptsList()
             )
         );
 

@@ -66,7 +66,7 @@ class adminSituatedPrinter extends Templates implements viewTypes
                     "MAKE"          => $situatedPrinter->getMake(),
                     "MODEL"         => $situatedPrinter->getModel(),
                     "LOCATION"      => $situatedPrinter->getLocation(),
-                    "COSTDEPT"      => $situatedPrinter->getCostDepartment(),
+                    "COSTDEPT"      => $this->printerHandler->renderDepartmentSelectList($situatedPrinter->getCostDepartment()),
                     "EXEMPT"        => $situatedPrinter->getExemption()
                 ));
         }

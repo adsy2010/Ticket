@@ -13,6 +13,7 @@ use databaseClass;
 use models\Cartridge;
 use models\CartridgeLog;
 use models\Definitions;
+use models\Department;
 use models\Printer;
 use Exception;
 use models\SituatedPrinter;
@@ -25,6 +26,9 @@ class PrinterHandler
 
     /** @var Cartridge[] $cartridges */
     private $cartridges = array();
+
+    /** @var Department[] $departments */
+    private $departments = array();
 
     /** @var SituatedPrinter[] $situatedPrinters  */
     private $situatedPrinters = array();
@@ -45,6 +49,7 @@ class PrinterHandler
         $this->loadPrinters();
         $this->loadCartridges();
         $this->loadSituatedPrinters();
+        $this->loadDepartments();
     }
 
     /**
@@ -108,7 +113,22 @@ class PrinterHandler
         }
     }
 
+    private function loadDepartments()
+    {
+        $sql = "SELECT * FROM departments ORDER BY department ASC";
+        $data = $this->dbObj->runQuery($sql);
 
+        $depts = array();
+
+        if (is_array($data) && !empty($data))
+            foreach ($data as $d) {
+                $dept = new Department();
+                $dept->setId($d['id']);
+                $dept->setDepartment($d['department']);
+                $depts[] = $dept;
+            }
+        $this->departments = $depts;
+    }
 
     public function logCartridge($cartridgeId, $userId)
     {
@@ -209,16 +229,31 @@ class PrinterHandler
         }
     }
 
+    /**
+     * Deletes a Printer from the database
+     *
+     * @param Printer $printer A Printer object
+     */
     public function removePrinter(Printer $printer)
     {
         $printer->remove();
     }
 
+    /**
+     * Deletes a Cartridge from the database
+     *
+     * @param Cartridge $cartridge A Cartridge object
+     */
     public function removeCartridge(Cartridge $cartridge)
     {
         $cartridge->remove();
     }
 
+    /**
+     * Returns a list of all cartridges as Cartridge objects from the database
+     *
+     * @return Cartridge[] A list of Cartridge objects
+     */
     public function getCartridges()
     {
         return $this->cartridges;
@@ -297,6 +332,34 @@ class PrinterHandler
 
         return implode("\r\n", $printerList);
 
+    }
+
+    private function getDepartments()
+    {
+        return $this->departments;
+    }
+
+    public function renderDepartmentSelectList($highlighted = null)
+    {
+        $template = "<option value='{ID}' {HIGHLIGHT}>{DEPARTMENT}</option>";
+
+
+        //Ignore this entry if it wasn't passed
+        if($highlighted == null)
+            $template = str_replace("{HIGHLIGHT}", "", $template);
+
+        $departmentList = array();
+
+        foreach ($this->getDepartments() as $department){
+            $departmentList[] = Definitions::render($template, array(
+                "ID" => $department->getId(),
+                "DEPARTMENT" => $department->getDepartment(),
+                "HIGHLIGHT" => ($highlighted == $department->getId()) ? "SELECTED" : ""
+            ));
+        }
+
+
+        return implode("\r\n", $departmentList);
     }
 
     //Used for reports
