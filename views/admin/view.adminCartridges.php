@@ -49,6 +49,11 @@ class adminCartridges extends Templates implements viewTypes
         return $this->printerHandler->getCartridges();
     }
 
+    public function getCartridge($id)
+    {
+        return $this->printerHandler->getCartridge($id);
+    }
+
     private function renderCartridgeRows()
     {
         $cartridgeRowTpl = Definitions::render($this->getLocation()."admin/cartridgesRow.tpl");
@@ -62,7 +67,7 @@ class adminCartridges extends Templates implements viewTypes
                     "ID"            => $cartridge->getId(),
                     "NAME"          => $cartridge->getName(),
                     "STOCK"         => $cartridge->getStock(),
-                    "COST"          => $cartridge->getCost(),
+                    "COST"          => number_format($cartridge->getCost(),2,'.',','),
                     "BLACK"         => ($cartridge->getColor() == "black") ? "SELECTED" : "",
                     "YELLOW"        => ($cartridge->getColor() == "yellow") ? "SELECTED" : "",
                     "CYAN"          => ($cartridge->getColor() == "cyan") ? "SELECTED" : "",
@@ -77,13 +82,39 @@ class adminCartridges extends Templates implements viewTypes
     private function posted()
     {
         if(isset($_POST['method']) && !empty($_POST['method'])) {
-            $cartridge = new Cartridge();
-            $cartridge->setId($_POST['id']);
+
+            $id = $_POST['id'];
 
             switch ($_POST['method'])
             {
-                case 'DELETE': $this->printerHandler->removeCartridge($cartridge); break;
+                case 'DELETE':
+                {
+                    $cartridge = new Cartridge();
+                    $cartridge->setId($id);
+                    $this->printerHandler->removeCartridge($cartridge);
+                } break;
                 /*case 'SAVE': $cat->save(); break;*/
+                case 'UPDATE':
+                {
+                    $cartridge = $this->getCartridge($id);
+
+                    if(isset($_POST['cartridgeName']) && !empty($_POST['cartridgeName']))
+                        $cartridge->setName($_POST['cartridgeName']);
+
+                    if(isset($_POST["cartridgeColor"]) && !empty($_POST["cartridgeColor"]))
+                        $cartridge->setColor($_POST["cartridgeColor"]);
+
+                    if(isset($_POST["cartridgeStock"]) && !empty($_POST["cartridgeStock"]))
+                        $cartridge->setStock($_POST["cartridgeStock"]);
+
+                    if(isset($_POST["cartridgePrinterName"]) && !empty($_POST["cartridgePrinterName"]))
+                        $cartridge->setPrinterID($_POST["cartridgePrinterName"]);
+
+                    if(isset($_POST["cartridgeCost"]) && !empty($_POST["cartridgeCost"]))
+                        $cartridge->setCost($_POST["cartridgeCost"]);
+
+                    $this->printerHandler->updateCartridge($cartridge);
+                }
             }
         }
     }
@@ -91,6 +122,7 @@ class adminCartridges extends Templates implements viewTypes
     public function display()
     {
         // TODO: Implement display() method.
+        if(isset($_POST)) $this->posted();
         return Definitions::render($this->getLocation().$this->getFileName(),
             array(
                 "CARTRIDGEROWS" => $this->renderCartridgeRows()

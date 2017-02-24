@@ -74,12 +74,32 @@ class adminCategories extends Templates implements viewTypes
     private function posted()
     {
         if(isset($_POST['method']) && !empty($_POST['method'])) {
-            $cat = new Category();
-            $cat->setId($_POST['id']);
+
+            $id = $_POST['id'];
 
             switch ($_POST['method'])
             {
-                case 'DELETE': $this->ticketHandler->removeCategory($cat); break;
+                case 'DELETE':
+                {
+                    $cat = new Category();
+                    $cat->setId($id);
+                    $this->ticketHandler->removeCategory($cat);
+                }
+                break;
+                case 'UPDATE':
+                {
+                    $cat = $this->ticketHandler->getCategory($id);
+
+                    if(isset($_POST['catName']) && !empty($_POST['catName']))
+                        $cat->setName($_POST['catName']);
+
+
+                    if(isset($_POST["openState"]) && !empty($_POST["openState"]))
+                        $cat->setStatusType($_POST["openState"]);
+
+                    $this->ticketHandler->updateCategory($cat);
+                }
+                break;
                 /*case 'SAVE': $cat->save(); break;*/
             }
         }

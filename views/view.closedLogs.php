@@ -19,8 +19,8 @@ class closedLogs extends Templates implements viewTypes
     /* @var \models\Ticket[] $tickets */
     private $tickets;
 
-    private $tplRows = "ticketRows.tpl";
-    private $tpl = "list.tpl";
+    private $tplRows = "closedTicketRows.tpl";
+    private $tpl = "closedTicketHeader.tpl";
 
     public function __construct($desk)
     {
@@ -58,7 +58,10 @@ class closedLogs extends Templates implements viewTypes
                         "DEPARTMENT"     => $ticket->getDepartment(),
                         "LOGGEDBY"       => $ticket->getLoggedBy(),
                         "STATUS"         => $ticket->getStatus(),
-                        "DATETIMELOGGED" => $ticket->getTime()
+                        "DATETIMELOGGED" => $ticket->getTime(),
+                        "CLOSEDBY"       => $ticket->getClosedBy(),
+                        "CLOSEDREASON"   => $ticket->getClosedReason(),
+                        "CLOSEDDATETIME" => $ticket->getClosedTime()
                     );
                     //get the comments
                     $data["COMMENTS"] = Definitions::render("templates/comments.html");
@@ -74,7 +77,7 @@ class closedLogs extends Templates implements viewTypes
         }
 
         //if no rows have been created, generate a no row.
-        if(sizeof($rows) == 0) $rows[] = "<tr><td colspan='9'>No tickets to display</td></tr>";
+        if(sizeof($rows) == 0) $rows[] = "<tr><td colspan='12'>No tickets to display</td></tr>";
 
 
         return Definitions::render($this->getLocation() . $this->tpl, array("ROWS" => implode("\r\n",$rows)));

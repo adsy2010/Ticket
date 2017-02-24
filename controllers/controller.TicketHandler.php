@@ -10,14 +10,14 @@
 namespace controller;
 
 use databaseClass;
-use models\Cartridge;
+
 use models\Category;
 use models\Comment;
 use models\Definitions;
 use models\Department;
 use models\ServiceStatus;
 use models\Ticket;
-use stdClass;
+
 
 class TicketHandler
 {
@@ -25,6 +25,7 @@ class TicketHandler
     /** @var Ticket[] $tickets */
     private $tickets = array();
 
+    private $categories = array();
     private $departments = array();
 
     /** @var databaseClass $dbobj */
@@ -39,11 +40,12 @@ class TicketHandler
      * String:  "x" for none
      * @param mixed $live
      */
-    public function __construct($live = TRUE)
+    public function __construct($live = 0)
     {
         $this->dbObj = new databaseClass();
         $this->loadTickets($live);
         $this->loadDepartments();
+        $this->loadCategories();
         //$this->testAddTickets();
     }
 
@@ -52,29 +54,37 @@ class TicketHandler
      */
     private function loadTickets($live)
     {
-        $this->tickets = null;
+        $tickets = null;
 
         //TRUE  : load live tickets into array
         //FALSE : load closed tickets into array
         //NULL  : load all tickets into the array
+
         switch ($live) {
-            case FALSE:
-                $this->tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=:status", array("status" => "closed"));
+            case '0':
+                //$sql = "SELECT * FROM tickets WHERE status=? 1";
+                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=?", array(0));
                 break;
-            case NULL:
-                $this->tickets = $this->dbObj->runQuery("SELECT * FROM tickets", null);
+
+            case '1':
+                //$sql = "SELECT * FROM tickets WHERE status=?";
+                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=?", array(1));
                 break;
+
+            case '2':
+                $sql = "SELECT * FROM tickets";
+                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets", array());
+                break;
+
             case "x":
-                break; //this ensures that no queries are run. This is for maintenance such as admin functions
-            case TRUE:
-            DEFAULT:
-                $this->tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=:status", array("status" => "open"));
+                $sql = "None";
+                //this ensures that no queries are run. This is for maintenance such as admin functions
                 break;
+
         }
 
-
-        if (is_array($this->tickets) && !empty($this->tickets))
-            foreach ($this->tickets as $t) {
+        if (is_array($tickets) && !empty($tickets))
+            foreach ($tickets as $t) {
                 $ticket = new Ticket();
                 $ticket->setId($t['logId']);
                 $ticket->setServiceDesk($t['serviceDesk']);
@@ -89,7 +99,50 @@ class TicketHandler
                 $ticket->setClosedBy($t['closedBy']);
                 $ticket->setClosedReason($t['closedReason']);
                 $ticket->setClosedTime($t['closedReason']);
+                $this->tickets[] = $ticket;
             }
+    }
+
+    /**
+     * @param int $desk The desk ID for the categories
+     *
+     */
+    public function loadCategories()
+    {
+        $sql = "SELECT * FROM categories WHERE desk = ? ORDER BY `title` ASC, `statusType` ASC";
+        $data = $this->dbObj->runQuery($sql, array(
+            $_GET['desk']
+        ));
+
+        $categories = array();
+
+        if (is_array($data) && !empty($data))
+            foreach ($data as $d) {
+                $category = new Category();
+                $category->setId($d['id']);
+                $category->setName($d['title']);
+                $category->setDesk($d['desk']);
+                $category->setStatusType($d['statusType']);
+                $categories[] = $category;
+            }
+        $this->categories = $categories;
+    }
+
+    private function loadDepartments()
+    {
+        $sql = "SELECT * FROM departments ORDER BY department ASC";
+        $data = $this->dbObj->runQuery($sql);
+
+        $depts = array();
+
+        if (is_array($data) && !empty($data))
+            foreach ($data as $d) {
+                $dept = new Department();
+                $dept->setId($d['id']);
+                $dept->setDepartment($d['department']);
+                $depts[] = $dept;
+            }
+        $this->departments = $depts;
     }
 
     /**
@@ -135,13 +188,7 @@ class TicketHandler
 
     /**
      * New ticket added to the database
-     * @param $loggedBy
-     * @param $status
-     * @param $location
-     * @param $content
-     * @param $contentType
-     * @param $department
-     * @param $serviceDesk
+     * @param Ticket $ticket
      */
     public function addTicket(Ticket $ticket)
     {
@@ -253,82 +300,60 @@ class TicketHandler
         return $ticketArr;
     }
 
+    /**
+     * @return Category[]
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
 
     /**
-     * Returns an array containing all the categories for a service desk
-     *
-     * @param int $desk The desk ID for the categories
-     * @return Category[]|null An array of all categories for the requested desk
+     * @param $id
+     * @return bool|Category
      */
-    public function getCategories($desk)
+    public function getCategory($id)
     {
-        $sql = "SELECT * FROM categories WHERE desk = ? ORDER BY `title` ASC, `statusType` ASC";
-        $data = $this->dbObj->runQuery($sql, array(
-            $desk
-        ));
-
-        $categories = array();
-
-        if (is_array($data) && !empty($data))
-            foreach ($data as $d) {
-                $category = new Category();
-                $category->setId($d['id']);
-                $category->setName($d['title']);
-                $category->setDesk($d['desk']);
-                $category->setStatusType($d['statusType']);
-                $categories[] = $category;
+        foreach ($this->getCategories() as $category)
+        {
+            /** @var Category $category */
+            if($category->getId() == $id)
+            {
+                return $category;
             }
-        return $categories;
+        }
+        return false;
     }
 
-    public function addCategory(Category $category)
-    {
-        $category->setDb($this->dbObj);
-        $category->add();
-    }
-
-    public function addStatus(ServiceStatus $status)
-    {
-        $status->setDbObj($this->dbObj);
-        $status->add();
-    }
-
-    public function removeCategory(Category $category)
-    {
-        $category->setDb($this->dbObj);
-        $category->remove();
-    }
-
-
-    public function loadDepartments()
-    {
-        $sql = "SELECT * FROM departments ORDER BY department ASC";
-        $data = $this->dbObj->runQuery($sql);
-
-        $depts = array();
-
-        if (is_array($data) && !empty($data))
-            foreach ($data as $d) {
-                $dept = new Department();
-                $dept->setId($d['id']);
-                $dept->setDepartment($d['department']);
-                $depts[] = $dept;
-            }
-        $this->departments = $depts;
-    }
-
+    /**
+     * Returns Department objects from the database
+     *
+     * @return Department[]
+     */
     public function getDepartments()
     {
         return $this->departments;
     }
 
-    public function addDepartment(Department $department)
+    public function getDepartment($id)
     {
-        $department->setDbObj($this->dbObj);
-        $department->add();
+        foreach ($this->getDepartments() as $department)
+        {
+            /** @var Category $category */
+            if($department->getId() == $id)
+            {
+                return $department;
+            }
+        }
+        return false;
     }
 
     //This should not use desk but might in the future
+    /**
+     * Returns ServiceStatus objects from the database
+     *
+     * @return ServiceStatus[]
+     */
     public function getStatuses()
     {
         $sql = "SELECT * FROM servicestatus ORDER BY 'status' DESC, 'name' ASC";
@@ -347,10 +372,87 @@ class TicketHandler
         //TODO: Talk to martyn about the use of status for the site teams service desk
     }
 
-    public function removeStatus(ServiceStatus $status)
+
+    /**
+     * Adds a category to the database
+     *
+     * @param Category $category
+     */
+    public function addCategory(Category $category)
     {
-        $status->remove();
+        $category->setDb($this->dbObj);
+        $category->add();
+    }
+
+    /**
+     * Adds a status to the database
+     *
+     * @param ServiceStatus $status
+     */
+    public function addStatus(ServiceStatus $status)
+    {
+        $status->setDbObj($this->dbObj);
+        $status->add();
+    }
+
+    /**
+     * Adds a department to the database
+     *
+     * @param Department $department
+     */
+    public function addDepartment(Department $department)
+    {
+        $department->setDbObj($this->dbObj);
+        $department->add();
     }
 
 
+    //Remove functions
+
+    /**
+     * Removes a category from the database
+     *
+     * @param Category $category
+     */
+    public function removeCategory(Category $category)
+    {
+        $category->setDb($this->dbObj);
+        $category->remove();
+    }
+
+    /**
+     * Removes a status from the database
+     *
+     * @param ServiceStatus $status
+     */
+    public function removeStatus(ServiceStatus $status)
+    {
+        $status->setDbObj($this->dbObj);
+        $status->remove();
+    }
+
+    /**
+     * Removes a department from the database
+     *
+     * @param Department $department
+     */
+    public function removeDepartment(Department $department)
+    {
+        $department->setDbObj($this->dbObj);
+        $department->remove();
+    }
+
+
+    //Update functions
+
+    /**
+     * Updates a category with new information
+     *
+     * @param Category $category
+     */
+    public function updateCategory(Category $category)
+    {
+        $category->setDb($this->dbObj);
+        $category->save();
+    }
 }

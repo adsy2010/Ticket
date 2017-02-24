@@ -20,7 +20,7 @@ $viewObj = null;
 switch (@$_GET['view'])
 {
     //logs
-    case 'open': $viewObj = new view\allLogs($desk); break;
+    case 'open': $viewObj = new view\openLogs($desk); break;
     case 'closed': $viewObj = new view\closedLogs($desk); break;
     case 'all': $viewObj = new view\allLogs($desk); break;
     case 'my': $viewObj = new view\myLogs($desk); break;

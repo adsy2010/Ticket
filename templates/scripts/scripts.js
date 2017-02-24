@@ -10,70 +10,69 @@ $(document).ready(function() {
 
 /*$(document).on('click',function (event) {*/
 
-    var $logDisp = $('.logDisplay');
+    var $logDisp = $(".logDisplay");
 
-    $(".menuItems").on('click',function (event) {
+    $(".menuItems").on("click",function (event) {
         //if(event.target.id != 'logTicket') event.stopPropagation();
 
         $(".menuItems").removeClass("active");
         $(event.target.parentElement).addClass("active");
 
         switch (event.target.id) {
-            case 'myCalls':
-                link = {url: "view.php?view=my&desk=" + $_GET('desk')};
+            case "myCalls":
+                link = {url: "view.php?view=my&desk=" + $_GET("desk")};
                 break;
-            case 'openCalls':
-                link = {url: "view.php?view=open&desk=" + $_GET('desk')};
+            case "openCalls":
+                link = {url: "view.php?view=open&desk=" + $_GET("desk")};
                 break;
-            case 'closedCalls':
-                link = {url: "view.php?view=closed&desk=" + $_GET('desk')};
+            case "closedCalls":
+                link = {url: "view.php?view=closed&desk=" + $_GET("desk")};
                 break;
-            case 'administerCalls':
-                link = {url: "view.php?view=adminHome&desk=" + $_GET('desk')};
+            case "administerCalls":
+                link = {url: "view.php?view=adminHome&desk=" + $_GET("desk")};
                 break;
             default:
                 link = "";
-                break;
         }
-        if (link != "") loadPage(link, ".logDisplay");
+        if (link != "") { loadPage(link, ".logDisplay"); }
 
     });
 
     $("#checkAll").change(function () {
-        $("input:checkbox").prop('checked', $(this).prop("checked"));
+        $("input:checkbox").prop("checked", $(this).prop("checked"));
     });
 
-    $logDisp.on('click', ".adminClicks", function (event) {
+    $logDisp.on("click", ".adminClicks", function (event) {
         //event.stopPropagation();
         $(".linkDisplay").removeClass("active");
         $(event.target.parentElement).addClass("active");
         switch (event.target.id) {
-            case 'adminDashboard':
-                link = {url: "view.php?adminPage=dashboard&desk=" + $_GET('desk')};
+            case "adminDashboard":
+                link = {url: "view.php?adminPage=dashboard&desk=" + $_GET("desk")};
                 break;
-            case 'adminPrinters':
-                link = {url: "view.php?adminPage=printers&desk=" + $_GET('desk')};
+            case "adminPrinters":
+                link = {url: "view.php?adminPage=printers&desk=" + $_GET("desk")};
                 break;
-            case 'adminSituatedPrinters':
-                link = {url: "view.php?adminPage=situatedprinter&desk=" + $_GET('desk')};
+            case "adminSituatedPrinters":
+                link = {url: "view.php?adminPage=situatedprinter&desk=" + $_GET("desk")};
                 break; //change from dashboard
-            case 'adminServiceStatus':
-                link = {url: "view.php?adminPage=servicestatus&desk=" + $_GET('desk')};
+            case "adminServiceStatus":
+                link = {url: "view.php?adminPage=servicestatus&desk=" + $_GET("desk")};
                 break;
-            case 'adminReports':
-                link = {url: "view.php?adminPage=reports&desk=" + $_GET('desk')};
+            case "adminReports":
+                link = {url: "view.php?adminPage=reports&desk=" + $_GET("desk")};
                 break;
-            case 'adminCartridges':
-                link = {url: "view.php?adminPage=cartridges&desk=" + $_GET('desk')};
+            case "adminCartridges":
+                link = {url: "view.php?adminPage=cartridges&desk=" + $_GET("desk")};
                 break;
-            case 'adminCategories':
-                link = {url: "view.php?adminPage=categories&desk=" + $_GET('desk')};
+            case "adminCategories":
+                link = {url: "view.php?adminPage=categories&desk=" + $_GET("desk")};
                 break;
-            case 'adminDepartments':
-                link = {url: "view.php?adminPage=departments&desk=" + $_GET('desk')};
+            case "adminDepartments":
+                link = {url: "view.php?adminPage=departments&desk=" + $_GET("desk")};
                 break;
             default:
-                link = "url: view.php?adminPage=dashboard&desk=" + $_GET('desk');
+                link = "url: view.php?adminPage=dashboard&desk=" + $_GET("desk");
         }
 
         loadPage(link, "#admin_page");
@@ -117,23 +116,16 @@ $(document).ready(function() {
         case "#refreshUsers": url= "dashboard"; break;
     }
     */
-    $logDisp.on('click', "#refreshUsers", function (event) {
-        loadPage({url: "view.php?adminPage=dashboard&desk=" + $_GET('desk')}, "#admin_page");
-    });
-    $logDisp.on('click', "#refreshCategories", function (event) {
-        loadPage({url: "view.php?adminPage=categories&desk=" + $_GET('desk')}, "#admin_page");
-    });/*
-    $logDisp.on('click', "#refreshCategories", function (event) {
-        loadPage({url: "view.php?adminPage=categories&desk=" + $_GET('desk')}, "#admin_page");
-    });
-    $logDisp.on('click', "#refreshCategories", function (event) {
-        loadPage({url: "view.php?adminPage=categories&desk=" + $_GET('desk')}, "#admin_page");
-    });
-    $logDisp.on('click', "#refreshCategories", function (event) {
-        loadPage({url: "view.php?adminPage=categories&desk=" + $_GET('desk')}, "#admin_page");
-    });*/
+    $logDisp.on("click", "#refreshUsers",       function (event) { loadPage({url: "view.php?adminPage=dashboard&desk=" + $_GET("desk")}, "#admin_page"); });
+    $logDisp.on("click", "#refreshCategories",  function (event) { loadPage({url: "view.php?adminPage=categories&desk=" + $_GET("desk")}, "#admin_page"); });
+    $logDisp.on("click", "#refreshCartridges",  function (event) { loadPage({url: "view.php?adminPage=cartridges&desk=" + $_GET("desk")}, "#admin_page"); });
+    $logDisp.on("click", "#refreshDepartments", function (event) { loadPage({url: "view.php?adminPage=departments&desk=" + $_GET("desk")}, "#admin_page"); });
+    $logDisp.on("click", "#refreshPrinter",     function (event) { loadPage({url: "view.php?adminPage=printers&desk=" + $_GET("desk")}, "#admin_page"); });
+    $logDisp.on("click", "#refreshSituatedPrinter", function (event) { loadPage({url: "view.php?adminPage=situatedprinter&desk=" + $_GET("desk")}, "#admin_page"); });
+    $logDisp.on("click", "#refreshStatus",      function (event) { loadPage({url: "view.php?adminPage=servicestatus&desk=" + $_GET("desk")}, "#admin_page"); });
 
-    $logDisp.on('click', ".removeCategory", function (event) {
+
+    $logDisp.on("click", ".removeCategory", function (event) {
 
         //event.stopPropagation();
         /*
@@ -154,28 +146,70 @@ $(document).ready(function() {
 
     var keeper;
 
-    $logDisp.on('focus', ".catName .catType .userName .userEmail", function (event) {
+    $logDisp.on("focus", ".catName, .openState", function (event) {
         keeper = $(this)[0].innerHTML;
-    }).on('blur', ".catName", function (event) {
-        /*loadPage(
+        if(keeper.length == 0)
+        {
+            //check to see if its a radio box
+            if($(this)[0].tagName == "INPUT" && $(this)[0].type == "radio")
+                keeper = $(this)[0].value;
+        }
+    }).on("blur", ".catName, .openState", function (event) {
+
+        var newData;
+
+        if($(this)[0].tagName == "INPUT" && $(this)[0].type == "radio") newData = $(this)[0].value;
+        else newData = $(this)[0].innerHTML;
+
+        //This is the data field
+        var d = buildData($(this)[0], newData, "UPDATE");
+
+        loadPage(
          {
              type: "POST",
              url: "view.php?adminPage=categories&desk="+$_GET('desk'),
-             data:
-             {
-                 method: "UPDATE",
-                 id: $(this)[0].parentNode.parentNode.id,
-                 catName: $(this)[0].innerHTML
-             }
-         }, "#admin_page");*/
-
-        if(keeper != $(this)[0].innerHTML)
-            console.log("run action here");
-
+             data: d
+         }, "#admin_page");
     });
 
+    $logDisp.on("focus", ".cartridgeName, .cartridgeColor, .cartridgeStock, cartridgePrinterName, .cartridgeCost", function (event) {
+        keeper = $(this)[0].innerHTML;
+        if(keeper.length == 0)
+        {
+            //check to see if its a radio box
+            if($(this)[0].tagName == "INPUT" && $(this)[0].type == "radio")
+                keeper = $(this)[0].value;
+        }
+    }).on("blur", ".cartridgeName, .cartridgeColor, .cartridgeStock, cartridgePrinterName, .cartridgeCost", function (event) {
 
-    $logDisp.on('click', ".removeUser", function (event) {
+        var newData;
+
+        if($(this)[0].tagName == "INPUT" && $(this)[0].type == "radio") newData = $(this)[0].value;
+        else newData = $(this)[0].innerHTML;
+
+        //This is the data field
+        var d = buildData($(this)[0], newData, "UPDATE");
+        console.log(d);
+        loadPage(
+            {
+                type: "POST",
+                url: "view.php?adminPage=cartridges&desk="+$_GET('desk'),
+                data: d
+            }, "#admin_page");
+    });
+
+    function buildData(item, newData, method) {
+
+        var d = {};
+        var field = item.className;
+        d[field] = newData;
+        d.method = method;
+        d.id = item.parentNode.parentNode.id;
+        return d;
+    }
+
+
+    $logDisp.on("click", ".removeUser", function (event) {
 
         //event.stopPropagation();
         /*
@@ -194,22 +228,4 @@ $(document).ready(function() {
 
     });
 
-    /*
-    function update(url,id,type,content) {
-        {
-            loadPage(
-                {
-                type: "POST",
-                url: url,
-                data:
-                {
-                    method: "UPDATE",
-                    id: id
-                }
-            }, "#admin_page");
-        }
-    }*/
-
 });
-//});
-

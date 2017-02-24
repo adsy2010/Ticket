@@ -259,6 +259,17 @@ class PrinterHandler
         return $this->cartridges;
     }
 
+    public function getCartridge($id)
+    {
+        foreach($this->getCartridges() as $cartridge)
+        {
+            /** @var Printer $printer */
+            if($cartridge->getId() == $id)
+                return $cartridge;
+        }
+        return false;
+    }
+
     /**
      * @return SituatedPrinter[]
      */
@@ -360,6 +371,12 @@ class PrinterHandler
 
 
         return implode("\r\n", $departmentList);
+    }
+
+    public function updateCartridge(Cartridge $cartridge)
+    {
+        $cartridge->setDbObj($this->dbObj);
+        $cartridge->save();
     }
 
     //Used for reports

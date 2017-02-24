@@ -1,15 +1,9 @@
 <tr onclick="expandticket({LOGID})">
     <td><input title="check" type="checkbox" id="log{LOGID}" onclick="event.stopPropagation()"></td>
     <td id="logID">{LOGID}</td>
-    <td id="loggedBy">{LOGGEDBY}</td>
-    <td id="assignedTo">
-
-            {AUTHENTICATEDUSERS}
-    </td>
     <td id="dateTimeLogged">{DATETIMELOGGED}</td>
     <td id="location">{LOCATION}</td>
     <td id="category">{CONTENTTYPE}</td>
-    <td id="department">{DEPARTMENT}</td>
     <td>
         <input class="btn btn-default" type="button" id="close{LOGID}" value="Close Ticket" onclick="event.stopPropagation()">
         <select title="reason" name="reason[]" id="reason" onclick="event.stopPropagation()">
@@ -19,8 +13,8 @@
 </tr>
 <tr style="display: none;"  class="contentRow" id="td{LOGID}">
 
-    <td colspan="9" style="min-height: 200px; max-height: 350px;">
-        <div class="left content"><p>{CONTENT}</p></div>
+    <td colspan="6" style="min-height: 200px; max-height: 350px;">
+        <div class="left content">{CONTENT}</div>
         <div class="right content"><p>{COMMENTS}</p></div>
 
 

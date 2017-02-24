@@ -66,7 +66,7 @@ class logCall extends Templates implements viewTypes
             $content = htmlspecialchars(addslashes($_POST['content']));
             $contentType = $_POST['contentType'];
             $department = $_POST['department']; //leave blank for now
-            $time = date("Y-m-d H:i:s", time());
+            //$time = date("Y-m-d H:i:s", time());
 
             $vars = array(
                 "serviceDesk",
@@ -76,7 +76,7 @@ class logCall extends Templates implements viewTypes
                 "contentType",
                 "department",
             );
-            print_r($_POST);
+
 
             $ticket = new Ticket();
             $ticket->setLoggedBy($loggedBy);
@@ -100,8 +100,8 @@ class logCall extends Templates implements viewTypes
 
             $this->setSavedTicket(null);
 
-            /*
-            $this->ticketHandler->addTicket(
+
+            $this->ticketHandler->addTicket($ticket); /*
                 $loggedBy,
                 $status,
                 $location,
@@ -146,15 +146,17 @@ class logCall extends Templates implements viewTypes
         $catRowTpl = Definitions::render("<option name={NAME} value={VALUE}>{NAME}</option>");
         $catRowList = array();
 
-        foreach ($this->ticketHandler->getCategories($this->getDesk()) as $category)
+        foreach ($this->ticketHandler->getCategories() as $category)
         {
             /** @var Category $category */
-            if($category->getStatusType() == 1) {
-                $catRowList[] = Definitions::render($catRowTpl,
-                    array(
-                        "VALUE" => $category->getId(),
-                        "NAME" => $category->getName(),
-                    ));
+            if($category->getDesk() == $this->getDesk()) {
+                if ($category->getStatusType() == 1) {
+                    $catRowList[] = Definitions::render($catRowTpl,
+                        array(
+                            "VALUE" => $category->getId(),
+                            "NAME" => $category->getName(),
+                        ));
+                }
             }
         }
 

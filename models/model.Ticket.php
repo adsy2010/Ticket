@@ -119,7 +119,7 @@ class Ticket implements iModels
      */
     public function setStatus($status)
     {
-        $this->status = ($status == 1) ? 'open' : 'closed';
+        $this->status = $status;
     }
     
     /**
@@ -296,7 +296,8 @@ class Ticket implements iModels
                         $this->getServiceDesk(),
                         $this->getPriority()
         );
-        //$this->getDbObj()->runQuery($sql, $arr);//$this->email(0);
+        print_r($arr);
+        $this->getDbObj()->runQuery($sql, $arr);//$this->email(0);
     }
 
     //archive

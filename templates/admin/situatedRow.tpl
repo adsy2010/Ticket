@@ -10,6 +10,10 @@
     </td>
     <td><input class="situatedExemption" type="checkbox" value="{EXEMPT}"></td>
     <td>
+        <a href="#" class="btn btn-success btn-sm">
+            <span class="glyphicon glyphicon-ok"></span>
+        </a>
+
         <a href="#" id="remove{ID}" class="removeSituatedPrinter btn btn-danger btn-sm">
             <span class="glyphicon glyphicon-remove"></span>
         </a>

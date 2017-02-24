@@ -62,6 +62,9 @@ class UserHandler
         return $data;
     }
 
+    /**
+     * @return User[]
+     */
     public function getUsers()
     {
         return $this->users;
