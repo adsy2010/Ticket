@@ -69,7 +69,6 @@ class logCall extends Templates implements viewTypes
             //$time = date("Y-m-d H:i:s", time());
 
             $vars = array(
-                "serviceDesk",
                 "loggedBy",
                 "location",
                 "content",

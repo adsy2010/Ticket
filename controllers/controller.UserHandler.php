@@ -70,5 +70,25 @@ class UserHandler
         return $this->users;
     }
 
+    public function getUser($id)
+    {
+        foreach ($this->getUsers() as $user)
+        {
+            if($user->getId() == $id)
+                return $user->getUsername();
+        }
+        return false;
+    }
+
+    public function getUserByName($name)
+    {
+        foreach ($this->getUsers() as $user)
+        {
+            if ($user->getUsername() == $name)
+                return $user->getId();
+        }
+        return false;
+    }
+
 
 }

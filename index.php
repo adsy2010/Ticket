@@ -7,10 +7,12 @@
  */
 session_start();
 error_reporting(E_ALL);
+date_default_timezone_set("Europe/London");
 require_once 'includes.inc';
 
 //set session username here.
-$_SESSION['username'] = "AWT";
+if(!isset($_SESSION['username']))
+    header("Location: setuser.php");
 
 const ACTIVESERVICEDESKS = 2;
 

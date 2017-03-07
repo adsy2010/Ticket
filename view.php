@@ -6,7 +6,9 @@
  * Time: 11:22
  */
 if(!session_start()) session_start();
+date_default_timezone_set("Europe/London");
 require_once 'includes.inc';
+
 
 if(!isset($_GET['view']) && !isset($_GET['adminPage']))
     die('No view Supplied');

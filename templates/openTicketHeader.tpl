@@ -10,6 +10,7 @@
                 <th>Date/Time</th>
                 <th>Location</th>
                 <th>Category</th>
+                <th>Priority</th>
                 <th>Action</th>
             </tr>
         </thead>

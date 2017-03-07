@@ -63,17 +63,17 @@ class TicketHandler
         switch ($live) {
             case '0':
                 //$sql = "SELECT * FROM tickets WHERE status=? 1";
-                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=?", array(0));
+                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=0 ORDER BY priority DESC, assignedTo ASC");
                 break;
 
             case '1':
                 //$sql = "SELECT * FROM tickets WHERE status=?";
-                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=?", array(1));
+                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=1 ORDER BY closedTime DESC");
                 break;
 
             case '2':
-                $sql = "SELECT * FROM tickets";
-                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets", array());
+                //$sql = "SELECT * FROM tickets";
+                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets ORDER BY priority DESC, ticketDatetime DESC");
                 break;
 
             case "x":
@@ -98,7 +98,9 @@ class TicketHandler
                 $ticket->setAssignedTo($t['assignedTo']);
                 $ticket->setClosedBy($t['closedBy']);
                 $ticket->setClosedReason($t['closedReason']);
-                $ticket->setClosedTime($t['closedReason']);
+                $ticket->setClosedTime($t['closedTime']);
+                $ticket->setClosedWhy($t['closedWhy']);
+                $ticket->setPriority($t['priority']);
                 $this->tickets[] = $ticket;
             }
     }
@@ -265,11 +267,19 @@ class TicketHandler
 
     /**
      * @param $id
-     * @return Ticket
+     * @return Ticket|bool
      */
     public function getTicket($id)
     {
-        return $this->tickets[$id];
+        foreach ($this->getTickets() as $ticket)
+        {
+            /** @var Category $category */
+            if($ticket->getId() == $id)
+            {
+                return $ticket;
+            }
+        }
+        return false;
     }
 
     /**
@@ -298,6 +308,28 @@ class TicketHandler
         }
 
         return $ticketArr;
+    }
+
+
+    public function getTicketCount($status = null)
+    {
+        $count = 0;
+        switch ($status)
+        {
+            case 1:
+                foreach($this->getTickets() as $ticket)
+                    if($ticket->getStatus() == $status) $count++;
+                break;
+            case 2:
+                $count = count($this->getTickets());
+                break;
+
+            default:
+                foreach($this->getTickets() as $ticket)
+                    if($ticket->getStatus() == 0) $count++;
+        }
+
+        return $count;
     }
 
     /**
@@ -454,5 +486,11 @@ class TicketHandler
     {
         $category->setDb($this->dbObj);
         $category->save();
+    }
+
+    public function updateTicket(Ticket $ticket)
+    {
+        $ticket->setDbObj($this->dbObj);
+        $ticket->save();
     }
 }

@@ -39,6 +39,7 @@ function loadPage(data, display) {
         .done(function (html)
         {
             $(display).html(html);
+
         });
 }
 
@@ -56,6 +57,16 @@ function expandticket(logID, $elem) {
     else {
         $('#td' + logID).toggle(false);
     }
+}
+
+function refreshAdmin(page, desk)
+{
+    loadPage({url: "view.php?adminPage="+page+"&desk="+desk}, "#admin_page");
+}
+
+function refresh(page,desk)
+{
+    loadPage({url: "view.php?view="+page+"&desk="+desk}, ".logDisplay");
 }
 
 function contracttickets(logID) {

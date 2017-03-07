@@ -21,6 +21,11 @@ echo "Emailed";*/
 #echo file_get_contents('php://input');
 //phpinfo();
 
+session_start();
+unset($_SESSION['username']);
+
+/*
+
 
 
 
@@ -68,4 +73,4 @@ function Cryption($crypt, $shift)
 
 $enc = Cryption("mytextstring", 3);
 echo $enc . "\r\n<br>";
-echo Cryption($enc, -3);
+echo Cryption($enc, -3);*/

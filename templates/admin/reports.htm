@@ -1,6 +1,21 @@
 <h1 class="page-header">Reports</h1>
 <h2>Ticket reports</h2>
-This is where graphs and reports can be generated for tickets
+This is where graphs and reports can be generated for tickets.
+There are {TICKETCOUNTALL} tickets, {TICKETCOUNTOPEN} open and {TICKETCOUNTCLOSED} closed.
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Open Calls</th>
+            <th>Closed Calls (90 days)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {USERCALLS}
+    </tbody>
+</table>
+
 <h2>Printer reports</h2>
 This is where graphs and reports can be generated for printers, cartridges etc.
 There are {PRINTERCOUNT} printer types, {CARTRIDGECOUNT} cartridge types and
