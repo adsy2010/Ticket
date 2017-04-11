@@ -32,6 +32,7 @@ require_once "views/view.myLogs.php";
 require_once "views/view.allLogs.php";
 require_once "views/view.closedLogs.php";
 require_once "views/view.openLogs.php";
+require_once "views/view.comments.php";
 
 //lightboxes
 require_once "views/admin/view.adminAddUser.php";

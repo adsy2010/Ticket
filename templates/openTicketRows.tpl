@@ -31,7 +31,7 @@
 
     <td colspan="10" style="min-height: 200px; max-height: 350px;">
         <div style="width:50%;" class="left content">{CONTENT}</div>
-        <div style="width:50%;" class="right content"><p>{COMMENTS}</p></div>
+        <div style="width:50%;" class="right content commentSide{LOGID}"><p>{COMMENTS}</p></div>
 
     </td>
 

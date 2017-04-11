@@ -26,6 +26,7 @@ class openLogs extends Templates implements viewTypes
 
     private $tplRows = "openTicketRows.tpl";
     private $tpl = "openTicketHeader.tpl";
+    private $tplComments = "comments.tpl";
 
     public function __construct($desk)
     {
@@ -102,6 +103,40 @@ class openLogs extends Templates implements viewTypes
         return implode("\r\n", $categories);
     }
 
+    private function renderCommentRows($id)
+    {
+        $row = "<div> <div>{COMMENTDATETIME} by {COMMENTOR}</div> <div>{COMMENT}<hr></div> </div>";
+
+        $rows = array();
+
+        $comments = $this->ticketHandler->getComments($id);
+
+        if(sizeof($comments) == 0)
+            $rows[] = "No comments";
+        else
+        {
+            foreach ($comments as $comment)
+            {
+                $rows[] = Definitions::render($row, array(
+                    "COMMENTDATETIME" => $comment->getCommentDateTime(),
+                    "COMMENTOR" =>  $comment->getUsername(),
+                    "COMMENT"   => $comment->getComment()
+                ));
+            }
+        }
+
+
+        return implode("\r\n", $rows);
+    }
+
+    private function renderComments($id)
+    {
+        return Definitions::render($this->getLocation() . $this->tplComments, array(
+            "LOGID" => $id,
+            "ROWS" => $this->renderCommentRows($id)
+        ));
+    }
+
     private function renderOpenLogs()
     {
         $rows = array();
@@ -112,6 +147,7 @@ class openLogs extends Templates implements viewTypes
                     $data = array(
                         "LOGID"         => $ticket->getId(),
                         "LOCATION"      => $ticket->getLocation(),
+                        "COMMENTS"      => $this->renderComments($ticket->getId()),
                         "ASSIGNEDTO"    => $this->renderAssignedUserSelectList($ticket->getAssignedTo()),
                         "CONTENT"       => html_entity_decode($ticket->getContent()),
                         "CONTENTTYPE"   => $this->ticketHandler->getCategory($ticket->getContentType())->getName(),
@@ -131,7 +167,7 @@ class openLogs extends Templates implements viewTypes
             }
         }
         if(sizeof($rows) == 0)
-            $rows[] = "<tr><td colspan='9'>No tickets to display</td></tr>";
+            $rows[] = "<tr><td colspan='10'>No tickets to display</td></tr>";
 
         return $rows;
     }
@@ -171,10 +207,6 @@ class openLogs extends Templates implements viewTypes
                         $ticket->setClosedTime(date('Y-m-d H:i:s'));
                         $ticket->setStatus(1);
                     }
-
-                    $handle = fopen('err.log', "w+");
-                    fwrite($handle, serialize($ticket));
-                    fclose($handle);
 
                     $this->ticketHandler->updateTicket($ticket);
                 }

@@ -106,7 +106,7 @@ class myLogs extends Templates implements viewTypes
                         "CLOSEDREASON"    => $this->renderCloseCategorySelectList()
                     );
                     //get the comments
-                    $data["COMMENTS"] = Definitions::render("templates/comments.html");
+                    $data["COMMENTS"] = Definitions::render("templates/comments.tpl");
 
                     //display the assignation
                     $data['ASSIGNEDTO'] = (!empty($ticket->getAssignedTo()))?$this->userHandler->getUser($ticket->getAssignedTo()):"";
@@ -153,7 +153,7 @@ class myLogs extends Templates implements viewTypes
                         "CLOSEDWHY"      => $ticket->getClosedWhy()
                     );
                     //get the comments
-                    $data["COMMENTS"] = Definitions::render("templates/comments.html");
+                    $data["COMMENTS"] = Definitions::render("templates/comments.tpl");
 
                     //display the assignation
                     $data['ASSIGNEDTO'] = (!empty($ticket->getAssignedTo()))?$this->userHandler->getUser($ticket->getAssignedTo()):"";

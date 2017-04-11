@@ -50,11 +50,15 @@ function expandticket(logID, $elem) {
 
     if (!isVisible) {
 
+        $('#'+logID).css("backgroundColor", "#0a2751").css("color", "white");
+        $('select').css("color", "black");
+
         $('#td' + logID).toggle(true);
         startMCE();
 
     }
     else {
+        $('#'+logID).css("backgroundColor", "transparent").css("color", "black");
         $('#td' + logID).toggle(false);
     }
 }
@@ -70,5 +74,6 @@ function refresh(page,desk)
 }
 
 function contracttickets(logID) {
+    $('tr').css("backgroundColor", "transparent").css("color", "black");
     $("tr.contentRow").toggle(false);
 }

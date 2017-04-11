@@ -68,7 +68,7 @@ class allLogs extends Templates implements viewTypes
                     foreach ($this->userHandler->getAuthenticatedUsersTest() as $u)
                         $options[] = Definitions::render($authUsers, array("USER" => $u, "ASSIGNED" => (!empty($ticket->getAssignedTo())&& $ticket->getAssignedTo() == $u)?"SELECTED":""));
 
-                    $data["COMMENTS"] = Definitions::render("templates/comments.html");
+                    $data["COMMENTS"] = Definitions::render("templates/comments.tpl");
                     $data["AUTHENTICATEDUSERS"] = "<select name='' id='authUser{LOGID}' onclick='event.stopPropagation()'><option value=''></option>". implode("\r\n", $options) . "</select>";
                     $row = Definitions::render($this->getLocation() . $this->tplRows, $data);
                     $rows[] = $row;

@@ -99,7 +99,7 @@ class closedLogs extends Templates implements viewTypes
                         "CLOSEDDATETIME" => date("H:i:s ".'\o\n'." jS M Y",strtotime($ticket->getClosedTime()))
                     );
                     //get the comments
-                    $data["COMMENTS"] = Definitions::render("templates/comments.html");
+                    $data["COMMENTS"] = Definitions::render("templates/comments.tpl");
 
                     //display the assignation
                     $data['ASSIGNEDTO'] = (!empty($ticket->getAssignedTo()))?$this->userHandler->getUser($ticket->getAssignedTo()):"";

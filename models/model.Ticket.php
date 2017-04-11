@@ -392,7 +392,7 @@ class Ticket implements iModels
     private function pullTemplate($templates,$state)
     {
         $ticketHandler = new TicketHandler("x");
-        $content = Definitions::render("templates/{$templates[$state]['TEMPLATE']}",
+        $content = Definitions::render("templates/emails/{$templates[$state]['TEMPLATE']}",
             array(
                 "LOGGEDBY"          => $this->getLoggedBy(),
                 "LOGGEDDATETIME"    => $this->getTime(),
@@ -460,7 +460,7 @@ class Ticket implements iModels
 
         //$template = ($type == 1) ? "resolvedEmail.htm" : "logEmail.htm";
 
-
+        $f = fopen("err.txt", "a+");
         //check trigger
         //1: New Ticket
         //2: Assigned to Ticket
@@ -492,6 +492,9 @@ class Ticket implements iModels
                 mail($this->getLoggedBy()."@mountbatten.hants.sch.uk", $this->renderSubject($templates, "ASSIGNED"), $this->pullTemplate($templates, "ASSIGNED"), $header);
                 if($this->userHandler->getUser($this->getAssignedTo()) != $this->getLoggedBy())
                     mail($this->userHandler->getUser($this->getAssignedTo())."@mountbatten.hants.sch.uk", $this->renderSubject($templates, "ASSIGNED"), $this->pullTemplate($templates, "ASSIGNED"), $header);
+
+                fwrite($f, $this->getLoggedBy() . " " . $this->getAssignedTo());
+                fclose($f);
             }
                 //goes to assigned user
                 //creator
@@ -519,6 +522,8 @@ class Ticket implements iModels
                 if(sizeof($authLogger) == 0)
                     mail($this->getLoggedBy()."@mountbatten.hants.sch.uk", $this->renderSubject($templates, "UPDATED"), $this->pullTemplate($templates, "UPDATED"), $header);
 
+                fwrite($f, $authLogger . " " . $this->getAssignedTo() . " " . $this->getLoggedBy());
+                fclose($f);
 
             }
                 //goes to assigned user or auth users
@@ -537,6 +542,8 @@ class Ticket implements iModels
                     mail($this->userHandler->getUser($this->getAssignedTo())."@mountbatten.hants.sch.uk", $this->renderSubject($templates, "RESOLVED"), $this->pullTemplate($templates, "RESOLVED"), $header);
 
                 mail($this->getLoggedBy()."@mountbatten.hants.sch.uk", $this->renderSubject($templates, "RESOLVED"), $this->pullTemplate($templates, "RESOLVED"), $header);
+                fwrite($f, $this->getLoggedBy() ." ". $closer ." " . $assignedTo . "\r\n");
+                fclose($f);
             }
                 //goes to closing user
                 //creator

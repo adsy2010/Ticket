@@ -9,9 +9,32 @@
 namespace models;
 
 
+use databaseClass;
+
 class Comment implements iModels
 {
-    private $id, $userID, $ticketID, $commentDateTime, $comment;
+    private $id, $username, $ticketID, $commentDateTime, $comment;
+
+    /**
+     * @var databaseClass $dbobj
+     */
+    private $dbobj;
+
+    /**
+     * @return mixed
+     */
+    private function getDbobj()
+    {
+        return $this->dbobj;
+    }
+
+    /**
+     * @param mixed $dbobj
+     */
+    public function setDbobj($dbobj)
+    {
+        $this->dbobj = $dbobj;
+    }
 
     /**
      * @return mixed
@@ -32,17 +55,17 @@ class Comment implements iModels
     /**
      * @return mixed
      */
-    public function getUserID()
+    public function getUsername()
     {
-        return $this->userID;
+        return $this->username;
     }
 
     /**
      * @param mixed $userID
      */
-    public function setUserID($userID)
+    public function setUsername($username)
     {
-        $this->userID = $userID;
+        $this->username = $username;
     }
 
     /**
@@ -95,16 +118,29 @@ class Comment implements iModels
 
     public function add()
     {
-        $sql = "INSERT INTO ticketcomments (userId, logId, comment) VALUES (?,?,?)";
+        $sql = "INSERT INTO ticketcomments (username, logId, comment) VALUES (?,?,?)";
+        $this->getDbobj()->runQuery($sql, array(
+            $this->getUsername(),
+            $this->getTicketID(),
+            $this->getComment()
+        ));
+
     }
 
     public function remove()
     {
         $sql = "DELETE FROM ticketcomments WHERE id=?";
+        $this->getDbobj()->runQuery($sql, array(
+            $this->getId()
+        ));
     }
 
     public function save()
     {
         $sql = "UPDATE ticketcomments SET comment=? WHERE id=?";
+        $this->getDbobj()->runQuery($sql,array(
+            $this->getComment(),
+            $this->getId()
+        ));
     }
 }

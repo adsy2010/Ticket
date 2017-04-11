@@ -406,6 +406,47 @@ class TicketHandler
 
 
     /**
+     * Returns comments for a particular ticket
+     *
+     * @param int $id The ticket ID associated with the comments
+     * @return Comment[] An array of all comments associated with the ticket ID provided
+     */
+    public function getComments($id)
+    {
+        $sql = "SELECT * FROM ticketcomments WHERE logId=? ORDER BY commentDateTime DESC";
+        $data = $this->dbObj->runQuery($sql, array($id));
+
+        $comments = array();
+
+        if(is_array($data) && !empty($data))
+            foreach ($data as $d)
+            {
+                $comment = new Comment();
+                $comment->setId($d['id']);
+                $comment->setTicketID($d['logId']);
+                $comment->setCommentDateTime($d['commentDateTime']);
+                $comment->setUsername($d['username']);
+                $comment->setComment($d['comment']);
+                $comments[] = $comment;
+            }
+
+        return $comments;
+    }
+
+    public function getCommentsByUser($userId)
+    {
+        $sql = "SELECT * FROM ticketcomments WHERE username=?";
+    }
+
+
+
+    public function addComment(Comment $comment)
+    {
+        $comment->setDbobj($this->dbObj);
+        $comment->add();
+    }
+
+    /**
      * Adds a category to the database
      *
      * @param Category $category

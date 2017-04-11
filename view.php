@@ -30,6 +30,7 @@ switch (@$_GET['view'])
     //window in a window
     case 'logTicket': $viewObj = new view\logCall($desk); break;
 
+    case 'comments': $viewObj           = new view\comments($desk); break;
 
     //admin
     case 'adminHome': $viewObj = new view\administerHome($desk); break;

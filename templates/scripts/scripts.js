@@ -202,7 +202,6 @@ $(document).ready(function() {
 
         //This is the data field
         var d = buildData(sender, newData, "UPDATE");
-        console.log(d);
 
         loadPage(
             {
@@ -234,8 +233,7 @@ $(document).ready(function() {
     /**
      * Closing a ticket with reason
      */
-    $logDisp.on("change", "#reason, #reasonMy", function ()
-    {
+    $logDisp.on("change", "#reason, #reasonMy", function () {
         var why = prompt("Brief explanation why ticket is being closed", "");
 
         if(why == "" || why == null)
@@ -256,8 +254,6 @@ $(document).ready(function() {
                 }
 
         }, "#admin_page");
-
-        console.log(why);
 
         refresh(($(this)[0].id == "reason" ? "open":"my"), $_GET("desk")); //complete process
     });
@@ -319,6 +315,32 @@ $(document).ready(function() {
             }, "#admin_page");*/
 
         console.log($(this)[0].parentNode.parentNode.id);
+
+    });
+
+    $logDisp.on("click", "#sendComment", function (){
+        /*
+        tinyMCE.triggerSave();
+        loadPage({
+            type: "POST",
+            url:  "view.php?view=comments&desk="+$_GET("desk"),
+            data:
+                {
+                    method: "ADD",
+                    comment: $("#comment"+$(this)[0].parentNode.className).val(),
+                    id: $(this)[0].parentNode.className
+                }
+
+        }, ".commentSide"+$(this)[0].parentNode.className);*/
+
+        //refresh("open", $_GET("desk"));
+        //refresh("my", $_GET("desk"));
+
+        /*
+        tinyMCE.triggerSave();
+        console.log($("#comment"+$(this)[0].parentNode.className).val());
+        console.log($(this)[0].parentNode.className);
+        */
 
     });
 

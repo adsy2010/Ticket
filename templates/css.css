@@ -46,8 +46,8 @@ select { overflow:auto; }
 .center { text-align: center; margin: 0 auto;}
 .content {
     vertical-align: top;
-    min-height: 200px;
-    max-height: 390px;
+    min-height: 100px;
+    max-height: 350px;
     height: 100%; overflow: auto;
     border-radius: 0.8em;
     border: thin solid gray;
