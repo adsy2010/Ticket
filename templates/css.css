@@ -1,4 +1,4 @@
-* { font-family: "Trebuchet MS", "Tahoma", sans-serif; }
+* { font-family: "Arial", "Tahoma", sans-serif; }
 
 table { width: 98%; border-collapse: collapse; margin: 0 auto; }
 tr > th { font-weight: bold; font-size: larger; background: #afafaf; text-align: left; }
@@ -6,7 +6,8 @@ tr { border-bottom: solid thin; text-align: left; }
 tr:hover { background: goldenrod; }
 td,th { padding: 8px; }
 
-fieldset, input, select { border-radius: 1em; }
+fieldset, select { border-radius: 1em; }
+input { border-radius: 0; }
 legend { font-weight: bold; }
 
 select { overflow:auto; }
@@ -50,12 +51,12 @@ select { overflow:auto; }
     max-height: 350px;
     height: 100%; overflow: auto;
     border-radius: 0.8em;
-    border: thin solid gray;
+    border: none;
     background-color: #ffffff;
     padding: 10px;
     margin: 7px;
     min-width:30%;
-    max-width: 48%;
+    max-width: 58%;
     }
 
 .adminBoxMonth { margin: 0 auto; width: 250px; text-align:center; clear: both; }
