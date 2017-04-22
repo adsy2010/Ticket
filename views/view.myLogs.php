@@ -80,6 +80,41 @@ class myLogs extends Templates implements viewTypes
         return implode("\r\n", $categories);
     }
 
+    private function renderCommentRows($id)
+    {
+        $row = "<div> <div>{COMMENTDATETIME} by <strong>{COMMENTOR}</strong></div> <div>{COMMENT}<hr></div> </div>";
+
+        $rows = array();
+
+        $comments = $this->ticketHandler->getComments($id);
+
+        if(sizeof($comments) == 0)
+            $rows[] = "No comments";
+        else
+        {
+            foreach ($comments as $comment)
+            {
+                $rows[] = Definitions::render($row, array(
+                    "COMMENTDATETIME" => "Comment made at " . date("H:i:s ".'\o\n'." jS M Y", strtotime($comment->getCommentDateTime())),
+                    "COMMENTOR" =>  $comment->getUsername(),
+                    "COMMENT"   => $comment->getComment()
+                ));
+            }
+        }
+
+
+        return implode("\r\n", $rows);
+    }
+
+    private function renderComments($id)
+    {
+        return Definitions::render($this->getLocation() . $this->tplComments, array(
+            "LOGID" => $id,
+            "URL" => "open",
+            "ROWS" => $this->renderCommentRows($id)
+        ));
+    }
+    
     public function renderOpenCalls()
     {
         /* @var Ticket $ticket*/

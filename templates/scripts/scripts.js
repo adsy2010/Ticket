@@ -11,8 +11,6 @@ $(document).ready(function() {
 
     var $logDisp = $(".logDisplay");
 
-
-
     $(".menuItems").on("click",function (event) {
         //if(event.target.id != 'logTicket') event.stopPropagation();
 
@@ -130,7 +128,7 @@ $(document).ready(function() {
                 keeper = $(this)[0].value;
         }
     })
-        .on("blur", ".catName, .openState", function () {
+        .on("change", ".catName, .openState", function () {
 
         var newData;
 
@@ -148,7 +146,7 @@ $(document).ready(function() {
          }, "#admin_page");
     });
 
-    $logDisp.on("focus", ".cartridgeName, .cartridgeColor, .cartridgeStock, cartridgePrinterName, .cartridgeCost", function (event) {
+    $logDisp.on("focus", ".cartridgeName, .cartridgeColor, .cartridgeStock, .cartridgePrinterName, .cartridgeCost", function (event) {
         keeper = $(this)[0].innerHTML;
         if(keeper.length == 0)
         {
@@ -157,7 +155,7 @@ $(document).ready(function() {
                 keeper = $(this)[0].value;
         }
     })
-        .on("blur", ".cartridgeName, .cartridgeColor, .cartridgeStock, cartridgePrinterName, .cartridgeCost", function (event) {
+        .on("blur", ".cartridgeName, .cartridgeColor, .cartridgeStock, .cartridgePrinterName, .cartridgeCost", function (event) {
 
         var newData;
 
@@ -185,7 +183,7 @@ $(document).ready(function() {
                 keeper = $(this)[0].value;
         }
     })
-        .on("change", ".assignedTo", function () {
+        .on("blur", ".assignedTo", function () {
 
         var newData;
         var sender;

@@ -1,8 +1,8 @@
 <tr id="{ID}">
     <td>{ID}</td>
-    <td><p contenteditable="true">{USERNAME}</p></td>
-    <td><p contenteditable="true">{EMAILADDRESS}</p></td>
-    <td><input type="color" value="{COLOR}"></td>
+    <td><p class="authUsername" contenteditable="true">{USERNAME}</p></td>
+    <td><p class="authUserEmail" contenteditable="true">{EMAILADDRESS}</p></td>
+    <td><input class="authUserColor" type="color" value="{COLOR}"></td>
     <td>
         <a href="#" class="btn btn-success btn-sm">
             <span class="glyphicon glyphicon-ok"></span>

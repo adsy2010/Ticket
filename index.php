@@ -17,4 +17,4 @@ if(!isset($_SESSION['username']))
 const ACTIVESERVICEDESKS = 2;
 
 $desk = (!isset($_GET['desk']) && $_GET['desk'] < (ACTIVESERVICEDESKS - 1)) ? die("No service desk selected") : $_GET['desk'];
-echo str_replace("{DESK}", $_GET['desk'], file_get_contents('templates/menu.html'));
+echo str_replace("{DESK}", $_GET['desk'], file_get_contents('test.html'));

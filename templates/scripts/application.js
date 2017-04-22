@@ -28,9 +28,8 @@ function $_GET(param) {
     return vars;
 }
 
-function expandticket(logID, $elem) {
+function expandticket(logID) {
     isVisible = $('#td' + logID).is(":visible");
-
     contracttickets(logID);
 
     if (!isVisible) {
@@ -53,8 +52,6 @@ function contracttickets(logID) {
     $("tr.contentRow").toggle(false);
 }
 
-
-
 var app = {
 
     initialize: function () {
@@ -71,24 +68,82 @@ var app = {
 
         function TicketHandler() {
 
-            this.expandTicket = function () {
+            this.expandTicket = function (logID) {
+                isVisible = $('#td' + logID).is(":visible");
+                this.contractTicket(logID);
 
+                if (!isVisible) {
+
+                    $('#'+logID).css("backgroundColor", "#0a2751").css("color", "white");
+                    $('select').css("color", "black");
+
+                    $('#td' + logID).toggle(true);
+                    startMCE();
+
+                }
+                else {
+                    $('#'+logID).css("backgroundColor", "transparent").css("color", "black");
+                    $('#td' + logID).toggle(false);
+                }
             };
 
             this.contractTicket = function () {
-
+                $('tr').css("backgroundColor", "transparent").css("color", "black");
+                $("tr.contentRow").toggle(false);
             };
 
             this.deleteData = function (data) {
 
             };
 
-            this.updateData = function(data) {
+            this.updateData = function(page, data) {
+                /*var urlFormat = "view.php?view="+page+"&desk="+$_GET("desk");
+                $.ajax({
+                    type: "POST",
+                    url: urlFormat,
+                    data: {
+                        method: "UPDATE",
+                        id: data.parentNode.parentNode.id,
+                        status: 0
+                    }
+
+                }).done(function (html) {
+                    $('#logDisplay').html(html);
+                });*/
+            };
+
+            this.addTicket = function (data) {
 
             };
 
-            this.addData = function (data) {
+            this.addComment = function (sender) {
+                var urlFormat = "view.php?view=comments&desk="+$_GET("desk");
+                var buildId = "#comments"+sender.parentNode.className;
+                var commentBox = "commentBox" + sender.parentNode.className;
 
+                tinyMCE.triggerSave();
+                var id = sender.parentNode.className;
+                var data = document.getElementById(commentBox).value;
+
+                console.log(id);
+                console.log(urlFormat);
+                console.log(data);
+                $.ajax({
+                    type: "POST",
+                    url: urlFormat,
+                    data:
+                    {
+                        method: "ADD",
+                        id: id,
+                        info: data
+                    }
+                  }).done(function (html) {
+
+                    $(buildId).html(html);
+                    //tinyMCE.add("textarea");
+                    //app.ticketHandler.refresh(urlFormat, buildId);
+
+                  });
             };
 
             this.refresh = function (page, area) {
@@ -103,7 +158,8 @@ var app = {
                         }
                     }
                 }).done(function (html) {
-                    $(area).html(html)
+                    $(area).html(html);
+
                 });
             }
         }
@@ -114,7 +170,7 @@ var app = {
 
             };
 
-            this.updateData = function(data) {
+            this.updateData = function(page, data) {
 
             };
 
@@ -124,6 +180,19 @@ var app = {
 
             this.refresh = function (data) {
                 alert(data);
+            }
+        }
+
+        function SystemHandler() {
+            this.updateData = function(page,data)
+            {
+                $.ajax({
+                    type: "POST",
+                    url: page,
+                    data: data
+                }).done(function(response){
+                    //response
+                });
             }
         }
 
@@ -149,6 +218,7 @@ var app = {
         this.ticketHandler = new TicketHandler();
         this.printerHandler = new PrinterHandler();
         this.userHandler = new UserHandler();
+        this.systemHandler = new SystemHandler();
 
         /**
          * Setup initial page
@@ -210,19 +280,209 @@ var app = {
 
                 }
 
+                console.log(event.target.tagName);
+
+                if(event.target.tagName != "INPUT"
+                    && event.target.tagName != "SELECT"
+                    && event.target.tagName != "OPTION"
+                    && event.target.parentNode.tagName == "TR"
+                    && event.target.parentNode.classList.contains("expandable"))
+                {
+                    app.ticketHandler.expandTicket(event.target.parentNode.id);
+                }
+
+
+
+                if (event.target.classList.contains('btn-reopen'))
+                {
+
+                    //area = "#logDisplay";
+                    //url = "view.php?view=closed&desk=" + $_GET("desk");
+                }
+
                 app.ticketHandler.refresh(url, area);
+                app.special($("#logDisplay")); //update dom
             }
-            console.log(event.target.classList.contains('adminClicks'));
+            //console.log(event.target.classList.contains('adminClicks'));
 
         }, false);
 
         addEventListener("change", function (event) {
+            if (typeof event.target.classList !== 'undefined') {
+                var idCheck = ["reason", "reasonMy"];
+                var classCheck = [
+                    "priority",
+                    "assignedTo",
+                    "catName",
+                    "openState"
+                ];
+                $.each(idCheck, function (index,value) {
+                    if(event.target.id === value)
+                    {
+                        //alert("test");
+                        event.target.blur();
+                        app.special($("#logDisplay"));
+                    }
+                });
+                $.each(classCheck, function (index, value) {
+                    if(event.target.classList.contains(value))
+                    {
+                        //alert("classtest");
+                        event.target.blur();
+                        app.special($("#logDisplay"));
+                    }
+                });
+                //console.log(event.target.classList);
 
+            }
         }, false);
 
-        addEventListener("focus", function (event) {
+        //console.log($(".logDisplay"));
+
+
+
+        addEventListener("keypress", function (event) {
+            var check = [
+                "cartridgeName",
+                "cartridgeColor",
+                "cartridgeStock",
+                "cartridgePrinterName",
+                "cartridgeCost",
+                "printerMake",
+                "printerModel"
+            ];
+
+            $.each(check, function (index, value) {
+                if(event.keyCode == 13) {
+                    event.preventDefault();
+                    event.target.blur();
+                    app.special($("#logDisplay"));
+                }
+            });
 
         }, false);
+    },
+
+    special: function (logDisplay) {
+        logDisplay.off(); //detach all events
+        logDisplay.on('focusout', this.focusCall);
+
+        //handles updating data
+        this.focusCall = function (event) {
+            var url;
+            var data = {};
+
+            //auth user fields
+            var authUserCheck = [
+                "authUsername",
+                "authUserEmail",
+                "authUserColor"
+            ];
+
+            //category fields
+            var categoryCheck = [
+                "catName",
+                "openState"
+            ];
+
+            //department fields
+            var departmentCheck = [
+                "department"
+            ];
+
+            //cartridge fields
+            var cartridgeCheck = [
+                "cartridgeName",
+                "cartridgeColor",
+                "cartridgeStock",
+                "cartridgePrinterName",
+                "cartridgeCost"
+            ];
+
+            //printer fields
+            var printerCheck = [
+                "printerMake",
+                "printerModel"
+            ];
+
+            //situated printer fields
+            var situatedPrinterCheck = [
+                "situatedLocation",
+                "situatedCostDept",
+                "situatedExemption"
+            ];
+
+            //check cartridge fields
+            $.each(cartridgeCheck, function (index, value) {
+                if (event.target.classList.contains(value)) {
+                    url = "view.php?adminPage=cartridges&desk=" + $_GET('desk');
+                    updateData(value);
+                }
+
+            });
+
+            //check category fields
+            $.each(categoryCheck, function (index, value) {
+                if (event.target.classList.contains(value)) {
+                    url = "view.php?adminPage=categories&desk=" + $_GET('desk');
+                    updateData(value);
+                }
+
+            });
+
+            //check printer fields
+            $.each(printerCheck, function (index, value) {
+                if (event.target.classList.contains(value)) {
+                    url = "view.php?adminPage=printers&desk=" + $_GET('desk');
+                    updateData(value);
+                }
+            });
+
+            //check situated printer fields
+            $.each(authUserCheck, function (index, value) {
+                if (event.target.classList.contains(value)) {
+                    url = "view.php?adminPage=dashboard&desk=" + $_GET('desk');
+                    updateData(value);
+                }
+            });
+
+            //check auth user fields
+            $.each(situatedPrinterCheck, function (index, value) {
+                if (event.target.classList.contains(value)) {
+                    url = "view.php?adminPage=situatedprinter&desk=" + $_GET('desk');
+                    updateData(value);
+                }
+            });
+
+            //check department fields
+            $.each(departmentCheck, function (index, value) {
+                if (event.target.classList.contains(value)) {
+                    url = "view.php?adminPage=departments&desk=" + $_GET('desk');
+                    updateData(value);
+                }
+            });
+
+            function updateData (value) {
+                if (event.target.classList.contains(value)) {
+
+                    data.method = "UPDATE";
+                    data.id = event.target.parentNode.parentNode.id;
+
+                    if (typeof event.target.value !== 'undefined') {
+                        data[event.target.className] = event.target.value;
+                    }
+                    else {
+                        data[event.target.className] = event.target.innerHTML;
+                    }
+                }
+
+                //update data
+                if (typeof url !== 'undefined') {
+                    app.systemHandler.updateData(url, data);
+                }
+            }
+            event.stopPropagation();
+        }
     }
 
 };

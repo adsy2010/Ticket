@@ -1,6 +1,6 @@
 <tr id="{ID}">
     <td>{ID}</td>
-    <td><p contenteditable="true">{DEPARTMENT}</p></td>
+    <td><p class="department" contenteditable="true">{DEPARTMENT}</p></td>
 
     <td>
         <a href="#" class="btn btn-success btn-sm">

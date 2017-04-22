@@ -105,7 +105,7 @@ class openLogs extends Templates implements viewTypes
 
     private function renderCommentRows($id)
     {
-        $row = "<div> <div>{COMMENTDATETIME} by {COMMENTOR}</div> <div>{COMMENT}<hr></div> </div>";
+        $row = "<div> <div>{COMMENTDATETIME} by <strong>{COMMENTOR}</strong></div> <div>{COMMENT}<hr></div> </div>";
 
         $rows = array();
 
@@ -118,7 +118,7 @@ class openLogs extends Templates implements viewTypes
             foreach ($comments as $comment)
             {
                 $rows[] = Definitions::render($row, array(
-                    "COMMENTDATETIME" => $comment->getCommentDateTime(),
+                    "COMMENTDATETIME" => "Comment made at " . date("H:i:s ".'\o\n'." jS M Y", strtotime($comment->getCommentDateTime())),
                     "COMMENTOR" =>  $comment->getUsername(),
                     "COMMENT"   => $comment->getComment()
                 ));
@@ -133,6 +133,7 @@ class openLogs extends Templates implements viewTypes
     {
         return Definitions::render($this->getLocation() . $this->tplComments, array(
             "LOGID" => $id,
+            "URL" => "open",
             "ROWS" => $this->renderCommentRows($id)
         ));
     }
@@ -147,7 +148,7 @@ class openLogs extends Templates implements viewTypes
                     $data = array(
                         "LOGID"         => $ticket->getId(),
                         "LOCATION"      => $ticket->getLocation(),
-                        "COMMENTS"      => $this->renderComments($ticket->getId()),
+                        "COMMENTS"      => html_entity_decode($this->renderComments($ticket->getId())),
                         "ASSIGNEDTO"    => $this->renderAssignedUserSelectList($ticket->getAssignedTo()),
                         "CONTENT"       => html_entity_decode($ticket->getContent()),
                         "CONTENTTYPE"   => $this->ticketHandler->getCategory($ticket->getContentType())->getName(),
