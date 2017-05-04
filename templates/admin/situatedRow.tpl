@@ -4,7 +4,7 @@
     <td><p class="situatedModel">{MODEL}</p></td>
     <td><p class="situatedLocation" contenteditable="true">{LOCATION}</p></td>
     <td>
-            <select name="situatedCostDept" id="situatedCostDept">
+            <select class="situatedCostDept" name="situatedCostDept" id="situatedCostDept">
                 {COSTDEPT}
             </select>
     </td>

@@ -8,7 +8,7 @@
     <td style="vertical-align: middle;" id="category">{CLOSEDBY}</td>
     <td style="vertical-align: middle;" id="category">{CLOSEDREASON}<br>Why: {CLOSEDWHY}</td>
     <td style="vertical-align: middle;" class="status">
-        <input class="btn btn-default btn-reopen" type="button" id="closeMy" value="Reopen Ticket" onclick="event.stopPropagation()">
+        <input class="btn btn-default btn-reopen" type="button" id="closeMy" value="Reopen Ticket" onclick="app.ticketHandler.reopen(this);">
     </td>
 </tr>
 <tr style="display: none;"  class="contentRow" id="td{LOGID}">

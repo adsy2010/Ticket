@@ -70,11 +70,25 @@ class adminPrinters extends Templates implements viewTypes
     private function posted()
     {
         if(isset($_POST['method']) && !empty($_POST['method'])) {
-            $printer = new Printer();
-            $printer->setId($_POST['id']);
+
+            $id = $_POST['id'];
+
+            $printer = $this->printerHandler->getPrinter($id);
 
             switch ($_POST['method'])
             {
+                case 'UPDATE':
+                {
+                        if(isset($_POST['printerModel']))
+                            $printer->setModel($_POST['printerModel']);
+
+                        if(isset($_POST['printerMake']))
+                            $printer->setMake($_POST['printerMake']);
+
+                        $this->printerHandler->updatePrinter($printer);
+                }
+                break;
+
                 case 'DELETE': $this->printerHandler->removePrinter($printer); break;
                 /*case 'SAVE': $cat->save(); break;*/
             }
@@ -83,7 +97,8 @@ class adminPrinters extends Templates implements viewTypes
 
     public function display()
     {
-        // TODO: Implement display() method.
+        if(isset($_POST)) $this->posted();
+
         return Definitions::render($this->getLocation().$this->getFileName(),
             array(
                 "PRINTERROWS" => $this->renderPrinterRows()

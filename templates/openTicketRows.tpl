@@ -20,7 +20,7 @@
     <td>
 
 
-        <select title="reason" name="reason[]" id="reason" onclick="event.stopPropagation()">
+        <select class="closedReason" title="reason" name="reason[]" id="reason" onclick="event.stopPropagation()">
             <option value="0">Reason for closure...</option>
             {CLOSEDREASON}
         </select>

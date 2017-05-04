@@ -68,12 +68,12 @@ class TicketHandler
 
             case '1':
                 //$sql = "SELECT * FROM tickets WHERE status=?";
-                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=1 ORDER BY closedTime DESC");
+                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets WHERE status=1 AND closedTime BETWEEN NOW() - INTERVAL 30 DAY AND NOW() ORDER BY closedTime DESC");
                 break;
 
             case '2':
                 //$sql = "SELECT * FROM tickets";
-                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets ORDER BY priority DESC, ticketDatetime DESC");
+                $tickets = $this->dbObj->runQuery("SELECT * FROM tickets ORDER BY priority, ticketDatetime DESC, ticketDatetime DESC");
                 break;
 
             case "x":
@@ -404,6 +404,23 @@ class TicketHandler
         //TODO: Talk to martyn about the use of status for the site teams service desk
     }
 
+    /**
+     * @param $id
+     * @return bool|ServiceStatus
+     */
+    public function getServiceStatus($id)
+    {
+        foreach ($this->getStatuses() as $status)
+        {
+            /** @var ServiceStatus $status */
+            if($status->getName() == $id)
+            {
+                return $status;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Returns comments for a particular ticket
@@ -533,5 +550,17 @@ class TicketHandler
     {
         $ticket->setDbObj($this->dbObj);
         $ticket->save();
+    }
+
+    public function updateDepartment(Department $department)
+    {
+        $department->setDbObj($this->dbObj);
+        $department->save();
+    }
+
+    public function updateServiceStatus(ServiceStatus $status)
+    {
+        $status->setDbObj($this->dbObj);
+        $status->save();
     }
 }

@@ -236,6 +236,13 @@ class PrinterHandler
      */
     public function removePrinter(Printer $printer)
     {
+        $printer->setDbObj($this->dbObj);
+        $printer->remove();
+    }
+
+    public function removeSituatedPrinter(SituatedPrinter $printer)
+    {
+        $printer->setDbObj($this->dbObj);
         $printer->remove();
     }
 
@@ -246,6 +253,7 @@ class PrinterHandler
      */
     public function removeCartridge(Cartridge $cartridge)
     {
+        $cartridge->setDbObj($this->dbObj);
         $cartridge->remove();
     }
 
@@ -278,6 +286,10 @@ class PrinterHandler
         return $this->situatedPrinters;
     }
 
+    /**
+     * @param $id
+     * @return bool|SituatedPrinter
+     */
     public function getSituatedPrinter($id)
     {
         foreach($this->getSituatedPrinters() as $situatedPrinter)
@@ -373,10 +385,22 @@ class PrinterHandler
         return implode("\r\n", $departmentList);
     }
 
+    public function updateSituatedPrinter(SituatedPrinter $printer)
+    {
+        $printer->setDbObj($this->dbObj);
+        $printer->save();
+    }
+
     public function updateCartridge(Cartridge $cartridge)
     {
         $cartridge->setDbObj($this->dbObj);
         $cartridge->save();
+    }
+
+    public function updatePrinter(Printer $printer)
+    {
+        $printer->setDbObj($this->dbObj);
+        $printer->save();
     }
 
     //Used for reports

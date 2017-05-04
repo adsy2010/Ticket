@@ -62,6 +62,7 @@ class ServiceStatus implements iModels
     public function setName($name)
     {
         $this->name = $name;
+        $this->setOldName($name);
     }
 
     /**
@@ -118,6 +119,7 @@ class ServiceStatus implements iModels
     {
         // TODO: Implement save() method.
         //Use old name variable when passed
+
         $sql = "UPDATE servicestatus SET name=?, status=? WHERE name=?";
         $this->dbObj->runQuery($sql,
             array(

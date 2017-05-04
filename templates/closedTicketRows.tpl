@@ -12,7 +12,7 @@
     <td style="vertical-align: middle;" id="closedDateTime">{CLOSEDDATETIME}</td>
 
     <td style="vertical-align: middle;">
-        <input class="btn btn-default btn-reopen" type="button" value="Reopen Ticket" onclick="app.ticketHandler.updateData('closed', this);">
+        <input class="btn btn-default btn-reopen" type="button" value="Reopen Ticket" onclick="app.ticketHandler.reopen(this);">
     </td>
 </tr>
 <tr style="display: none;"  class="contentRow" id="td{LOGID}">

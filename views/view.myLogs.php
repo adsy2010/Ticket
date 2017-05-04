@@ -26,6 +26,7 @@ class myLogs extends Templates implements viewTypes
     private $tplOpenRows    = "myTicketOpenRows.tpl";
     private $tplClosedRows  = "myTicketClosedRows.tpl";
     private $tpl = "myTicketHeader.tpl";
+    private $tplComments = "comments.tpl";
 
     public function __construct($desk)
     {
@@ -135,13 +136,12 @@ class myLogs extends Templates implements viewTypes
                     $data = array(
                         "LOGID"          => $ticket->getId(),
                         "LOCATION"       => $ticket->getLocation(),
+                        "COMMENTS"      => html_entity_decode($this->renderComments($ticket->getId())),
                         "CONTENT"        => html_entity_decode($ticket->getContent()),
                         "CONTENTTYPE"    => $this->ticketHandler->getCategory($ticket->getContentType())->getName(),
                         "DATETIMELOGGED" => date("H:i:s ".'\o\n'." jS M Y",strtotime($ticket->getTime())),
                         "CLOSEDREASON"    => $this->renderCloseCategorySelectList()
                     );
-                    //get the comments
-                    $data["COMMENTS"] = Definitions::render("templates/comments.tpl");
 
                     //display the assignation
                     $data['ASSIGNEDTO'] = (!empty($ticket->getAssignedTo()))?$this->userHandler->getUser($ticket->getAssignedTo()):"";
@@ -179,6 +179,7 @@ class myLogs extends Templates implements viewTypes
                     $data = array(
                         "LOGID"          => $ticket->getId(),
                         "LOCATION"       => $ticket->getLocation(),
+                        "COMMENTS"       => html_entity_decode($this->renderComments($ticket->getId())),
                         "CONTENT"        => html_entity_decode($ticket->getContent()),
                         "CONTENTTYPE"    => $this->ticketHandler->getCategory($ticket->getContentType())->getName(),
                         "DATETIMELOGGED" => date("H:i:s ".'\o\n'." jS M Y",strtotime($ticket->getTime())),
@@ -187,9 +188,6 @@ class myLogs extends Templates implements viewTypes
                         "CLOSEDREASON"   => $this->ticketHandler->getCategory($ticket->getClosedReason())->getName(),
                         "CLOSEDWHY"      => $ticket->getClosedWhy()
                     );
-                    //get the comments
-                    $data["COMMENTS"] = Definitions::render("templates/comments.tpl");
-
                     //display the assignation
                     $data['ASSIGNEDTO'] = (!empty($ticket->getAssignedTo()))?$this->userHandler->getUser($ticket->getAssignedTo()):"";
 
@@ -215,9 +213,6 @@ class myLogs extends Templates implements viewTypes
             switch ($_POST['method']) {
                 case "UPDATE":
                 {
-                    $f = fopen("err.txt", "w+");
-                    fwrite($f, implode("\r\n",$_POST));
-                    fclose($f);
                     /**
                      * @var Ticket $ticket
                      */

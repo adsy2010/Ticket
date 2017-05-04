@@ -74,8 +74,50 @@ class adminSituatedPrinter extends Templates implements viewTypes
         return (!empty($situatedRowList)) ? implode("\r\n", $situatedRowList) : "";
     }
 
+    public function posted()
+    {
+        if (isset($_POST['method']) && !empty($_POST['method'])) {
+
+            $id = $_POST['id'];
+
+            /**
+             * @var SituatedPrinter $printer
+             */
+            $printer = $this->printerHandler->getSituatedPrinter($id);
+
+            switch ($_POST['method']) {
+                case "UPDATE":
+                    {
+
+                        if(isset($_POST['situatedLocation']))
+                            $printer->setLocation($_POST['situatedLocation']);
+
+                        if(isset($_POST['situatedExemption']))
+                            $printer->setExemption(($_POST['situatedExemption'])? "1" : "0");
+
+
+                        if(isset($_POST['situatedCostDept']))
+                            $printer->setCostDepartment($_POST['situatedCostDept']);
+
+                        $f = fopen("err.log", "w+");
+                        fwrite($f, $printer->getExemption());
+                        fclose($f);
+
+                        $this->printerHandler->updateSituatedPrinter($printer);
+                    }
+                    break;
+                case "DELETE":
+                {
+                    $this->printerHandler->removeSituatedPrinter($printer);
+                }
+            }
+        }
+
+    }
+
     public function display()
     {
+        if(isset($_POST)) $this->posted();
         $template = Definitions::render($this->getLocation().$this->getFileName(),
             array(
                 "DESK" => $this->getDesk(),

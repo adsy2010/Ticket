@@ -91,10 +91,11 @@ class Department implements iModels
     public function save()
     {
         // TODO: Implement save() method.
-        $sql = "UPDATE departments SET department=?";
+        $sql = "UPDATE departments SET department=? WHERE id=?";
         $this->dbObj->runQuery($sql,
             array(
-                $this->getDepartment()
+                $this->getDepartment(),
+                $this->getId()
             ));
     }
 }

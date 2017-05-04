@@ -3,6 +3,9 @@
  */
 
 function startMCE() {
+    tinyMCE.editors = [];
+    $("div.mce-panel").remove();
+    $("textarea").attr('style', "");
     tinyMCE.init({
         mode: "textareas",
         plugins: "spellchecker,insertdatetime,preview",
@@ -125,9 +128,7 @@ var app = {
                 var id = sender.parentNode.className;
                 var data = document.getElementById(commentBox).value;
 
-                console.log(id);
-                console.log(urlFormat);
-                console.log(data);
+                if(data == "") return alert("Please enter a comment before submitting.");
                 $.ajax({
                     type: "POST",
                     url: urlFormat,
@@ -137,15 +138,31 @@ var app = {
                         id: id,
                         info: data
                     }
-                  }).done(function (html) {
-
+                }).done(function (html) {
                     $(buildId).html(html);
-                    //tinyMCE.add("textarea");
-                    //app.ticketHandler.refresh(urlFormat, buildId);
-
-                  });
+                });
             };
 
+            this.reopen = function (sender) {
+                var id = sender.parentNode.parentNode.id;
+                var urlFormat = "view.php?view=closed&desk="+$_GET("desk");
+
+                $.ajax({
+                    type: "POST",
+                    url: urlFormat,
+                    data:
+                    {
+                        method: "UPDATE",
+                        id: id,
+                        status: 0
+                    }
+                }).done(function (html) {
+                    var page = (sender.id == "closeMy" ? "my" : "closed");
+                    var newUrl = "view.php?view="+page+"&desk="+$_GET("desk");
+                    app.ticketHandler.refresh(newUrl, "#logDisplay");
+                });
+            };
+            
             this.refresh = function (page, area) {
                 $.ajax({
                     url: page,
@@ -280,8 +297,11 @@ var app = {
 
                 }
 
-                console.log(event.target.tagName);
+                //console.log(event.target.tagName);
 
+                /**
+                 * Check to see if item clicked allows row expansion
+                 */
                 if(event.target.tagName != "INPUT"
                     && event.target.tagName != "SELECT"
                     && event.target.tagName != "OPTION"
@@ -295,7 +315,7 @@ var app = {
 
                 if (event.target.classList.contains('btn-reopen'))
                 {
-
+                    //alert("test");
                     //area = "#logDisplay";
                     //url = "view.php?view=closed&desk=" + $_GET("desk");
                 }
@@ -309,27 +329,20 @@ var app = {
 
         addEventListener("change", function (event) {
             if (typeof event.target.classList !== 'undefined') {
-                var idCheck = ["reason", "reasonMy"];
                 var classCheck = [
+                    "closedReason",
                     "priority",
                     "assignedTo",
                     "catName",
                     "openState"
                 ];
-                $.each(idCheck, function (index,value) {
-                    if(event.target.id === value)
-                    {
-                        //alert("test");
-                        event.target.blur();
-                        app.special($("#logDisplay"));
-                    }
-                });
+
                 $.each(classCheck, function (index, value) {
                     if(event.target.classList.contains(value))
                     {
+                        app.special($("#logDisplay"));
                         //alert("classtest");
                         event.target.blur();
-                        app.special($("#logDisplay"));
                     }
                 });
                 //console.log(event.target.classList);
@@ -372,6 +385,11 @@ var app = {
             var url;
             var data = {};
 
+            var idCheck = [
+                "reason",
+                "reasonMy"
+            ];
+
             //auth user fields
             var authUserCheck = [
                 "authUsername",
@@ -405,12 +423,31 @@ var app = {
                 "printerModel"
             ];
 
+            //status Fields
+            var statusCheck = [
+                "statusName",
+                "statusStatus"
+            ];
+
             //situated printer fields
             var situatedPrinterCheck = [
                 "situatedLocation",
                 "situatedCostDept",
                 "situatedExemption"
             ];
+
+            $.each(idCheck, function (index, value) {
+                if(event.target.id == value)
+                {
+                    url = (event.target.id == "reason" ? "view.php?view=open&desk="+$_GET("desk") : "view.php?view=my&desk="+$_GET("desk"));
+                    var why = prompt("Brief explanation why ticket is being closed", "");
+                    if(why == "" || why == null)
+                        return;
+                    updateData(why, "closedWhy");
+                    updateData("closedReason");
+                    app.ticketHandler.refresh(url, "#logDisplay");
+                }
+            });
 
             //check cartridge fields
             $.each(cartridgeCheck, function (index, value) {
@@ -454,6 +491,14 @@ var app = {
                 }
             });
 
+            //check status fields
+            $.each(statusCheck, function (index, value) {
+                if (event.target.classList.contains(value)) {
+                    url = "view.php?adminPage=servicestatus&desk=" + $_GET('desk');
+                    updateData(value);
+                }
+            });
+
             //check department fields
             $.each(departmentCheck, function (index, value) {
                 if (event.target.classList.contains(value)) {
@@ -462,18 +507,28 @@ var app = {
                 }
             });
 
-            function updateData (value) {
-                if (event.target.classList.contains(value)) {
+            function updateData (value, cname) {
 
-                    data.method = "UPDATE";
+                data.method = "UPDATE";
+
+                //Extra
+                if(typeof cname !== 'undefined')
+                {
+                    data[cname] = value;
                     data.id = event.target.parentNode.parentNode.id;
+                }
+                else{
 
-                    if (typeof event.target.value !== 'undefined') {
-                        data[event.target.className] = event.target.value;
+                    if (event.target.classList.contains(value)) {
+
+                        data.id = event.target.parentNode.parentNode.id;
+
+                        if ($(event.target).is(":checkbox")) data[event.target.className] = event.target.checked;
+                        else if (typeof event.target.value !== 'undefined') data[event.target.className] = event.target.value;
+                        else data[event.target.className] = event.target.innerHTML;
                     }
-                    else {
-                        data[event.target.className] = event.target.innerHTML;
-                    }
+
+                    console.log(data);
                 }
 
                 //update data
@@ -482,6 +537,7 @@ var app = {
                 }
             }
             event.stopPropagation();
+
         }
     }
 

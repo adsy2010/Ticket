@@ -27,20 +27,6 @@ class adminServiceStatus extends Templates implements viewTypes
         $this->ticketHandler = new TicketHandler("x");
     }
 
-    private function posted()
-    {
-        if(isset($_POST['method']) && !empty($_POST['method'])) {
-            $status = new ServiceStatus();
-            $status->setName($_POST['name']);
-
-            switch ($_POST['method'])
-            {
-                case 'DELETE': $this->ticketHandler->removeStatus($status); break;
-                /*case 'SAVE': $cat->save(); break;*/
-            }
-        }
-    }
-
     private function getStatuses()
     {
         return $this->ticketHandler->getStatuses();
@@ -66,8 +52,41 @@ class adminServiceStatus extends Templates implements viewTypes
         return (!empty($statusRowList)) ? implode("\r\n", $statusRowList) : "";
     }
 
+    public function posted()
+    {
+        if (isset($_POST['method']) && !empty($_POST['method'])) {
+
+            $id = $_POST['statusName'];
+
+            /**
+             * @var ServiceStatus $status
+             */
+            $status = $this->ticketHandler->getServiceStatus($id);
+
+            switch ($_POST['method']) {
+                case "UPDATE": {
+
+                    if(isset($_POST['statusName']))
+                        $status->setName($_POST['statusName']);
+
+                    if(isset($_POST['statusStatus']))
+                        $status->setStatus($_POST['statusStatus']);
+
+                    $this->ticketHandler->updateServiceStatus($status);
+                }
+                break;
+                case "DELETE": {
+                    $this->ticketHandler->removeStatus($status);
+                }
+                break;
+            }
+        }
+
+    }
+
     public function display()
     {
+        if(isset($_POST)) $this->posted();
         // TODO: Implement display() method.
         return Definitions::render($this->getLocation().$this->getFileName(),
             array(

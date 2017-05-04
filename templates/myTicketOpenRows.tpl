@@ -5,7 +5,7 @@
     <td style="vertical-align: middle;" id="location">{LOCATION}</td>
     <td style="vertical-align: middle;" id="category">{CONTENTTYPE}</td>
     <td style="vertical-align: middle;">
-        <select title="reasonMy" name="reasonMy[]" id="reasonMy" onclick="event.stopPropagation()">
+        <select class="closedReason" title="reasonMy" name="reasonMy[]" id="reasonMy">
             <option value="0">Reason for closure...</option>
             {CLOSEDREASON}
         </select>
