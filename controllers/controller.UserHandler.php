@@ -90,5 +90,15 @@ class UserHandler
         return false;
     }
 
+    public function isUserOnDesk($username, $desk)
+    {
+        foreach ($this->getUsers() as $user) {
+            if($user->getUsername() == $username && $user->getServiceDesk() == $desk)
+                return true;
+
+        }
+        return false;
+    }
+
 
 }

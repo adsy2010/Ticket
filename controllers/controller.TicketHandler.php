@@ -205,6 +205,7 @@ class TicketHandler
      */
     public function closeTicket($ticketId, $closedBy, $closedReason)
     {
+        /*
         foreach ($this->getTickets() as $ticket) {
             if ($ticket->getId() == $ticketId) {
                 $ticket->setStatus(1);
@@ -214,7 +215,7 @@ class TicketHandler
                 $ticket->remove();
                 break;
             }
-        }
+        }*/
     }
 
     /**

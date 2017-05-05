@@ -19,7 +19,7 @@
                     <a href="#" class="adminClicks" id="adminCategories">Logging Categories</a>
                 </li>
             </ul>
-            <ul class="nav nav-sidebar">
+            <ul class="nav nav-sidebar printers-sidebar">
                 <li class="linkDisplay" id="adminSituatedPrintersLink">
                     <a href="#" class="adminClicks" id="adminSituatedPrinters">Situated Printers</a>
                 </li>
@@ -30,7 +30,7 @@
                     <a href="#" class="adminClicks" id="adminCartridges">Cartridges</a>
                 </li>
             </ul>
-            <ul class="nav nav-sidebar">
+            <ul class="nav nav-sidebar status-sidebar">
                 <li class="linkDisplay" id="adminServiceStatusLink">
                     <a href="#" class="adminClicks" id="adminServiceStatus">Service Status</a>
                 </li>
@@ -42,7 +42,7 @@
 
     </div>
     <script>
-        loadPage("view.php?adminPage=dashboard&desk="+$_GET('desk'), "#admin_page");
+        app.ticketHandler.refresh("view.php?adminPage=dashboard&desk="+$_GET('desk'), "#admin_page");
     </script>
     <!--<script type="text/javascript" src="templates/scripts/scripts.js"></script>-->
 </div>

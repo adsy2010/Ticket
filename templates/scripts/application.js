@@ -334,14 +334,13 @@ var app = {
                     "priority",
                     "assignedTo",
                     "catName",
-                    "openState"
+                    "openState",
                 ];
 
                 $.each(classCheck, function (index, value) {
                     if(event.target.classList.contains(value))
                     {
                         app.special($("#logDisplay"));
-                        //alert("classtest");
                         event.target.blur();
                     }
                 });
@@ -435,6 +434,19 @@ var app = {
                 "situatedCostDept",
                 "situatedExemption"
             ];
+
+            var openLogsCheck = [
+                "assignedTo",
+                "priority"
+            ];
+
+            $.each(openLogsCheck, function (index, value) {
+                if(event.target.classList.contains(value)) {
+                    url = "view.php?view=open&desk=" + $_GET("desk");
+                    updateData(value);
+                    app.ticketHandler.refresh(url, "#logDisplay");
+                }
+            });
 
             $.each(idCheck, function (index, value) {
                 if(event.target.id == value)

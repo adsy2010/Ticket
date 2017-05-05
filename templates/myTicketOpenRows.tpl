@@ -1,6 +1,7 @@
 <tr class="expandable" id="{LOGID}">
     <td style="vertical-align: middle;" id="logID">{LOGID}</td>
     <td style="vertical-align: middle;" id="dateTimeLogged">{DATETIMELOGGED}</td>
+    <td style="vertical-align: middle;" id="loggedBy">{LOGGEDBY}</td>
     <td style="vertical-align: middle;" id="assignedTo">{ASSIGNEDTO}</td>
     <td style="vertical-align: middle;" id="location">{LOCATION}</td>
     <td style="vertical-align: middle;" id="category">{CONTENTTYPE}</td>

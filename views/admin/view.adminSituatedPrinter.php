@@ -67,7 +67,7 @@ class adminSituatedPrinter extends Templates implements viewTypes
                     "MODEL"         => $situatedPrinter->getModel(),
                     "LOCATION"      => $situatedPrinter->getLocation(),
                     "COSTDEPT"      => $this->printerHandler->renderDepartmentSelectList($situatedPrinter->getCostDepartment()),
-                    "EXEMPT"        => $situatedPrinter->getExemption()
+                    "EXEMPT"        => ($situatedPrinter->getExemption() == 1) ? "CHECKED" : ""
                 ));
         }
 
@@ -93,14 +93,14 @@ class adminSituatedPrinter extends Templates implements viewTypes
                             $printer->setLocation($_POST['situatedLocation']);
 
                         if(isset($_POST['situatedExemption']))
-                            $printer->setExemption(($_POST['situatedExemption'])? "1" : "0");
+                            $printer->setExemption(($_POST['situatedExemption'] == 'true')? "1" : "0");
 
 
                         if(isset($_POST['situatedCostDept']))
                             $printer->setCostDepartment($_POST['situatedCostDept']);
 
                         $f = fopen("err.log", "w+");
-                        fwrite($f, $printer->getExemption());
+                        fwrite($f, $_POST['situatedExemption']);
                         fclose($f);
 
                         $this->printerHandler->updateSituatedPrinter($printer);

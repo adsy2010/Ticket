@@ -32,6 +32,13 @@ class administerHome extends Templates implements viewTypes
         foreach ($this->userHandler->getAuthenticatedUsers() as $authenticatedUser) {
             $authenticatedUser;
         }*/
+        $users = $this->userHandler->getUsers();
+        foreach ($users as $user)
+            if($_SESSION['username'] == $user->getUsername() && $_GET['desk'] == $user->getServiceDesk())
+            {
+                if($_GET['desk'] == 1);
+
+            }
     }
 
     public function display()

@@ -10,6 +10,7 @@
 namespace view;
 use controller\TicketHandler;
 use controller\UserHandler;
+use Exception;
 use models\Category;
 use models\Definitions;
 use models\Templates;
@@ -180,7 +181,7 @@ class openLogs extends Templates implements viewTypes
     {
         if(isset($_POST['method']) && !empty($_POST['method'])) {
 
-            $id = $_POST['id'];
+            if(!($id = $_POST['id'])) throw new Exception("id does not exist");
 
             switch ($_POST['method'])
             {
@@ -227,8 +228,16 @@ class openLogs extends Templates implements viewTypes
         // TODO: Implement display() method.
         /* @var \models\Ticket $ticket*/
 
-        if(isset($_POST)) $this->posted();
-
+        try
+        {
+            if (isset($_POST)) $this->posted();
+        }
+        catch (Exception $e)
+        {
+            $f = fopen("err.log", "w+");
+            fwrite($f, $e->getMessage());
+            fclose($f);
+        }
         return Definitions::render($this->getLocation().$this->tpl,array(
             "ROWS" => implode("\r\n", $this->renderOpenLogs())
         ));

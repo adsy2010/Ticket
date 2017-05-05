@@ -136,6 +136,7 @@ class myLogs extends Templates implements viewTypes
                     $data = array(
                         "LOGID"          => $ticket->getId(),
                         "LOCATION"       => $ticket->getLocation(),
+                        "LOGGEDBY"      => $ticket->getLoggedBy(),
                         "COMMENTS"      => html_entity_decode($this->renderComments($ticket->getId())),
                         "CONTENT"        => html_entity_decode($ticket->getContent()),
                         "CONTENTTYPE"    => $this->ticketHandler->getCategory($ticket->getContentType())->getName(),

@@ -4,7 +4,7 @@
     <td style="vertical-align: middle;" id="loggedBy">{LOGGEDBY}</td>
     <td style="vertical-align: middle;" id="department">{DEPARTMENT}</td>
     <td style="vertical-align: middle;" id="assignedTo">
-        <select class="assignedTo" name="assignedTo" id="assignedTo" onclick="event.stopPropagation()">
+        <select class="assignedTo" name="assignedTo" id="assignedTo">
             <option value="0"></option>
             {ASSIGNEDTO}
         </select>

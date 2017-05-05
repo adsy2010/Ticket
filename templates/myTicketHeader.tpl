@@ -6,6 +6,7 @@
             <tr>
                 <th>#</th>
                 <th>Date/Time</th>
+                <th>Logged By</th>
                 <th>Assigned To</th>
                 <th>Location</th>
                 <th>Category</th>

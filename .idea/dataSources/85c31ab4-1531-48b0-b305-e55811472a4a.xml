@@ -134,282 +134,286 @@
       <Position>6</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <index id="45" parent="11" name="cartridgeLog_id_uindex">
+    <column id="45" parent="11" name="costDept">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="46" parent="11" name="cartridgeLog_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="46" parent="11" name="PRIMARY">
+    <key id="47" parent="11" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="47" parent="11" name="cartridgeLog_id_uindex">
+    <key id="48" parent="11" name="cartridgeLog_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>cartridgeLog_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="48" parent="12" name="id">
+    <column id="49" parent="12" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="49" parent="12" name="title">
+    <column id="50" parent="12" name="title">
       <Position>2</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <column id="50" parent="12" name="desk">
+    <column id="51" parent="12" name="desk">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="51" parent="12" name="statusType">
+    <column id="52" parent="12" name="statusType">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <index id="52" parent="12" name="categories_id_uindex">
+    <index id="53" parent="12" name="categories_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="53" parent="12" name="PRIMARY">
+    <key id="54" parent="12" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="54" parent="12" name="categories_id_uindex">
+    <key id="55" parent="12" name="categories_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>categories_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="55" parent="13" name="id">
+    <column id="56" parent="13" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="56" parent="13" name="department">
+    <column id="57" parent="13" name="department">
       <Position>2</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <index id="57" parent="13" name="departments_department_uindex">
+    <index id="58" parent="13" name="departments_department_uindex">
       <ColNames>department</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="58" parent="13" name="PRIMARY">
+    <key id="59" parent="13" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="59" parent="13" name="departments_department_uindex">
+    <key id="60" parent="13" name="departments_department_uindex">
       <ColNames>department</ColNames>
       <UnderlyingIndexName>departments_department_uindex</UnderlyingIndexName>
     </key>
-    <column id="60" parent="14" name="id">
+    <column id="61" parent="14" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="61" parent="14" name="name">
+    <column id="62" parent="14" name="name">
       <Position>2</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <index id="62" parent="14" name="desks_id_uindex">
+    <index id="63" parent="14" name="desks_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="63" parent="14" name="PRIMARY">
+    <key id="64" parent="14" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="64" parent="14" name="desks_id_uindex">
+    <key id="65" parent="14" name="desks_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>desks_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="65" parent="15" name="id">
+    <column id="66" parent="15" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="66" parent="15" name="make">
+    <column id="67" parent="15" name="make">
       <Position>2</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <column id="67" parent="15" name="model">
+    <column id="68" parent="15" name="model">
       <Position>3</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <index id="68" parent="15" name="printer_id_uindex">
+    <index id="69" parent="15" name="printer_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="69" parent="15" name="PRIMARY">
+    <key id="70" parent="15" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="70" parent="15" name="printer_id_uindex">
+    <key id="71" parent="15" name="printer_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>printer_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="71" parent="16" name="name">
+    <column id="72" parent="16" name="name">
       <Position>1</Position>
       <DataType>varchar(128)|0</DataType>
     </column>
-    <column id="72" parent="16" name="status">
+    <column id="73" parent="16" name="status">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
     </column>
-    <index id="73" parent="16" name="serviceStatus_name_uindex">
+    <index id="74" parent="16" name="serviceStatus_name_uindex">
       <ColNames>name</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="74" parent="16" name="serviceStatus_name_uindex">
+    <key id="75" parent="16" name="serviceStatus_name_uindex">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>serviceStatus_name_uindex</UnderlyingIndexName>
     </key>
-    <column id="75" parent="17" name="id">
+    <column id="76" parent="17" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="76" parent="17" name="printerId">
+    <column id="77" parent="17" name="printerId">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="77" parent="17" name="location">
+    <column id="78" parent="17" name="location">
       <Position>3</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <column id="78" parent="17" name="exemption">
+    <column id="79" parent="17" name="exemption">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="79" parent="17" name="costingdepartment">
+    <column id="80" parent="17" name="costingdepartment">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <key id="80" parent="17" name="PRIMARY">
+    <key id="81" parent="17" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="81" parent="18" name="id">
+    <column id="82" parent="18" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="82" parent="18" name="logId">
+    <column id="83" parent="18" name="logId">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="83" parent="18" name="commentDateTime">
+    <column id="84" parent="18" name="commentDateTime">
       <Position>4</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="84" parent="18" name="comment">
+    <column id="85" parent="18" name="comment">
       <Position>5</Position>
       <DataType>blob|0</DataType>
     </column>
-    <column id="85" parent="18" name="username">
+    <column id="86" parent="18" name="username">
       <Position>2</Position>
       <DataType>varchar(24)|0</DataType>
     </column>
-    <index id="86" parent="18" name="ticketComments_id_uindex">
+    <index id="87" parent="18" name="ticketComments_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="87" parent="18" name="PRIMARY">
+    <key id="88" parent="18" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="88" parent="18" name="ticketComments_id_uindex">
+    <key id="89" parent="18" name="ticketComments_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>ticketComments_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="89" parent="19" name="logId">
+    <column id="90" parent="19" name="logId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="90" parent="19" name="assignedTo">
+    <column id="91" parent="19" name="assignedTo">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="91" parent="19" name="closedBy">
+    <column id="92" parent="19" name="closedBy">
       <Position>12</Position>
       <DataType>varchar(12)|0</DataType>
     </column>
-    <column id="92" parent="19" name="closedReason">
+    <column id="93" parent="19" name="closedReason">
       <Position>14</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="93" parent="19" name="content">
+    <column id="94" parent="19" name="content">
       <Position>4</Position>
       <DataType>blob|0</DataType>
     </column>
-    <column id="94" parent="19" name="contentType">
+    <column id="95" parent="19" name="contentType">
       <Position>5</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <column id="95" parent="19" name="location">
+    <column id="96" parent="19" name="location">
       <Position>7</Position>
       <DataType>varchar(64)|0</DataType>
     </column>
-    <column id="96" parent="19" name="loggedBy">
+    <column id="97" parent="19" name="loggedBy">
       <Position>8</Position>
       <DataType>varchar(32)|0</DataType>
     </column>
-    <column id="97" parent="19" name="serviceDesk">
+    <column id="98" parent="19" name="serviceDesk">
       <Position>9</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="98" parent="19" name="status">
+    <column id="99" parent="19" name="status">
       <Position>10</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="99" parent="19" name="ticketDatetime">
+    <column id="100" parent="19" name="ticketDatetime">
       <Position>11</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="100" parent="19" name="closedTime">
+    <column id="101" parent="19" name="closedTime">
       <Position>3</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="101" parent="19" name="department">
+    <column id="102" parent="19" name="department">
       <Position>6</Position>
       <DataType>varchar(32)|0</DataType>
     </column>
-    <column id="102" parent="19" name="priority">
+    <column id="103" parent="19" name="priority">
       <Position>15</Position>
       <DataType>int(11)|0</DataType>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
     </column>
-    <column id="103" parent="19" name="closedWhy">
+    <column id="104" parent="19" name="closedWhy">
       <Position>13</Position>
       <DataType>varchar(256)|0</DataType>
     </column>
-    <index id="104" parent="19" name="tickets_logId_uindex">
+    <index id="105" parent="19" name="tickets_logId_uindex">
       <ColNames>logId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="105" parent="19" name="PRIMARY">
+    <key id="106" parent="19" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>logId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="106" parent="19" name="tickets_logId_uindex">
+    <key id="107" parent="19" name="tickets_logId_uindex">
       <ColNames>logId</ColNames>
       <UnderlyingIndexName>tickets_logId_uindex</UnderlyingIndexName>
     </key>
