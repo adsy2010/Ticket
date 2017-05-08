@@ -7,6 +7,7 @@
  */
 
 namespace view;
+use controller\UserHandler;
 
 
 /**
@@ -17,23 +18,22 @@ namespace view;
  */
 class authenticatedUser implements viewTypes
 {
+    private $desk;
+
+    private $userHandler;
 
     public function __construct($desk)
     {
-
+        $this->userHandler = new UserHandler();
+        $this->desk = $desk;
     }
 
     /**
-     * @return array Returns an array of all authenticated users
+     * @return bool
      */
     public function display()
     {
         // TODO: Implement display() method.
-        return json_encode(array(
-            array("JWN1","john.wiseman@mountbatten.hants.sch.uk", "John Wiseman"),
-            array("AWT", "adam.wright@mountbatten.hants.sch.uk", "Adam Wright"),
-            array("ZCY", "zakir.chowdhary@mountbatten.hants.sch.uk", "Zakir Chowdhary"),
-            array("TRS", "toby.rogers@mountbatten.hants.sch.uk", "Toby Rogers")
-        ));
+        return $this->userHandler->isUserOnDesk($_SESSION['username'], $this->desk);
     }
 }

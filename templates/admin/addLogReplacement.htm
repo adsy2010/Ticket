@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log Call</title>
+    <link rel="stylesheet" href="templates/css.css">
+    <link rel="stylesheet" href="templates/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="templates/bootstrap/css/dashboard.css">
+    <script type="text/javascript" src="templates/bootstrap/js/ie-emulation-modes-warning.js"></script>
+
+</head>
+
+<body>
+<div class="logBox" style="display: table; margin: 0 auto;">
+    <h1 class="page-header">Log a replaced cartridge</h1>
+    <form action="" method="post">
+        <input type="hidden" name="desk" value="{DESK}"/>
+
+        <div style="display: table-row; padding: 15px;">
+            <label style="display: table-cell; padding: 5px;" for="logReplacementPrinter">Printer: </label>
+            <select style="display: table-cell; padding: 5px;" id="logReplacementPrinter" name="logReplacementPrinter">
+                <option>Please select...</option>
+                {PRINTERS}
+            </select>
+        </div>
+
+        <div style="display: table-row; padding: 15px;">
+            <label style="display: table-cell; padding: 5px;" for="logReplacementPrinterCartridge">Cartridge: </label>
+            <select style="display: table-cell; padding: 5px;" name="logReplacementPrinterCartridge" id="logReplacementPrinterCartridge">
+                <option>Please select...</option>
+                {DEPARTMENTS}
+            </select>
+        </div>
+
+        <div style="display: table-row">
+            <input class="btn btn-lg btn-default" type="submit" name="submit" value="Add"/>
+        </div>
+        <div id="status">{STATUS}</div>
+    </form>
+</div>
+</body>
+</html>

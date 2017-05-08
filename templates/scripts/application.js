@@ -227,9 +227,25 @@ var app = {
 
             };
 
+            this.isUserOnDesk = function ()
+            {
+                $.ajax({
+                    url: "view.php?view=authenticatedUsers&desk=" + $_GET("desk")
+                }).done(function (data) {
+                    //alert(typeof data);
+                    if(data == true)
+                    {
+                        $("#administerCalls,#openCalls,#closedCalls").css("display","");
+                    }
+                    else
+                        $("#administerCalls,#openCalls,#closedCalls").css("display", "none");
+
+                });
+            };
+
             this.refresh = function () {
                 alert('test');
-            }
+            };
         }
 
         this.ticketHandler = new TicketHandler();
@@ -243,6 +259,7 @@ var app = {
          */
         var url = "view.php?view=my&desk=" + $_GET("desk"),area="#logDisplay";
         this.ticketHandler.refresh(url, area);
+        this.userHandler.isUserOnDesk();
 
     },
 

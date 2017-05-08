@@ -19,7 +19,10 @@
                     <a href="#" class="adminClicks" id="adminCategories">Logging Categories</a>
                 </li>
             </ul>
-            <ul class="nav nav-sidebar printers-sidebar">
+            <ul class="nav nav-sidebar printers-sidebar" style="{HIDDEN}">
+                <li class="linkDisplay" id="adminReplaceCartridgeLink">
+                    <a href="view.php?adminPage=logPrinterCartridge&desk={DESK}" class="adminClicks fancybox" id="adminReplaceCartridgeBtn" rel="group3" data-fancybox-type="iframe">Log Printer Cartridge Replacement</a>
+                </li>
                 <li class="linkDisplay" id="adminSituatedPrintersLink">
                     <a href="#" class="adminClicks" id="adminSituatedPrinters">Situated Printers</a>
                 </li>
@@ -30,7 +33,7 @@
                     <a href="#" class="adminClicks" id="adminCartridges">Cartridges</a>
                 </li>
             </ul>
-            <ul class="nav nav-sidebar status-sidebar">
+            <ul class="nav nav-sidebar status-sidebar" style="{HIDDEN}">
                 <li class="linkDisplay" id="adminServiceStatusLink">
                     <a href="#" class="adminClicks" id="adminServiceStatus">Service Status</a>
                 </li>
@@ -46,7 +49,6 @@
     </script>
     <!--<script type="text/javascript" src="templates/scripts/scripts.js"></script>-->
 </div>
-
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

@@ -33,6 +33,7 @@ require_once "views/view.allLogs.php";
 require_once "views/view.closedLogs.php";
 require_once "views/view.openLogs.php";
 require_once "views/view.comments.php";
+require_once "views/view.authenticatedUser.php";
 
 //lightboxes
 require_once "views/admin/view.adminAddUser.php";
@@ -42,6 +43,7 @@ require_once "views/admin/view.adminAddCartridge.php";
 require_once "views/admin/view.adminAddPrinter.php";
 require_once "views/admin/view.adminAddStatus.php";
 require_once "views/admin/view.adminAddSituatedPrinter.php";
+require_once "views/admin/view.adminLogPrinterCartridge.php";
 
 //admin pages
 require_once "views/admin/view.adminCategories.php";

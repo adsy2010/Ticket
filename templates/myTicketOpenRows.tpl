@@ -14,11 +14,11 @@
 </tr>
 <tr style="display: none;"  class="contentRow" id="td{LOGID}">
 
-    <td colspan="6" style="min-height: 200px; max-height: 350px;">
+    <td colspan="7" style="min-height: 200px; max-height: 350px;">
         <div style="width:60%;" class="left content">{CONTENT}</div>
         <div style="width:39%;" class="right pullright content comment{LOGID}">
             <div class="{LOGID}">
-                <textarea class="comment" id="commentBox{LOGID}" name="comment"></textarea>
+                <textarea title="comments" class="comment" id="commentBox{LOGID}" name="comment"></textarea>
                 <input id="sendComment" class="btn btn-default" onclick="app.ticketHandler.addComment(this);" type="button" value="Add Comment" style="width: 100%; padding: 3px; margin: 2px; font-size: large;">
                 <br><br>
 

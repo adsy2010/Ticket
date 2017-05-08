@@ -19,11 +19,14 @@ class administerHome extends Templates implements viewTypes
     /** @var User */
     private $userHandler;
 
+    private $desk;
+
     public function __construct($desk)
     {
         parent::__construct();
         $this->setFileName("admin/admin2.html");
         $this->userHandler = new UserHandler();
+        $this->desk = $desk;
     }
 
     private function createOptions()
@@ -36,14 +39,20 @@ class administerHome extends Templates implements viewTypes
         foreach ($users as $user)
             if($_SESSION['username'] == $user->getUsername() && $_GET['desk'] == $user->getServiceDesk())
             {
-                if($_GET['desk'] == 1);
-
+                return ($_GET['desk'] == 1) ? "" : "display: none;";
             }
+
+            return "display:none;";
     }
 
     public function display()
     {
         // TODO: Implement display() method.
-        return Definitions::render($this->getLocation().$this->getFileName());
+
+        return Definitions::render($this->getLocation().$this->getFileName(),
+            array(
+                "HIDDEN" => $this->createOptions(),
+                "DESK" => $this->desk
+            ));
     }
 }
