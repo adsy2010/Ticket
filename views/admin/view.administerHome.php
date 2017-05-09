@@ -37,7 +37,7 @@ class administerHome extends Templates implements viewTypes
         }*/
         $users = $this->userHandler->getUsers();
         foreach ($users as $user)
-            if($_SESSION['username'] == $user->getUsername() && $_GET['desk'] == $user->getServiceDesk())
+            if($_SESSION['staff_username'] == $user->getUsername() && $_GET['desk'] == $user->getServiceDesk())
             {
                 return ($_GET['desk'] == 1) ? "" : "display: none;";
             }

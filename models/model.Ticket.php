@@ -450,7 +450,7 @@ class Ticket implements iModels
                 "SUBJECTLINE" => "ASSIGNED - Helpdesk call ID #{ID} to {ASSIGNEE}"
             )
         );
-        $currentUser = $_SESSION['username'];
+        $currentUser = $_SESSION['staff_username'];
         $header = 'MIME-Version: 1.0' . "\r\n".
             'Content-type: text/html; charset=iso-8859-1' . "\r\n".
             "From: IT Services <mailrelay@mountbatten.hants.sch.uk>" . "\r\n";
@@ -473,14 +473,14 @@ class Ticket implements iModels
                     $authLogger = "";
                     foreach ($userList as $user)
                     {
-                        $authLogger =($_SESSION['username'] == $user->getUsername()) ? $user->getUsername() : "";
+                        $authLogger =($_SESSION['staff_username'] == $user->getUsername()) ? $user->getUsername() : "";
 
                         if ($this->getServiceDesk() == $user->getServiceDesk())
                             mail($user->getEmail(), $this->renderSubject($templates, "LOGGED"), $this->pullTemplate($templates, "LOGGED"), $header);
                     }
 
                     if(sizeof($authLogger) == 0)
-                        mail($_SESSION['username'] . "@mountbatten.hants.sch.uk", $this->renderSubject($templates, "LOGGED"), $this->pullTemplate($templates, "LOGGED"), $header);
+                        mail($_SESSION['staff_username'] . "@mountbatten.hants.sch.uk", $this->renderSubject($templates, "LOGGED"), $this->pullTemplate($templates, "LOGGED"), $header);
 
                 //goes to auth users
                 //creator

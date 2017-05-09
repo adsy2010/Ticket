@@ -51,14 +51,13 @@ class adminAddCartridge extends Templates implements viewTypes
             $cartridgePrinter = $_POST['cartridgePrinter'];
             $cartridgeName = $_POST['cartridgeName'];
             $cartridgeColor = $_POST['cartridgeColor'];
-            $cartridgeStock = $_POST['cartridgeStock'];
+            $cartridgeStock = ($_POST['cartridgeStock'] == 0) ? 0 : $_POST['cartridgeStock'];
             $cartridgeCost = $_POST['cartridgeCost'];
 
             $vars = array(
                 "cartridgePrinter",
                 "cartridgeName",
                 "cartridgeColor",
-                "cartridgeStock",
                 "cartridgeCost"
             );
 

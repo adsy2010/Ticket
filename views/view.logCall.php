@@ -60,7 +60,7 @@ class logCall extends Templates implements viewTypes
         try {
             //print_r($_POST);
             $serviceDesk = htmlspecialchars($_GET['desk']);
-            $loggedBy = $_SESSION['username'];
+            $loggedBy = $_SESSION['staff_username'];
             $status = 0; // 0 is open, 1 is closed
             $location = htmlspecialchars($_POST['location']);
             $content = htmlspecialchars(addslashes($_POST['content']));
@@ -191,7 +191,7 @@ class logCall extends Templates implements viewTypes
                 "DESK" => $this->getDesk(),
                 "STATUS" => $state,
                 "CATEGORIES" => $this->renderCatList(),
-                "USERNAME" => $_SESSION['username'],
+                "USERNAME" => $_SESSION['staff_username'],
                 "DEPARTMENTS" => $this->renderDeptsList(),
                 "CONTENT" => ($this->getSavedTicket() != null)? $this->getSavedTicket()->getContent() : ""
             ));

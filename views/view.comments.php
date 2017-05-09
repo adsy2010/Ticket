@@ -59,7 +59,7 @@ class comments extends Templates implements viewTypes
                         $comment = new Comment();
                         $comment->setComment(htmlspecialchars($_POST['info']));
                         $comment->setTicketID($_POST['id']);
-                        $comment->setUsername($_SESSION['username']);
+                        $comment->setUsername($_SESSION['staff_username']);
 
                         $this->ticketHandler->addComment($comment);
                     }

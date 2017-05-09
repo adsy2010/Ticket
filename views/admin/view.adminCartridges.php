@@ -104,8 +104,11 @@ class adminCartridges extends Templates implements viewTypes
                     if(isset($_POST["cartridgeColor"]) && !empty($_POST["cartridgeColor"]))
                         $cartridge->setColor($_POST["cartridgeColor"]);
 
-                    if(isset($_POST["cartridgeStock"]) && !empty($_POST["cartridgeStock"]))
-                        $cartridge->setStock($_POST["cartridgeStock"]);
+                    if(isset($_POST["cartridgeStock"])){
+                        if($_POST["cartridgeStock"] >= 0)
+                            $cartridge->setStock($_POST["cartridgeStock"]);
+                    }
+
 
                     if(isset($_POST["cartridgePrinterName"]) && !empty($_POST["cartridgePrinterName"]))
                         $cartridge->setPrinterID($_POST["cartridgePrinterName"]);

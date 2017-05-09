@@ -205,7 +205,7 @@ class openLogs extends Templates implements viewTypes
                     if(isset($_POST['closedReason']))
                     {
                         $ticket->setClosedReason($_POST['closedReason']);
-                        $ticket->setClosedBy($_SESSION['username']);
+                        $ticket->setClosedBy($_SESSION['staff_username']);
                         $ticket->setClosedTime(date('Y-m-d H:i:s'));
                         $ticket->setStatus(1);
                     }

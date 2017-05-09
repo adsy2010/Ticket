@@ -34,6 +34,6 @@ class authenticatedUser implements viewTypes
     public function display()
     {
         // TODO: Implement display() method.
-        return $this->userHandler->isUserOnDesk($_SESSION['username'], $this->desk);
+        return $this->userHandler->isUserOnDesk($_SESSION['staff_username'], $this->desk);
     }
 }

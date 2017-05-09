@@ -9,12 +9,15 @@
 
 session_start();
 
+//if(!isset($_SESSION['staff_username']))
+//    header('location: https://mountbatten.hants.sch.uk/adfs/index.php?request=tools/servicedesk');
+
+
 if(isset($_POST['username']))
-    $_SESSION['username'] = strtoupper($_POST['username']);
+    $_SESSION['staff_username'] = strtoupper($_POST['username']);
 
-if(isset($_SESSION['username']))
-    header("Location: index.php?desk=1");
-
+if(isset($_SESSION['staff_username']))
+    header("Location: index.php?desk={$_GET['desk']}");
 
 ?>
 

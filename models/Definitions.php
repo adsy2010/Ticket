@@ -12,6 +12,7 @@ use Exception as Exception;
 
 class Definitions
 {
+    /*
     const CONTENTTYPESIT = array(
         "Change Request",
         "Email",
@@ -47,6 +48,7 @@ class Definitions
         "Vandalism",
         "Request Actioned"
     );
+    */
 
     public static function render($template, $data = array())
     {

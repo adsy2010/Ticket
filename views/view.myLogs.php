@@ -124,10 +124,10 @@ class myLogs extends Templates implements viewTypes
 
         if(sizeof($this->getTickets()) > 0) {
             foreach ($this->getTickets() as $ticket) {
-                if($ticket->getLoggedBy() == $_SESSION['username']
+                if($ticket->getLoggedBy() == $_SESSION['staff_username']
                     && $ticket->getStatus() == 0
                     && $ticket->getServiceDesk() == $this->getDesk()
-                    || $this->userHandler->getUser($ticket->getAssignedTo()) == $_SESSION['username']
+                    || $this->userHandler->getUser($ticket->getAssignedTo()) == $_SESSION['staff_username']
                     && $ticket->getStatus() == 0
                     && $ticket->getServiceDesk() == $this->getDesk()
                 )
@@ -168,10 +168,10 @@ class myLogs extends Templates implements viewTypes
 
         if(sizeof($this->getTickets()) > 0) {
             foreach ($this->getTickets() as $ticket) {
-                if($ticket->getLoggedBy() == $_SESSION['username']
+                if($ticket->getLoggedBy() == $_SESSION['staff_username']
                     && $ticket->getStatus() == 1
                     && $ticket->getServiceDesk() == $this->getDesk()
-                    || $this->userHandler->getUser($ticket->getAssignedTo()) == $_SESSION['username']
+                    || $this->userHandler->getUser($ticket->getAssignedTo()) == $_SESSION['staff_username']
                     && $ticket->getStatus() == 1
                     && $ticket->getServiceDesk() == $this->getDesk()
                 )
@@ -226,7 +226,7 @@ class myLogs extends Templates implements viewTypes
                     if(isset($_POST['closedReason']))
                     {
                         $ticket->setClosedReason($_POST['closedReason']);
-                        $ticket->setClosedBy($_SESSION['username']);
+                        $ticket->setClosedBy($_SESSION['staff_username']);
                         $ticket->setClosedTime(date('Y-m-d H:i:s'));
                         $ticket->setStatus(1);
                     }
